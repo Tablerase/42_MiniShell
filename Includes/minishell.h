@@ -6,26 +6,83 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/07 12:15:52 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/08 19:59:17 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+// STD
+# include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <sys/stat.h>
 # include <fcntl.h>
+# include <stdbool.h>
+// ERRNO
 # include <errno.h>
-# include <signal.h>
+// READLINE
 # include <readline/readline.h>
 # include <readline/history.h>
-
+// SIGNAL
+# include <signal.h>
+// STAT
+# include <sys/stat.h>
+# include <time.h>
+// TERM
+# include <termios.h>
+# include <termcap.h>
+# include <sys/ioctl.h>
+// LIBFT
 # include "../libft/Includes/libft.h"
+
+# define PROMPT "minishell$> "
+
+enum e_type
+{
+	PIPE,
+	REDIR_IN,
+	REDIR_OUT,
+	ARG,
+	CMD
+};
+
+typedef struct s_outf
+{
+	char	*file;
+	bool	append;
+}	t_outf;
+
+typedef struct s_heredocs
+{
+	char				*heredoc_path;
+	struct s_heredocs	*next;
+}	t_heredocs;
+
+/**
+ * * Structure for the command table
+ * @param cmd The command
+ * @param args The arguments
+ * @param infile The input files array (null terminated)
+ * @param outfile The output files (and append) array (null terminated)
+ * @param next The next command
+ * @param prev The previous command
+*/
+typedef struct s_table
+{
+	char			*cmd;
+	char			**args;
+	char			**infile;
+	t_outf			**outfile;
+	struct s_table	*next;
+	struct s_table	*prev;
+}	t_table;
+
+typedef struct s_shell
+{
+	char		**env;
+	t_table		*table_head;
+	t_heredocs	*heredocs;
+}	t_shell;
 
 #endif
