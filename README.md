@@ -9,10 +9,10 @@ graph TD
     A[MiniShell] --> B[Main]
     B --> readline[Readline]
     readline --> readline
-    readline --> parser["Parsing\n '' '' : allow $var\n' '\n |\n <  > \n<<  >> "]
+    readline --> lexer[Lexing]
+    lexer --> parser["Parsing\n '' '' : allow $var\n' '\n |\n <  > \n<<  >> "]
     readline -.- |"if empty line with Ctrl-D"|exit_shell
     readline -.- |"if text on line with Ctrl-D"|nothing
-    parser -.- lexer[Lexing]
     parser -.-x |Error:\nif quotes doesnt end| parse_error[Parse Error\nmessage]:::msg
     parse_error -->|1| Exit:::exit
     parser <--> list[Listing]

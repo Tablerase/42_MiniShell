@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+         #
+#    By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/07 12:08:05 by rcutte           ###   ########.fr        #
+#    Updated: 2024/02/09 14:17:38 by abourgeo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ INCLUDES = ./Includes
 SRC_PATH = ./Sources/mandatory
 
 # files
-SRC = main.c \
+SRC = heredoc.c \
 
 # objet libft
 OBJ = $(addprefix $(SRC_PATH)/,$(SRC:.c=.o))
