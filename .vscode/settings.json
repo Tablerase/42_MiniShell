@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "*.md": "markdown",
-        "*.c": "c",
-        "*.h": "c",
-        "*.py": "python",
-        "typeinfo": "c"
-    }
-}
