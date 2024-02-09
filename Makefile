@@ -6,7 +6,7 @@
 #    By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/09 14:17:38 by abourgeo         ###   ########.fr        #
+#    Updated: 2024/02/09 17:43:24 by abourgeo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ INCLUDES = ./Includes
 SRC_PATH = ./Sources/mandatory
 
 # files
-SRC = heredoc.c \
+SRC = main.c \
 
 # objet libft
 OBJ = $(addprefix $(SRC_PATH)/,$(SRC:.c=.o))
