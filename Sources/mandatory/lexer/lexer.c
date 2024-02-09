@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/09 15:11:04 by rcutte           ###   ########.fr       */
+/*   Created: 2024/02/09 14:22:02 by rcutte            #+#    #+#             */
+/*   Updated: 2024/02/09 17:59:57 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-int	main(void)
+t_token	*lexer(char *input)
 {
-	char* input;
-	t_token *tokens;
+	t_token	*head;
 
-    while(1) {
-        input = readline(">> ");
-
-        if (!input) {
-            break;
-        }
-
-        add_history(input);
-        printf("You entered: %s\n", input);
-		tokens = lexer(input);
-		print_tokens(tokens);
-        free(input);
-    }
-    return 0;
+	head = NULL;
+	lexer_rinput(head, input);
+	printf("test\n");
+	print_tokens(head);
+	return (head);
 }

@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   lexer_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/09 15:11:04 by rcutte           ###   ########.fr       */
+/*   Created: 2024/02/09 17:39:50 by rcutte            #+#    #+#             */
+/*   Updated: 2024/02/09 17:49:05 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-int	main(void)
+/**
+ * @brief Check if a character is a whitespace
+ * @param c: Character to check
+ * @return bool: True if the character is a whitespace, false otherwise
+*/
+bool	is_whitespace(char c)
 {
-	char* input;
-	t_token *tokens;
-
-    while(1) {
-        input = readline(">> ");
-
-        if (!input) {
-            break;
-        }
-
-        add_history(input);
-        printf("You entered: %s\n", input);
-		tokens = lexer(input);
-		print_tokens(tokens);
-        free(input);
-    }
-    return 0;
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r')
+		return (true);
+	return (false);
 }

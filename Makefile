@@ -6,7 +6,7 @@
 #    By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/07 12:08:05 by rcutte           ###   ########.fr        #
+#    Updated: 2024/02/09 17:56:14 by rcutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,9 +62,17 @@ SRC_PATH = ./Sources/mandatory
 
 # files
 SRC = main.c \
+		$(LEXER) \
 
 # objet libft
 OBJ = $(addprefix $(SRC_PATH)/,$(SRC:.c=.o))
+
+LEXER = lexer/lexer.c \
+	lexer/lexer_read.c \
+	lexer/lexer_nodes.c \
+	lexer/lexer_check.c \
+	lexer/lexer_debug.c \
+	lexer/lexer_error.c \
 
 ###################### Bonus ########################
 

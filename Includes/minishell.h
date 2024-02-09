@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/08 19:59:17 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/09 17:06:46 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,15 @@
 # include <termios.h>
 # include <termcap.h>
 # include <sys/ioctl.h>
+
 // LIBFT
 # include "../libft/Includes/libft.h"
+// Color
+# include "color.h"
+// Lexer
+# include "lexer.h"
 
 # define PROMPT "minishell$> "
-
-enum e_type
-{
-	PIPE,
-	REDIR_IN,
-	REDIR_OUT,
-	ARG,
-	CMD
-};
 
 typedef struct s_outf
 {

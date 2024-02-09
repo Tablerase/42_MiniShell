@@ -1,3 +1,9 @@
+# Project
+program
+program_bonus
+minishell
+minishell_bonus
+
 # Prerequisites
 *.d
 
@@ -50,3 +56,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Configuration files
+.vscode/
