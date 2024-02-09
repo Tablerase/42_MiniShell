@@ -111,7 +111,7 @@ jf
 
 ### Parser
 
-### Here Doc
+#### Here Doc
 
 Search for `<<` and `LIMITER` and replace the line with the content until `LIMITER` is found.
 
@@ -122,3 +122,60 @@ line = readline("here_doc> ");
 ```
 
 Store content in a heredoc file. This heredo file will be stored as an infile and also stored in a list of heredoc files to be deleted at the end of the program.
+
+**Particular cases** with the format of `LIMITER` :
+
+<details><summary>When double or simple quotes are present and closed, expansions does not happen. Quotes are not part of the LIMITER.</summary>
+
+```bash
+$> << "LIM" cat
+> $PATH
+> LIM
+$PATH
+```
+
+</details>
+
+<details><summary>Closed quotes are ignored and expansions does not happen.</summary>
+
+```bash
+$> << LIM''"" cat
+> hey
+> LIM
+hey
+```
+
+</details>
+
+<details><summary>Another case with quotes : quotes ignored in LIMITER and no expansions.</summary>
+
+```bash
+$> << L"I"M cat
+> $PATH
+> LIM
+$PATH
+```
+
+</details>
+
+<details><summary>As we should not interpret backslash character (\\) and unclosed quotes, in bash LIMITER would be LI"M but we will ask LI\"M as a limiter.</summary>
+
+```bash
+$> << LI\"M cat
+> hey
+> LI\"M
+hey
+```
+
+</details>
+
+<details><summary>Unclosed quotes should not be interpreted so expansions happen.</summary>
+
+```bash
+$> << LIM"' cat
+>> hey
+>> LIM
+hey
+```
+
+</details>
