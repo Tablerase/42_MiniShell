@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 15:33:55 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/09 15:41:00 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/12 16:32:30 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_token	*new_token(char *value, e_token type)
  * @param value: Token value
  * @param type: Token type
 */
-void	add_last_token(t_token *head, char *value, e_token type)
+void	add_last_token(t_lexer *syntax, char *value, e_token type)
 {
 	t_token	*new;
 	t_token	*tmp;
@@ -45,15 +45,17 @@ void	add_last_token(t_token *head, char *value, e_token type)
 	new = new_token(value, type);
 	if (!new)
 		return ;
-	if (!head)
+	if (!syntax->head)
 	{
-		head = new;
-		return ;
+		syntax->head = new;
 	}
-	tmp = head;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = new;
+	else
+	{
+		tmp = syntax->head;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
 }
 
 /**
@@ -67,7 +69,12 @@ void	free_tokens(t_token *tokens)
 	while (tokens)
 	{
 		tmp = tokens->next;
-		free(tokens->value);
+		if (tokens->type == word || tokens->type == quote
+			|| tokens->type == dquote || tokens->type == dollar)
+		{
+			if (tokens->value != NULL)
+				free(tokens->value);
+		}
 		free(tokens);
 		tokens = tmp;
 	}

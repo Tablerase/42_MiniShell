@@ -6,38 +6,36 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 15:11:16 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/09 15:51:45 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/12 12:17:42 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-static void print_tokens_type(t_token tokens)
+static void print_tokens_type(t_token token_unit)
 {
-	if (tokens.type == pipe_token)
+	if (token_unit.type == pipe_token)
 		printf("Type: pipe_token\n");
-	else if (tokens.type == greater)
+	else if (token_unit.type == greater)
 		printf("Type: greater\n");
-	else if (tokens.type == dgreater)
+	else if (token_unit.type == dgreater)
 		printf("Type: dgreater\n");
-	else if (tokens.type == less)
+	else if (token_unit.type == less)
 		printf("Type: less\n");
-	else if (tokens.type == dless)
+	else if (token_unit.type == dless)
 		printf("Type: dless\n");
-	else if (tokens.type == dollar)
+	else if (token_unit.type == dollar)
 		printf("Type: dollar\n");
-	else if (tokens.type == quote)
+	else if (token_unit.type == quote)
 		printf("Type: quote\n");
-	else if (tokens.type == dquote)
+	else if (token_unit.type == dquote)
 		printf("Type: dquote\n");
-	else if (tokens.type == word)
+	else if (token_unit.type == word)
 		printf("Type: word\n");
 }
 
 void	print_tokens(t_token *tokens)
 {
-	if (!tokens)
-		return ;
 	printf("\n🔗 List of tokens: 🔗\n\n");
 	while (tokens)
 	{

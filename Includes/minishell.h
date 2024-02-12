@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/09 17:06:46 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/12 15:00:32 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 // READLINE
 # include <readline/readline.h>
 # include <readline/history.h>
+// SYSTEM
+# include <sys/wait.h>
 // SIGNAL
 # include <signal.h>
 // STAT

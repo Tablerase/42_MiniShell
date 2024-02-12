@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 14:07:27 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/09 17:56:42 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/12 16:24:41 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,20 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_lexer
+{
+	t_token	*head;
+}	t_lexer;
+
 // Lexer
 
-t_token	*lexer(char *input);
-void	lexer_rinput(t_token *head, char *input);
+void	lexer(char *input, t_lexer *syntax);
+void	lexer_rinput(t_lexer *syntax, char *input);
 
 // Lexer nodes
 
 t_token	*new_token(char *value, e_token type);
-void	add_last_token(t_token *head, char *value, e_token type);
+void	add_last_token(t_lexer *syntax, char *value, e_token type);
 
 // Lexer management
 
@@ -82,6 +87,9 @@ void	lexer_error(t_token *head, char *message);
 // Lexer utils
 
 bool	is_whitespace(char c);
+bool	is_quotes(char c);
+bool	is_end_of_str(char *str);
+bool	is_metachar(char c);
 
 // Lexer debug
 

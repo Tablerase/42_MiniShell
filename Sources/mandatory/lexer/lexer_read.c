@@ -6,13 +6,13 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:34:24 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/09 18:02:54 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/12 16:34:08 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-void	lexer_rinput(t_token *head, char *input)
+void	lexer_rinput(t_lexer *syntax, char *input)
 {
 	int		i;
 	int		j;
@@ -25,19 +25,23 @@ void	lexer_rinput(t_token *head, char *input)
 			i++;
 		else if (input[i] == '|')
 		{
-			add_last_token(head, "|", pipe_token);
+			if (input[i + 1] == '|')
+				lexer_error(syntax->head, "near unexpected token `||'");
+			add_last_token(syntax, "|", pipe_token);
 			i++;
 		}
 		else if (input[i] == '>')
 		{
 			if (input[i + 1] == '>')
 			{
-				add_last_token(head, ">>", dgreater);
+				add_last_token(syntax, ">>", dgreater);
+				if (input[i + 2] == '>')
+					lexer_error(syntax->head, "near unexpected token `>>>'");
 				i += 2;
 			}
 			else
 			{
-				add_last_token(head, ">", greater);
+				add_last_token(syntax, ">", greater);
 				i++;
 			}
 		}
@@ -45,12 +49,14 @@ void	lexer_rinput(t_token *head, char *input)
 		{
 			if (input[i + 1] == '<')
 			{
-				add_last_token(head, "<<", dless);
+				if (input[i + 2] == '<')
+					lexer_error(syntax->head, "near unexpected token `<<<'");
+				add_last_token(syntax, "<<", dless);
 				i += 2;
 			}
 			else
 			{
-				add_last_token(head, "<", less);
+				add_last_token(syntax, "<", less);
 				i++;
 			}
 		}
@@ -60,42 +66,54 @@ void	lexer_rinput(t_token *head, char *input)
 			while (input[j] && is_whitespace(input[j]) == false)
 				j++;
 			tmp = ft_substr(input, i, j - i);
-			add_last_token(head, tmp, dollar);
-			free(tmp);
+			add_last_token(syntax, tmp, dollar);
 			i = j;
 		}
 		else if (input[i] == '\'')
 		{
 			j = i + 1;
+			if (is_end_of_str(input + j) == true)
+			{
+				lexer_error(syntax->head, "unclosed quotes");
+			}
 			while (input[j] && input[j] != '\'')
+			{
 				j++;
+				if (input[j] == '\0')
+					lexer_error(syntax->head, "unclosed quotes");
+			}
 			tmp = ft_substr(input, i + 1, j - i - 1);
-			add_last_token(head, tmp, quote);
-			free(tmp);
+			add_last_token(syntax, tmp, quote);
 			i = j + 1;
 		}
 		else if (input[i] == '\"')
 		{
 			j = i + 1;
+			if (is_end_of_str(input + j) == true)
+			{
+				lexer_error(syntax->head, "unclosed quotes");
+			}
 			while (input[j] && input[j] != '\"')
+			{
 				j++;
+				if (input[j] == '\0')
+					lexer_error(syntax->head, "unclosed quotes");
+			}
 			tmp = ft_substr(input, i + 1, j - i - 1);
-			add_last_token(head, tmp, dquote);
-			free(tmp);
+			add_last_token(syntax, tmp, dquote);
 			i = j + 1;
 		}
 		else
 		{
 			j = i;
-			print_tokens(head);
-			printf("input[i] = %c\n", input[i]);
-			while (input[j] && input[j] != ' ')
+			while (input[j] && input[j] != ' ' && is_quotes(input[j]) == false
+				&& is_metachar(input[j]) == false)
+			{
 				j++;
+			}
 			tmp = ft_substr(input, i, j - i);
-			add_last_token(head, tmp, word);
-			free(tmp);
+			add_last_token(syntax, tmp, word);
 			i = j;
 		}
 	}
-	print_tokens(head);
 }
