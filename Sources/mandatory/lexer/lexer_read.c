@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:34:24 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/12 16:34:08 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/12 17:04:00 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	lexer_rinput(t_lexer *syntax, char *input)
 			i++;
 		else if (input[i] == '|')
 		{
-			if (input[i + 1] == '|')
-				lexer_error(syntax->head, "near unexpected token `||'");
 			add_last_token(syntax, "|", pipe_token);
 			i++;
 		}

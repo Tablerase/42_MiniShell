@@ -39,6 +39,18 @@ The output of the lexer is typically fed into a parser, which uses the tokens to
 
 `\f` = FORMFEED
 
+### check for empty tokens
+
+`|` no empty pipe
+
+`>` no empty greater
+
+`<` no empty less
+
+`>>` no empty dgreater
+
+`<<` no empty dless
+
 ## Metacharacters
 
 Metacharacters are characters that have a special meaning in a programming language or command interpreter. They are used to control the flow of a program or to manipulate text. For example, in the C programming language, the `*` character is used to declare a pointer, and the `&` character is used to get the address of a variable. In the Unix shell, the `|` character is used to pipe the output of one command into the input of another command.

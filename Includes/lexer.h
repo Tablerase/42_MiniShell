@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 14:07:27 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/12 16:24:41 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/12 17:02:58 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_lexer
 
 void	lexer(char *input, t_lexer *syntax);
 void	lexer_rinput(t_lexer *syntax, char *input);
+void	lexer_check_order(t_token *head);
 
 // Lexer nodes
 

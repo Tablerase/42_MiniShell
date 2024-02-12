@@ -6,13 +6,13 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 15:11:16 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/12 12:17:42 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/12 17:00:01 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-static void print_tokens_type(t_token token_unit)
+static void	print_tokens_type(t_token token_unit)
 {
 	if (token_unit.type == pipe_token)
 		printf("Type: pipe_token\n");
@@ -39,7 +39,7 @@ void	print_tokens(t_token *tokens)
 	printf("\n🔗 List of tokens: 🔗\n\n");
 	while (tokens)
 	{
-		printf("Token: %s\n", tokens->value);
+		// printf("Token: %s\n", tokens->value);
 		print_tokens_type(*tokens);
 		printf("⏬\n");
 		tokens = tokens->next;
