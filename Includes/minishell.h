@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/12 15:00:32 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/12 18:06:27 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct s_heredocs
  * @param infile The input files array (null terminated)
  * @param outfile The output files (and append) array (null terminated)
  * @param next The next command
- * @param prev The previous command
 */
 typedef struct s_table
 {
@@ -73,12 +72,13 @@ typedef struct s_table
 	char			**infile;
 	t_outf			**outfile;
 	struct s_table	*next;
-	struct s_table	*prev;
 }	t_table;
 
 typedef struct s_shell
 {
 	char		**env;
+	int			stdin;
+	int			stdout;
 	t_table		*table_head;
 	t_heredocs	*heredocs;
 }	t_shell;

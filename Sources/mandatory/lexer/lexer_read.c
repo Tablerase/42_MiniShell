@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:34:24 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/12 17:04:00 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/12 19:08:45 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	lexer_rinput(t_lexer *syntax, char *input)
 		else if (input[i] == '$')
 		{
 			j = i;
-			while (input[j] && is_whitespace(input[j]) == false)
+			while (input[j] && is_whitespace(input[j]) == false
+				&& is_metachar(input[j]) == false)
 				j++;
 			tmp = ft_substr(input, i, j - i);
 			add_last_token(syntax, tmp, dollar);
@@ -104,7 +105,8 @@ void	lexer_rinput(t_lexer *syntax, char *input)
 		else
 		{
 			j = i;
-			while (input[j] && input[j] != ' ' && is_quotes(input[j]) == false
+			while (input[j] && is_whitespace(input[j]) == false
+				&& is_quotes(input[j]) == false
 				&& is_metachar(input[j]) == false)
 			{
 				j++;
