@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 14:22:02 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/13 15:41:11 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/13 17:37:46 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ bool	lexer(char *input, t_lexer *syntax)
 		ret = lexer_check_order(syntax->head);
 		if (ret == true)
 		{
-			print_tokens(syntax->head);
 			return (true);
 		}
 		else

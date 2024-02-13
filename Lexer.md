@@ -2,15 +2,82 @@
 
 ## Code
 
+```mermaid
+graph TD
+  Input --> Lexer([Lexer])
+  Lexer --> LexicalReader{LexicalReader}
+  LexicalReader --> Token
+  LexicalReader --> TokenList
+  LexicalReader --o |False|Lexer
+  Token -.- TokenList
+  TokenList --> LexicalOrder{LexicalOrder}
+  LexicalOrder --o |False| Lexer
+  LexicalOrder --o |True| Lexer
+  Lexer -.- |In case of error| FreeTokens
+```
+
 Takes a string and returns a list of tokens.
+
+Example:
 
 ```shell
 $ << LIMITER cmd | cmd2 "argument1" $arg_as_variable > outfile
 ```
 
+Transform into a list of tokens:
+
 ```mermaid
-graph TD
-    
+graph LR
+  classDef word fill:#f9f, color:#000;
+  classDef dquote fill:#fcf, color:#000;
+  classDef dollar fill:#f4f, color:#000;
+  classDef redir fill:#0c5, color:#000;
+  classDef pipe fill:#f00, color:#000;
+
+  subgraph Node1
+    A[<<]
+    A -.- DLESS:::redir
+  end
+  Node1 --> Node2
+  subgraph Node2
+    B[LIMITER]
+    B -.- WORD1["WORD"]:::word
+  end
+  Node2 --> Node3
+  subgraph Node3
+    C[cmd]
+    C -.- WORD2["WORD"]:::word
+  end
+  Node3 --> Node4
+  subgraph Node4
+    D["|"]
+    D -.- PIPE:::pipe
+  end
+  Node4 --> Node5
+  subgraph Node5
+    E[cmd2]
+    E -.- WORD3["WORD"]:::word
+  end
+  Node5 --> Node6
+  subgraph Node6
+    F["argument1"]
+    F -.- DQUOTE:::dquote
+  end
+  Node6 --> Node7
+  subgraph Node7
+    G["arg_as_variable"]
+    G -.- DOLLAR:::dollar
+  end
+  Node7 --> Node8
+  subgraph Node8
+    H[>]
+    H -.- GREATER:::redir
+  end
+  Node8 --> Node9
+  subgraph Node9
+    I["outfile"]
+    I -.- WORD4["WORD"]:::word
+  end
 ```
 
 ### Handling

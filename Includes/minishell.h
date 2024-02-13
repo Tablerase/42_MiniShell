@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/13 16:02:40 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/13 18:41:12 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@
 # include "color.h"
 // Lexer
 # include "lexer.h"
+// Parser
+# include "parser.h"
 
 // Prompt of Minishell
 # define PROMPT "minishell$> "
