@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/12 18:48:47 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/13 14:44:39 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ int	main(void)
         add_history(input);
         printf("You entered: %s\n", input);
 
-		lexer(input, &lexic);
+		if (lexer(input, &lexic) == true)
+		{
+			// parser(&lexic);
+			free_tokens(lexic.head);
+		}
 		// TODO: parser (gather syntax tree and handle $variable expansion)
         free(input);
     }

@@ -6,22 +6,40 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 14:22:02 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/12 17:01:42 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/13 15:41:11 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-void	init_lexer(t_lexer *syntax)
+static void	init_lexer(t_lexer *syntax)
 {
 	syntax->head = NULL;
 }
 
-void	lexer(char *input, t_lexer *syntax)
+/**
+ * @brief The lexer function
+ * @param input The input string
+ * @param syntax The lexer structure
+ * @return bool: true if the lexer was successful, false otherwise
+*/
+bool	lexer(char *input, t_lexer *syntax)
 {
+	bool		ret;
+
 	init_lexer(syntax);
-	lexer_rinput(syntax, input);
-	print_tokens(syntax->head);
-	lexer_check_order(syntax->head);
-	free_tokens(syntax->head);
+	ret = lexer_rinput(syntax, input);
+	if (ret == true)
+	{
+		ret = lexer_check_order(syntax->head);
+		if (ret == true)
+		{
+			print_tokens(syntax->head);
+			return (true);
+		}
+		else
+			return (false);
+	}
+	else
+		return (false);
 }

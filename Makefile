@@ -6,7 +6,7 @@
 #    By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/12 17:02:22 by rcutte           ###   ########.fr        #
+#    Updated: 2024/02/13 15:26:46 by rcutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,8 @@ OBJ = $(addprefix $(SRC_PATH)/,$(SRC:.c=.o))
 LEXER = lexer/lexer.c \
 	lexer/lexer_nodes.c \
 	lexer/lexer_read.c \
+	lexer/lexer_handler_redir.c \
+	lexer/lexer_handler_text.c \
 	lexer/lexer_order.c \
 	lexer/lexer_check.c \
 	lexer/lexer_debug.c \

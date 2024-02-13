@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 14:07:27 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/12 17:02:58 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/13 14:51:00 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,21 @@
 # define DOLLAR "$"
 # define QUOTE "\'"
 # define DQUOTE "\""
+
+/**
+ * @brief Handler types
+ * @param found: Token found
+ * @param not_found: Token not found
+ * @param error: Error
+ * @note This is used to handle the return of the lexer functions
+ * to know if the token was found or not and if there was an error
+*/
+typedef enum
+{
+	found,
+	not_found,
+	error
+}	e_handler;
 
 /**
  * @brief Token types
@@ -71,9 +86,20 @@ typedef struct s_lexer
 
 // Lexer
 
-void	lexer(char *input, t_lexer *syntax);
-void	lexer_rinput(t_lexer *syntax, char *input);
-void	lexer_check_order(t_token *head);
+bool	lexer(char *input, t_lexer *syntax);
+bool	lexer_rinput(t_lexer *syntax, char *input);
+bool	lexer_check_order(t_token *head);
+
+// Lexer handlers
+
+e_handler	lexer_handle_space(char *input, int *i);
+e_handler	lexer_handle_pipe(t_lexer *syntax, char *input, int *i);
+e_handler	lexer_handle_greater(t_lexer *syntax, char *input, int *i);
+e_handler	lexer_handle_less(t_lexer *syntax, char *input, int *i);
+e_handler	lexer_handle_dollar(t_lexer *syntax, char *input, int *i);
+e_handler	lexer_handle_quote(t_lexer *syntax, char *input, int *i);
+e_handler	lexer_handle_dquote(t_lexer *syntax, char *input, int *i);
+e_handler	lexer_handle_word(t_lexer *syntax, char *input, int *i);
 
 // Lexer nodes
 
