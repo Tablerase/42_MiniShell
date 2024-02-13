@@ -6,11 +6,21 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:49:29 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/13 14:50:28 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/13 16:08:10 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/minishell.h"
+#include "../../../Includes/minishell.h"
+
+e_handler	lexer_handle_space(char *input, int *i)
+{
+	if (input[*i] == ' ')
+	{
+		(*i)++;
+		return (found);
+	}
+	return (not_found);
+}
 
 e_handler	lexer_handle_pipe(t_lexer *syntax, char *input, int *i)
 {

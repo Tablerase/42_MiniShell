@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/12 18:06:27 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/13 16:02:40 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 // Lexer
 # include "lexer.h"
 
+// Prompt of Minishell
 # define PROMPT "minishell$> "
 
 typedef struct s_outf

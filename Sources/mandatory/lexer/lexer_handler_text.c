@@ -6,22 +6,26 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:46:35 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/13 14:50:39 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/13 16:40:59 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/minishell.h"
+#include "../../../Includes/minishell.h"
 
-e_handler	lexer_handle_space(char *input, int *i)
-{
-	if (input[*i] == ' ')
-	{
-		(*i)++;
-		return (found);
-	}
-	return (not_found);
-}
-
+/**
+ * @brief Handle the dollar sign
+ * @param syntax The lexer structure
+ * @param input The input string
+ * @param i The current position in the input string
+ * @note If the dollar sign is the last character of the input string, it will
+ * be considered as a word
+ * @note If the dollar sign is followed by a whitespace or a metacharacter, it
+ * will be considered as a word
+ * @note If the dollar sign is followed by a word, it will be considered as a
+ * dollar token
+ * @return e_handler: found if the dollar sign was found, not_found otherwise
+ * error if a malloc error occured 
+*/
 e_handler	lexer_handle_dollar(t_lexer *syntax, char *input, int *i)
 {
 	int		j;
@@ -29,11 +33,19 @@ e_handler	lexer_handle_dollar(t_lexer *syntax, char *input, int *i)
 
 	if (input[*i] == '$')
 	{
-		j = *i;
+		if (input[*i + 1] == '\0')
+		{
+			add_last_token(syntax, ft_strdup("$"), word);
+			(*i)++;
+			return (found);
+		}
+		j = *i + 1;
 		while (input[j] && is_whitespace(input[j]) == false
 			&& is_metachar(input[j]) == false)
 			j++;
-		tmp = ft_substr(input, *i, j - *i);
+		if (j == *i + 1)
+			return (add_last_token(syntax, ft_strdup("$"), word),*i = j, 0);
+		tmp = ft_substr(input, *i + 1, j - *i);
 		if (!tmp)
 			return (lexer_error(syntax->head, "malloc error"), error);
 		add_last_token(syntax, tmp, dollar);
