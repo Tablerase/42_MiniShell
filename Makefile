@@ -6,7 +6,7 @@
 #    By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/13 17:45:16 by rcutte           ###   ########.fr        #
+#    Updated: 2024/02/14 12:47:20 by rcutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,11 +63,15 @@ SRC_PATH = ./Sources/mandatory
 
 # files
 SRC = main.c \
+		$(UTILS) \
 		$(LEXER) \
 		$(PARSER) \
 
 # objet libft
 OBJ = $(addprefix $(SRC_PATH)/,$(SRC:.c=.o))
+
+UTILS = utils/array_of_strings.c \
+	utils/free_all.c \
 
 LEXER = lexer/lexer.c \
 	lexer/lexer_nodes.c \

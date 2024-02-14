@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/13 17:46:29 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/14 12:28:40 by rcutte           ###   ########.fr       */
+/*   Created: 2024/02/14 11:52:47 by rcutte            #+#    #+#             */
+/*   Updated: 2024/02/14 12:46:51 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../Includes/minishell.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-// TODO: heredoc gestion
+# include "minishell.h"
 
-void	parser(
-	t_lexer *lexic,
-	t_parser *parser,
-	t_shell *shell
-)
-{
-	(void)lexic;
-	(void)parser;
-	(void)shell;
-}
+// Array of strings
+
+int		ft_strs_len(char **strs);
+char	**ft_strs_dup(char **strs);
+void	ft_free_strs(char **strs);
+
+// Free all
+
+void	ft_free_all(t_shell *shell);
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/13 18:41:12 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/14 12:41:41 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,6 @@
 # include <termios.h>
 # include <termcap.h>
 # include <sys/ioctl.h>
-
-// LIBFT
-# include "../libft/Includes/libft.h"
-// Color
-# include "color.h"
-// Lexer
-# include "lexer.h"
-// Parser
-# include "parser.h"
 
 // Prompt of Minishell
 # define PROMPT "minishell$> "
@@ -85,5 +76,18 @@ typedef struct s_shell
 	t_table		*table_head;
 	t_heredocs	*heredocs;
 }	t_shell;
+
+// LIB needing upper structs to be defined
+
+// LIBFT
+# include "../libft/Includes/libft.h"
+// Color
+# include "color.h"
+// Utils
+# include "utils.h"
+// Lexer
+# include "lexer.h"
+// Parser
+# include "parser.h"
 
 #endif
