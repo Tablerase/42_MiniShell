@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/14 12:41:41 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/14 15:28:16 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,21 @@
 # include <sys/ioctl.h>
 
 // Prompt of Minishell
-# define PROMPT "minishell$> "
+# define PROMPT "\e[1;36mMiniShell\e[1;33m ➜ \033[0m"
 
 typedef struct s_outf
 {
-	char	*file;
-	bool	append;
+	char			*file;
+	bool			append;
+	struct s_outf	*next;
 }	t_outf;
+
+typedef struct s_inf
+{
+	char			*file;
+	bool			heredoc;
+	struct s_inf	*next;
+}	t_inf;
 
 typedef struct s_heredocs
 {
@@ -63,11 +71,19 @@ typedef struct s_table
 {
 	char			*cmd;
 	char			**args;
-	char			**infile;
-	t_outf			**outfile;
+	t_inf			*infd_head;
+	t_outf			*outfd_head;
 	struct s_table	*next;
 }	t_table;
 
+/**
+ * * Structure for the shell
+ * @param env The environment variables of minishell
+ * @param stdin The standard input of minishell
+ * @param stdout The standard output of minishell
+ * @param table_head The commands table
+ * @param heredocs The heredocs
+*/
 typedef struct s_shell
 {
 	char		**env;

@@ -123,7 +123,17 @@ line = readline("here_doc> ");
 
 Store content in a heredoc file. This heredo file will be stored as an infile and also stored in a list of heredoc files to be deleted at the end of the program.
 
-**Particular cases** with the format of `LIMITER` :
+##### Signals
+
+In bash:
+
+If `Ctrl-C` is pressed, the heredoc file is deleted and the heredoc event is stop, the shell however must continue and the input is saved in history.
+
+if `Ctrl-D` is pressed, it's like using the LIMITER in the heredoc.
+
+##### Particular cases
+
+Particular cases with the format of `LIMITER` :
 
 <details><summary>When double or simple quotes are present and closed, expansions does not happen. Quotes are not part of the LIMITER.</summary>
 

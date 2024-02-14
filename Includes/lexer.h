@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 14:07:27 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/13 14:51:00 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/14 15:22:34 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,10 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+/**
+ * @brief Lexer structure
+ * @param head: Head of the tokens
+*/
 typedef struct s_lexer
 {
 	t_token	*head;

@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:49:28 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/14 12:40:53 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/14 14:18:09 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_free_strs(char **array)
  * @note If the array is not null-terminated, the function will do
  * a conditional jump
  */
-char **ft_strs_dup(char **array)
+char	**ft_strs_dup(char **array)
 {
 	int		i;
 	char	**new;
