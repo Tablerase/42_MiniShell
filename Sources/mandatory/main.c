@@ -6,13 +6,11 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/14 15:19:21 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/15 19:05:21 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
-
-int g_status;
 
 void	ft_shell_init(t_shell *shell, char **envp)
 {
@@ -50,11 +48,11 @@ int	main(int ac, char **av, char **envp)
 		{
 			print_tokens(lexic.head);
 			parser(&lexic, &shell);
+			print_cmds(shell.table_head);
 			free_tokens(lexic.head);
 			// TODO: exec
 			// TODO: wait and signal
-			if (g_status == 0)
-        		add_history(input);
+			add_history(input);
 		}
         free(input);
     }

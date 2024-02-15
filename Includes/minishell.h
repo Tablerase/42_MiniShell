@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/14 15:28:16 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/15 17:50:15 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ typedef struct s_inf
 	struct s_inf	*next;
 }	t_inf;
 
+/**
+ * * Structure for the heredocs
+ * @param heredoc_path The path of the heredoc
+ * @param next The next heredoc
+*/
 typedef struct s_heredocs
 {
 	char				*heredoc_path;
