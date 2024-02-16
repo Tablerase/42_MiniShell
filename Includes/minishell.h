@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/15 17:50:15 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/16 13:57:47 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # include <sys/ioctl.h>
 
 // Prompt of Minishell
-# define PROMPT "\e[1;36mMiniShell\e[1;33m ➜ \033[0m"
+# define PROMPT "\e[1;38;5;141mMiniShell\e[1;33m ➜ \033[0m"
 
 typedef struct s_outf
 {

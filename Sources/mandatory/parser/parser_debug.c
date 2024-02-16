@@ -6,20 +6,25 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:02:02 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/15 19:24:28 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/16 14:36:49 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-void	print_cmds(t_table *head)
+void	print_cmds(t_shell shell)
 {
 	t_table	*tmp;
 	t_inf	*infd;
 	// t_outf	*outfd;
 
 	printf("🗃️ Printing commands 🗃️\n");
-	tmp = head;
+	if (!shell.table_head)
+	{
+		printf("No commands\n");
+		return ;
+	}
+	tmp = shell.table_head;
 	while (tmp)
 	{
 		printf("📜 Command 📜\n");
@@ -31,7 +36,7 @@ void	print_cmds(t_table *head)
 		// 	printf("NULL\n");
 		printf("Input files: ");
 		infd = tmp->infd_head;
-		while (infd)
+		while (infd != NULL)
 		{
 			printf("%s ", infd->file);
 			infd = infd->next;

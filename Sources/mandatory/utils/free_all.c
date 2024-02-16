@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 12:45:54 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/15 18:48:49 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/16 14:28:21 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ void	ft_free_infds(t_inf *head)
 	}
 }
 
-void	ft_free_cmds(t_table *head)
+void	ft_free_cmds(t_shell *shell)
 {
 	t_table	*tmp;
 	t_table	*next;
 
-	tmp = head;
+	tmp = shell->table_head;
 	while (tmp)
 	{
 		next = tmp->next;
@@ -60,11 +60,13 @@ void	ft_free_cmds(t_table *head)
 		free(tmp);
 		tmp = next;
 	}
+	shell->table_head = NULL;
+	// ft_free_here_docs(shell);
 }
 
 void	ft_free_all(t_shell *shell)
 {
 	ft_free_strs(shell->env);
 	if (shell->table_head != NULL)
-		ft_free_cmds(shell->table_head);
+		ft_free_cmds(shell);
 }

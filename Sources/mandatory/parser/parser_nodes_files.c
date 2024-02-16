@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:33:43 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/15 19:23:00 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/16 15:12:34 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,31 +57,31 @@ static void cmd_infile_add(
 	t_table *cmd,
 	t_shell *shell,
 	e_infile type,
-	char *filename_path
-)
+	char *filename_path)
 {
-	t_heredocs 	*tmp;
-	t_inf		*tmp_cmd_inf;
+	t_heredocs	*tmp;
+	t_inf		*tmp_inf;
 
-	tmp_cmd_inf = cmd->infd_head;
-	while (tmp_cmd_inf->next)
-		tmp_cmd_inf = tmp_cmd_inf->next;
-	tmp_cmd_inf->next = malloc(sizeof(t_inf));
-	if (!tmp_cmd_inf->next)
+	tmp_inf = cmd->infd_head;
+	while (tmp_inf->next)
+		tmp_inf = tmp_inf->next;
+	tmp_inf->next = malloc(sizeof(t_inf));
+	tmp_inf = tmp_inf->next;
+	if (!tmp_inf)
 		return ;
-	tmp_cmd_inf->next->next = NULL;
+	tmp_inf->next = NULL;
 	if (type == inf_heredoc)
 	{
 		tmp = shell->heredocs;
 		while (tmp->next)
 			tmp = tmp->next;
-		cmd->infd_head->file = ft_strdup(tmp->heredoc_path);
-		cmd->infd_head->heredoc = true;
+		tmp_inf->file = ft_strdup(tmp->heredoc_path);
+		tmp_inf->heredoc = true;
 	}
 	else
 	{
-		cmd->infd_head->file = ft_strdup(filename_path);
-		cmd->infd_head->heredoc = false;
+		tmp_inf->file = ft_strdup(filename_path);
+		tmp_inf->heredoc = false;
 	}
 }
 

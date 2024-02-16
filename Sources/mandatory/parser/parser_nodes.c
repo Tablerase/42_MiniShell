@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:46:17 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/15 18:55:35 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/16 13:38:01 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,20 @@ t_table *new_cmd(void)
 /**
  * @brief Add a command to the command list
  * @param head The head of the command list
- * @param new The command to add
+ * @return new The new empty command at the end of the list
  */
-void	cmd_add(t_table **head, t_table *new)
+t_table	*cmd_add(t_table **head)
 {
 	t_table	*tmp;
 
-	if (!*head)
+	if (*head == NULL)
 	{
-		*head = new;
-		return ;
+		*head = new_cmd();
+		return (*head);
 	}
 	tmp = *head;
 	while (tmp->next)
 		tmp = tmp->next;
-	tmp->next = new;
+	tmp->next = new_cmd();
+	return (tmp->next);
 }

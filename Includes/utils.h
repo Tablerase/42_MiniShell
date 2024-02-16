@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:52:47 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/15 18:52:12 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/16 13:47:48 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_free_strs(char **strs);
 
 // List of commands
 
-void	ft_free_cmds(t_table *head);
+void	ft_free_cmds(t_shell *shell);
 void	ft_free_infds(t_inf *head);
 void	ft_free_outfds(t_outf *head);
 
