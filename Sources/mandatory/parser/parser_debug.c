@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:02:02 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/16 14:36:49 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/16 16:46:15 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_cmds(t_shell shell)
 {
 	t_table	*tmp;
 	t_inf	*infd;
-	// t_outf	*outfd;
+	t_outf	*outfd;
 
 	printf("🗃️ Printing commands 🗃️\n");
 	if (!shell.table_head)
@@ -38,18 +38,26 @@ void	print_cmds(t_shell shell)
 		infd = tmp->infd_head;
 		while (infd != NULL)
 		{
-			printf("%s ", infd->file);
+			printf("%s", infd->file);
+			if (infd->heredoc == true)
+				printf("(heredoc) ");
+			else
+				printf(" ");
 			infd = infd->next;
 		}
 		printf("\n");
-		// printf("Output files: ");
-		// outfd = tmp->outfd_head;
-		// while (outfd)
-		// {
-		// 	printf("%s ", outfd->file);
-		// 	outfd = outfd->next;
-		// }
-		// printf("\n");
+		printf("Output files: ");
+		outfd = tmp->outfd_head;
+		while (outfd)
+		{
+			printf("%s", outfd->file);
+			if (outfd->append == true)
+				printf("(append) ");
+			else
+				printf(" ");
+			outfd = outfd->next;
+		}
+		printf("\n");
 		tmp = tmp->next;
 	}
 }

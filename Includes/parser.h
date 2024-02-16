@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 18:36:14 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/16 14:16:58 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/16 16:21:21 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ typedef enum
 	inf_file,
 	inf_heredoc
 } e_infile;
+
+typedef enum
+{
+	outf_file,
+	outf_append
+} e_outfile;
 
 void	parser(t_lexer *lexic, t_shell *shell);
 
@@ -35,6 +41,7 @@ void	cmd_infile(
 	t_shell *shell,
 	e_infile type,
 	char *filename_path);
+void	cmd_outfile(t_table *cmd, e_outfile type, char *filename_path);
 
 // Heredocs
 

@@ -6,7 +6,7 @@
 #    By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/16 14:19:55 by rcutte           ###   ########.fr        #
+#    Updated: 2024/02/16 16:05:57 by rcutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,8 @@ LEXER = lexer/lexer.c \
 
 PARSER = parser/parser.c \
 	parser/parser_nodes.c \
-	parser/parser_nodes_files.c \
+	parser/parser_nodes_infiles.c \
+	parser/parser_nodes_outfiles.c \
 	parser/parser_debug.c \
 	parser/parser_heredoc.c \
 

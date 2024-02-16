@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:46:29 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/16 14:29:24 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/16 16:42:41 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,16 @@ void	parser(
 		{
 			cmd = cmd_add(&shell->table_head);
 		}
-		// else if (tmp->type == greater)
-		// {
-		// 	add_outfd(&shell->table_head, &tmp);
-		// }
-		// else if (tmp->type == dgreater)
-		// {
-		// 	add_outfd(&shell->table_head, &tmp);
-		// }
+		else if (tmp->type == greater)
+		{
+			tmp = tmp->next;
+			cmd_outfile(cmd, outf_file, tmp->value);
+		}
+		else if (tmp->type == dgreater)
+		{
+			tmp = tmp->next;
+			cmd_outfile(cmd, outf_append, tmp->value);
+		}
 		else if (tmp->type == less)
 		{
 			tmp = tmp->next;

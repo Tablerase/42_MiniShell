@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_nodes_files.c                               :+:      :+:    :+:   */
+/*   parser_nodes_infiles.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:33:43 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/16 15:12:34 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/16 16:17:14 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,13 @@ static void cmd_infile_add(
 	}
 }
 
+/**
+ * @brief Add an input file to the command input file list
+ * @param cmd The command
+ * @param shell The shell
+ * @param type The type of the input file (inf_file or inf_heredoc)
+ * @param filename_path The path of the input file
+*/
 void	cmd_infile(t_table *cmd,
 	t_shell *shell,
 	e_infile type,
