@@ -6,7 +6,7 @@
 #    By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/16 16:05:57 by rcutte           ###   ########.fr        #
+#    Updated: 2024/02/16 18:37:43 by rcutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,8 +87,10 @@ PARSER = parser/parser.c \
 	parser/parser_nodes.c \
 	parser/parser_nodes_infiles.c \
 	parser/parser_nodes_outfiles.c \
+	parser/parser_args.c \
+	parser/parser_expand.c \
 	parser/parser_debug.c \
-	parser/parser_heredoc.c \
+	parser/parser_heredoc_tempo.c \
 
 ###################### Bonus ########################
 

@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 18:36:14 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/16 16:21:21 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/16 20:08:53 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ void	parser(t_lexer *lexic, t_shell *shell);
 
 t_table	*new_cmd(void);
 t_table	*cmd_add(t_table **head);
+
+// Args
+
+char	*expand_var(char *arg, char **env);
+void	cmd_arg_append(t_shell *shell, t_table *cmd, char *arg, bool expand);
 
 // Files
 

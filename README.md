@@ -13,7 +13,7 @@ graph TD
     lexer --> parser["Parsing\n '' '' : allow $var\n' '\n |\n <  > \n<<  >> "]
     readline -.- |"if empty line with Ctrl-D"|exit_shell
     readline -.- |"if text on line with Ctrl-D"|nothing
-    parser -.-x |Error:\nif quotes doesnt end| parse_error[Parse Error\nmessage]:::msg
+    parser -.-x |Error:\nif quotes doesnt end| parse_error[Lexical Error\nmessage]:::msg
     parse_error -->|1| Exit:::exit
     parser <--> list[Listing]
     parser --> |"<< EOF"|here_doc[Here Doc]
@@ -189,3 +189,15 @@ hey
 ```
 
 </details>
+
+## Commands
+
+### Particular cases
+
+#### Empty command with redirection
+
+```shell
+$> < infile > outfile
+```
+
+This input is valid and the redirections are applied to the shell. In this case, the shell will not execute any command and will only apply the redirections.

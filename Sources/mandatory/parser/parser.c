@@ -6,11 +6,38 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:46:29 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/16 16:42:41 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/16 20:15:04 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/minishell.h"
+
+/**
+ * @brief Append an argument to the command arguments array
+ * (array of strings NULL-terminated)
+ * @param cmd The command
+ * @param arg The argument to append
+ * @note This function will append an argument to the command arguments array
+ * also expand the variables from dollar tokens and dquote tokens
+ */
+void	parse_word_and_quotes(t_token *token, t_table *cmd, t_shell *shell)
+{
+	if (token->type == word)
+		cmd_arg_append(shell, cmd, token->value, false);
+	else if (token->type == quote)
+		cmd_arg_append(shell, cmd, token->value, false);
+	else if (token->type == dollar)
+	{
+		// TODO: pb var not saved in cmd args
+		cmd_arg_append(shell, cmd, token->value, true);
+	}
+	else if (token->type == dquote)
+	{
+		// cmd_arg_append(shell, cmd, token->value, true);
+		// TODO: expand dquote dollar
+		cmd_arg_append(shell, cmd, token->value, false);
+	}
+}
 
 /**
  * @brief Parse the tokens
@@ -49,17 +76,18 @@ void	parser(
 			tmp = tmp->next;
 			cmd_infile(cmd, shell, inf_file, tmp->value);
 		}
-		// else if (tmp->type == dless)
-		// {
-		// 	tmp = tmp->next;
-		// 	// TODO: heredoc gestion
-		// 	ft_here_doc_temporaire(shell, tmp);
-		// 	cmd_infile(cmd, shell, inf_heredoc, "here_doc");
-		// }
-		// else
-		// {
-		// 	add_arg(&shell->table_head, &tmp);
-		// }
+		else if (tmp->type == dless)
+		{
+			tmp = tmp->next;
+			cmd_infile(cmd, shell, inf_heredoc, tmp->value);
+			// TODO: heredoc gestion
+			// ft_here_doc_temporaire(shell, tmp);
+			// cmd_infile(cmd, shell, inf_heredoc, "here_doc");
+		}
+		else
+		{
+			parse_word_and_quotes(tmp, cmd, shell);
+		}
 		tmp = tmp->next;
 	}
 }

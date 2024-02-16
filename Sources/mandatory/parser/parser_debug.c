@@ -6,11 +6,29 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:02:02 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/16 16:46:15 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/16 17:41:24 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
+
+void	print_strs(char **array)
+{
+	int	i;
+
+	i = 0;
+	if (!array)
+	{
+		printf("NULL\n");
+		return ;
+	}
+	while (array[i])
+	{
+		printf("%s ", array[i]);
+		i++;
+	}
+	printf("\n");
+}
 
 void	print_cmds(t_shell shell)
 {
@@ -28,12 +46,12 @@ void	print_cmds(t_shell shell)
 	while (tmp)
 	{
 		printf("📜 Command 📜\n");
-		// printf("Command: %s\n", tmp->cmd);
-		// printf("Args: ");
-		// if (tmp->args)
-		// 	ft_print_strs(tmp->args);
-		// else
-		// 	printf("NULL\n");
+		printf("Command: %s\n", tmp->args[0]);
+		printf("Args: ");
+		if (tmp->args)
+			print_strs(tmp->args);
+		else
+			printf("NULL\n");
 		printf("Input files: ");
 		infd = tmp->infd_head;
 		while (infd != NULL)
