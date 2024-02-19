@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/16 13:57:47 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 11:54:57 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ typedef struct s_table
 typedef struct s_shell
 {
 	char		**env;
-	int			stdin;
-	int			stdout;
+	int			std_in;
+	int			std_out;
 	t_table		*table_head;
 	t_heredocs	*heredocs;
 }	t_shell;
