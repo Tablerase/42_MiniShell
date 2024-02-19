@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:58:23 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 18:51:34 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:50:15 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,22 @@ int	ft_exit(t_exec *exec_struct, t_table *table)
 	int		exit_code;
 
 	arg = table->args;
-	if (arg[0] == NULL)
+	if (arg[1] == NULL)
 		exit_code = exec_struct->exit_status;
-	else if (ft_strnum(arg[0]) == 0 || number_too_big(arg[0]) == 0)
+	else if (ft_strnum(arg[1]) == 0 || number_too_big(arg[1]) == 0)
 	{
 		write(2, "exit :", 6);
-		write(2, arg[0], ft_strlen(arg[0]));
+		write(2, arg[1], ft_strlen(arg[1]));
 		write(2, ": numeric argument required\n", 28);
 		exit_code = 2;
 	}
-	else if (arg[1] != NULL)
+	else if (arg[2] != NULL)
 	{
 		write(2, "exit: too many arguments\n", 25);
 		exit_code = 1;
 	}
 	else
-		exit_code = exit_code_exit(arg[0]);
+		exit_code = exit_code_exit(arg[1]);
 	exec_struct->exit_status = exit_code;
 	free_exec_struct(*exec_struct);
 	exit(exec_struct->exit_status);

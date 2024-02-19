@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:21:03 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 19:06:00 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:41:42 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,13 @@ void	exec_single_cmd(t_exec *exec_struct)
 	int	pid;
 
 	status = 0;
-	if (is_builtin(exec_struct->shell->table_head->cmd) == 1)
+	if (exec_struct->shell->table_head->cmd == NULL)
+	{
+		status = redirections(exec_struct->shell, exec_struct->shell->table_head);
+		exec_struct->exit_status = status;
+		return ;
+	}
+	else if (is_builtin(exec_struct->shell->table_head->cmd) == 1)
 	{
 		status = redirections(exec_struct->shell, exec_struct->shell->table_head);
 		if (status == 1)
@@ -122,6 +128,10 @@ void	starting_execution(t_exec *exec_struct)
 	tmp = exec_struct->shell->table_head;
 	while (tmp != NULL)
 	{
+		if (tmp->args != NULL && tmp->args[0] != NULL)
+			tmp->cmd = tmp->args[0];
+		else
+			tmp->cmd = "";
 		tmp = tmp->next;
 		nb_cmd++;
 	}

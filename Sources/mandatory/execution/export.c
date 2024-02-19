@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 22:43:52 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 14:27:25 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:21:18 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int	ft_export(t_exec *exec_struct, t_table *table)
 	int		status;
 	char	**var_expr;
 
-	i = 0;
+	i = 1;
 	status = 0;
-	if (table->args[0] == NULL)
+	if (table->args[1] == NULL)
 		return (print_list(*(exec_struct->export_list), 1), 0);
-	if (check_if_option_export(table->args[0]) == 1)
+	if (check_if_option_export(table->args[1]) == 1)
 		return (2);
 	var_expr = table->args;
 	while (var_expr[i] != NULL)

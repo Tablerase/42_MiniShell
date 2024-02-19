@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:33:22 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 18:50:24 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:58:44 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_cd(t_exec *exec_struct, t_table *table)
 {
 	char	*path;
 
-	path = table->args[0];
+	path = table->args[1];
 	if (path == NULL)
 		path = ft_getenv("HOME", exec_struct->env_list);
 	if (path == NULL)
@@ -35,7 +35,7 @@ int	ft_cd(t_exec *exec_struct, t_table *table)
 		write(2, ": invalid option\n", 17);
 		return (2);
 	}
-	if (table->args[1] != NULL)
+	if (table->args[1] != NULL && table->args[2] != NULL)
 	{
 		write(2, "cd: too many arguments\n", 23);
 		return (1);
@@ -57,13 +57,13 @@ int	ft_echo(t_table *table)
 	char	*str;
 	int		no_new_line;
 
-	if (table->args[0] == NULL)
+	if (table->args[1] == NULL)
 	{
 		write(1, "\n", 1);
 		return (0);
 	}
 	no_new_line = ft_echo_option(table->args);
-	i = no_new_line;
+	i = no_new_line + 1;
 	while (table->args[i] != NULL)
 	{
 		if (i != no_new_line)
@@ -89,10 +89,10 @@ int	ft_pwd(t_table *table)
 	char	**arg;
 
 	arg = table->args;
-	if (arg[0] != NULL && arg[0][0] == '-' && arg[0][1] != '\0')
+	if (arg[1] != NULL && arg[1][0] == '-' && arg[1][1] != '\0')
 	{
 		write(2, "pwd: ", 5);
-		write(2, arg[0], 2);
+		write(2, arg[1], 2);
 		write(2, ": invalid option\n", 17);
 		return (2);
 	}
@@ -116,14 +116,14 @@ int	ft_env(t_exec *exec_struct, t_table *table)
 	char	**arg;
 
 	arg = table->args;
-	if (arg[0] != NULL && arg[0][0] == '-' && arg[0][1] != '\0')
+	if (arg[1] != NULL && arg[1][0] == '-' && arg[1][1] != '\0')
 	{
 		write(2, "env: ", 5);
-		write(2, arg[0], 2);
+		write(2, arg[1], 2);
 		write(2, ": invalid option\n", 17);
 		return (125);
 	}
-	else if (arg[0] != NULL)
+	else if (arg[1] != NULL)
 	{
 		write(2, "env: Too many arguments\n", 24);
 		return (125);
@@ -144,12 +144,12 @@ int	ft_unset(t_exec *exec_struct, t_table *table)
 	char	**arg;
 	int		i;
 
-	i = 0;
+	i = 1;
 	arg = table->args;
-	if (arg[0] != NULL && arg[0][0] == '-' && arg[0][1] != '\0')
+	if (arg[1] != NULL && arg[1][0] == '-' && arg[1][1] != '\0')
 	{
 		write(2, "unset: ", 7);
-		write(2, arg[0], 2);
+		write(2, arg[1], 2);
 		write(2, ": invalid option\n", 17);
 		return (2);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 18:56:46 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 20:57:14 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,54 @@ void	ft_shell_init(t_shell *shell, char **envp)
 	shell->exit_code = 0;
 }
 
+char	*get_current_dir(void)
+{
+	int		i;
+	char	*temp;
+	char	*current_dir;
+
+	temp = getcwd(NULL, 0);
+	if (temp == NULL)
+		return (NULL);
+	i = ft_strlen(temp);
+	while (i >= 0 && temp[i] != '/')
+		i--;
+	if (i == -1 || temp[i + 1] == '\0')
+	{
+		free(temp);
+		return (ft_strdup("/"));
+	}
+	current_dir = ft_strdup(&temp[i + 1]);
+	free(temp);
+	return (current_dir);
+}
+
+char	*get_prompt(void)
+{
+	char	*current_dir;
+	char	*old_prompt;
+	char	*prompt;
+
+	current_dir = get_current_dir();
+	prompt = ft_strjoin(current_dir, "\e[1;33m ➜ \033[0m");
+	free(current_dir);
+	old_prompt = prompt;
+	prompt = ft_strjoin("\e[1;38;5;141mMiniShell\001\e[37;0m\002:\001\e[34;1m\002", old_prompt);
+	free(old_prompt);
+	return (prompt);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char* 		input;
 	t_shell 	shell;
 	t_lexer 	lexic;
+	t_exec		exec_struct;
 
 	(void)ac;
 	(void)av;
 	ft_shell_init(&shell, envp);
+	init_exec_struct(&exec_struct, &shell, envp);
     while(1)
 	{
         input = readline(PROMPT);
@@ -44,10 +83,12 @@ int	main(int ac, char **av, char **envp)
 		{
 			if (lexer(input, &lexic) == true)
 			{
-				print_tokens(lexic.head);
+				// print_tokens(lexic.head);
 				parser(&lexic, &shell);
-				print_cmds(shell);
+				// print_cmds(shell);
 				free_tokens(lexic.head);
+				exec_struct.shell = &shell;
+				starting_execution(&exec_struct);
 				// TODO: exec
 				// TODO: wait and signal
 				ft_free_cmds(&shell);
@@ -58,5 +99,8 @@ int	main(int ac, char **av, char **envp)
 
     }
 	ft_free_all(&shell);
+	free_exec_struct(exec_struct);
     return 0;
 }
+
+// EXPORT ISSUE : PATH="DEFRF" est un seul argument. Comme "d"d equivaut a dd

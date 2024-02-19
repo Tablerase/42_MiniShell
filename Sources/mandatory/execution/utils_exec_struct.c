@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:01:17 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 19:20:14 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:48:20 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,12 @@
  * @param exec_struct The execution struction we are initializing.
  * @param envp TEMP PARAM BCS IN t_struct.
 */
-int	init_exec_struct(t_exec *exec_struct, char **envp)
+int	init_exec_struct(t_exec *exec_struct, t_shell *shell, char **envp)
 {
 	exec_struct->env_list = NULL;
 	exec_struct->export_list = NULL;
-	exec_struct->shell = NULL;
 	exec_struct->exit_status = 0;
-	exec_struct->shell = malloc(sizeof(t_shell));
-	if (exec_struct->shell == NULL)
-		return (0);
+	exec_struct->shell = shell;
 	exec_struct->env_list = malloc(sizeof(t_env_list *));
 	if (exec_struct->env_list == NULL)
 		return (0);

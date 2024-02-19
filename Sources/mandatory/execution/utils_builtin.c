@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:57:19 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 18:59:07 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:21:38 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_name(char *name, char *value)
 	while (name[i] != '\0')
 	{
 		if ((i == 0 && ft_isalpha(name[i]) == 0)
-			|| ft_isalnum(name[i]) == 0 || name[i] == '_')
+			|| (i != 0 && ft_isalnum(name[i]) == 0) || name[i] == '_')
 		{
 			write(2, "export: `", 9);
 			write(2, name, ft_strlen(name));
@@ -77,7 +77,7 @@ int	ft_echo_option(char **args)
 	int	i;
 	int	par;
 
-	par = 0;
+	par = 1;
 	while (args[par] != NULL)
 	{
 		i = 1;

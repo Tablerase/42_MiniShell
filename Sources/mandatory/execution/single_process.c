@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:52:12 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 18:58:57 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:08:23 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	single_process(t_exec *exec_struct, t_table *table)
 		free_process(*exec_struct, path_cmd, NULL, NULL);
 		exit(127);
 	}
-	args_cmd = get_args_cmd(table->cmd, table->args);
+	args_cmd = get_args_cmd(table->args);
 	env = copy_env(exec_struct->env_list);
 	free_process(*exec_struct, NULL, NULL, NULL);
 	execve(path_cmd, args_cmd, env);
@@ -107,7 +107,7 @@ char	*get_env_line(t_env_list *line)
  * @param cmd The command that will have the first position in argv
  * @param args The arguments that will fill the remain strings of argv.
 */
-char	**get_args_cmd(char *cmd, char **args)
+char	**get_args_cmd(char **args)
 {
 	int		len;
 	char	**argv;
@@ -115,21 +115,18 @@ char	**get_args_cmd(char *cmd, char **args)
 	len = 0;
 	while (args != NULL && args[len] != NULL)
 		len++;
-	argv = malloc((len + 2) * sizeof(char *));
+	argv = malloc((len + 1) * sizeof(char *));
 	if (argv == NULL)
-		return (NULL);
-	argv[0] = ft_strdup(cmd);
-	if (argv[0] == NULL)
 		return (NULL);
 	len = 0;
 	while (args != NULL && args[len] != NULL)
 	{
-		argv[len + 1] = ft_strdup(args[len]);
-		if (argv[len + 1] == NULL)
+		argv[len] = ft_strdup(args[len]);
+		if (argv[len] == NULL)
 			return (free_tabtab(argv), NULL);
 		len++;
 	}
-	argv[len + 1] = NULL;
+	argv[len] = NULL;
 	return (argv);
 }
 

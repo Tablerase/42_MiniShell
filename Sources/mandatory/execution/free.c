@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:00:20 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 14:27:28 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:51:16 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ void	free_exec_struct(t_exec exec_struct)
 	free(exec_struct.env_list);
 	free_list(exec_struct.export_list);
 	free(exec_struct.export_list);
-	free_shell(exec_struct.shell);
-	free(exec_struct.shell);
+	// free_shell(exec_struct.shell);
 }
 
 /**
@@ -83,54 +82,54 @@ void	free_list(t_env_list **list)
 	}
 }
 
-/**
- * TEMP FUNCTION
-*/
-void	free_shell(t_shell *shell)
-{
-	int		i;
-	t_table	*tmp;
-	t_inf	*tmp_inf;
-	t_outf	*tmp_outf;
+// /**
+//  * TEMP FUNCTION
+// */
+// void	free_shell(t_shell *shell)
+// {
+// 	int		i;
+// 	t_table	*tmp;
+// 	t_inf	*tmp_inf;
+// 	t_outf	*tmp_outf;
 
-	i = 0;
-	dup2(shell->std_in, 0);
-	close(shell->std_in);
-	dup2(shell->std_out, 1);
-	close(shell->std_out);
-	while (shell->table_head != NULL)
-	{
-		if (shell->table_head->infd_head != NULL)
-		{
-			tmp_inf = shell->table_head->infd_head;
-			while (tmp_inf != NULL)
-			{
-				tmp_inf = shell->table_head->infd_head;
-				shell->table_head->infd_head = tmp_inf->next;
-				free(tmp_inf->file);
-				free(tmp_inf);
-				tmp_inf = shell->table_head->infd_head;
-			}
-		}
-		i = 0;
-		while (shell->table_head->args[i] != NULL)
-			free(shell->table_head->args[i++]);
-		free(shell->table_head->args);
-		i = 0;
-		if (shell->table_head->outfd_head != NULL)
-		{
-			tmp_outf = shell->table_head->outfd_head;
-			while (tmp_outf != NULL)
-			{
-				tmp_outf = shell->table_head->outfd_head;
-				shell->table_head->outfd_head = tmp_outf->next;
-				free(tmp_outf->file);
-				free(tmp_outf);
-				tmp_outf = shell->table_head->outfd_head;
-			}
-		}
-		tmp = shell->table_head;
-		shell->table_head = shell->table_head->next;
-		free(tmp);
-	}
-}
+// 	i = 0;
+// 	dup2(shell->std_in, 0);
+// 	close(shell->std_in);
+// 	dup2(shell->std_out, 1);
+// 	close(shell->std_out);
+// 	while (shell->table_head != NULL)
+// 	{
+// 		if (shell->table_head->infd_head != NULL)
+// 		{
+// 			tmp_inf = shell->table_head->infd_head;
+// 			while (tmp_inf != NULL)
+// 			{
+// 				tmp_inf = shell->table_head->infd_head;
+// 				shell->table_head->infd_head = tmp_inf->next;
+// 				free(tmp_inf->file);
+// 				free(tmp_inf);
+// 				tmp_inf = shell->table_head->infd_head;
+// 			}
+// 		}
+// 		i = 0;
+// 		while (shell->table_head->args[i] != NULL)
+// 			free(shell->table_head->args[i++]);
+// 		free(shell->table_head->args);
+// 		i = 0;
+// 		if (shell->table_head->outfd_head != NULL)
+// 		{
+// 			tmp_outf = shell->table_head->outfd_head;
+// 			while (tmp_outf != NULL)
+// 			{
+// 				tmp_outf = shell->table_head->outfd_head;
+// 				shell->table_head->outfd_head = tmp_outf->next;
+// 				free(tmp_outf->file);
+// 				free(tmp_outf);
+// 				tmp_outf = shell->table_head->outfd_head;
+// 			}
+// 		}
+// 		tmp = shell->table_head;
+// 		shell->table_head = shell->table_head->next;
+// 		free(tmp);
+// 	}
+// }

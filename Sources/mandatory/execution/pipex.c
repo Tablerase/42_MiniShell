@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:38:49 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 19:25:48 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 20:39:26 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ t_pipex	*init_pipex(t_exec *exec_struct, int nb_cmd)
 	fd = malloc((nb_cmd - 1) * sizeof(int *));
 	if (fd == NULL)
 		return (perror("malloc"), NULL);
+	while (i < nb_cmd - 1)
+	{
+		fd[i++] = malloc(2 * sizeof(int));
+		if (fd[i - 1] == NULL)
+			return (NULL); // clear it
+	}
+	i = 0;
 	while (i < nb_cmd - 1)
 		if (pipe(fd[i++]) == -1)
 			return (error_forking(pid, fd, i), NULL);
@@ -62,7 +69,7 @@ int	command_in_pipe(t_pipex *pipex, t_table *table)
 		write(2, ": Command not found\n", 20);
 		exit_child_process(pipex, 127);
 	}
-	args_cmd = get_args_cmd(table->cmd, table->args);
+	args_cmd = get_args_cmd(table->args);
 	env = copy_env(pipex->exec_struct->env_list);
 	exit_child_process(pipex, -1);
 	execve(path_cmd, args_cmd, env);

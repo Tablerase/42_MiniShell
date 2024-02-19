@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:30:58 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 18:44:50 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:53:02 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void		free_process(t_exec exec_struct, char *path, char **arg,
 void		free_tabtab(char **str);
 void		free_exec_struct(t_exec exec_struct);
 void		free_list(t_env_list **list);
-void		free_shell(t_shell *shell);
 
 // heredoc.c
 
@@ -132,7 +131,7 @@ void		ft_unset_list(t_env_list **list, char *name);
 
 void		init_table(t_table *table);
 void		init_shell(t_shell *shell, char **envp);
-int			init_exec_struct(t_exec *exec_struct, char **envp);
+int			init_exec_struct(t_exec *exec_struct, t_shell *shell, char **envp);
 void		sort_export_list(t_env_list **export_list);
 int			ft_strcmp(const char *s1, const char *s2);
 
@@ -150,7 +149,7 @@ int			single_process(t_exec *exec_struct, t_table *table);
 int			execve_fail(char *path_cmd, char **args_cmd, char **env);
 char		**copy_env(t_env_list **env_list);
 char		*get_env_line(t_env_list *line);
-char		**get_args_cmd(char *cmd, char **args);
+char		**get_args_cmd(char **args);
 
 // utils_pipe.c
 
