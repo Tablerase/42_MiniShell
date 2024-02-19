@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:39:40 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 19:05:30 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:26:18 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	error_forking(int *pid, int **fd, int i)
 		}
 		free(fd);
 		free(pid);
-		return (NULL);
+		return ;
 	}
 	perror("fork");
 }

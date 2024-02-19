@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:38:49 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 19:03:38 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:25:48 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/minishell.h"
 
-t_pipex	*create_pipex_fds(t_exec *exec_struct, int nb_cmd)
+t_pipex	*init_pipex(t_exec *exec_struct, int nb_cmd)
 {
 	int		i;
 	int		*pid;

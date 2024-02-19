@@ -6,7 +6,7 @@
 #    By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/19 15:41:44 by rcutte           ###   ########.fr        #
+#    Updated: 2024/02/19 19:27:16 by rcutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,6 +103,11 @@ EXECUTION = execution/builtin.c \
 		execution/redirections.c \
 		execution/utils_builtin.c \
 		execution/utils_pipe.c \
+		execution/pipex.c \
+		execution/utils_pipex.c \
+		execution/utils_heredoc.c \
+		execution/heredoc.c \
+		execution/execution.c \
 
 ###################### Bonus ########################
 
