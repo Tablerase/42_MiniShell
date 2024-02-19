@@ -6,13 +6,13 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:45:10 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 11:24:49 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:27:30 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/exec.h"
+#include "../../../Includes/minishell.h"
 
-typedef struct s_heredoc
+typedef struct s_filling_heredoc
 {
 	int		fd;
 	int		expand;
@@ -21,9 +21,9 @@ typedef struct s_heredoc
 	char	*filename;
 	char	*var_name;
 	char	*expanded_var;
-}	t_heredoc;
+}	t_filling_heredoc;
 
-void	ft_free(t_heredoc *heredoc)
+void	ft_free(t_filling_heredoc *heredoc)
 {
 	if (heredoc->line != NULL)
 		free(heredoc->line);
@@ -39,7 +39,7 @@ void	ft_free(t_heredoc *heredoc)
 // if (heredoc->expanded_var != NULL)
 // 	free(heredoc->expanded_var); // not allocated
 
-void	initialize(t_heredoc *heredoc)
+void	initialize(t_filling_heredoc *heredoc)
 {
 	heredoc->line = NULL;
 	heredoc->limiter = NULL;
@@ -79,7 +79,7 @@ char	*allocate_lim(char *lim)
 	return (new_lim);
 }
 
-void	update_expand(t_heredoc *heredoc, char *lim)
+void	update_expand(t_filling_heredoc *heredoc, char *lim)
 {
 	int	i;
 	int	simple_quote;
@@ -103,7 +103,7 @@ void	update_expand(t_heredoc *heredoc, char *lim)
 	heredoc->limiter = allocate_lim(lim);
 }
 
-int	filename(t_heredoc *heredoc)
+int	filename(t_filling_heredoc *heredoc)
 {
 	char	*old_name;
 
@@ -125,7 +125,7 @@ int	filename(t_heredoc *heredoc)
 	return (1);
 }
 
-int	create_new_line(t_heredoc *heredoc, int *i, int j)
+int	create_new_line(t_filling_heredoc *heredoc, int *i, int j)
 {
 	char	*new_line;
 	char	*tmp;
@@ -150,7 +150,7 @@ int	create_new_line(t_heredoc *heredoc, int *i, int j)
 	return (1);
 }
 
-int	affect_var_name(t_heredoc *heredoc, int *i)
+int	affect_var_name(t_filling_heredoc *heredoc, int *i)
 {
 	int	j;
 
@@ -168,7 +168,7 @@ int	affect_var_name(t_heredoc *heredoc, int *i)
 	return (1);
 }
 
-int	expanding_line(t_heredoc *heredoc, int *i)
+int	expanding_line(t_filling_heredoc *heredoc, int *i)
 {
 	int	j;
 	int	res;
@@ -183,7 +183,7 @@ int	expanding_line(t_heredoc *heredoc, int *i)
 	return (1);
 }
 
-char	*expand_var(t_heredoc *heredoc)
+char	*expand_var(t_filling_heredoc *heredoc)
 {
 	int	i;
 
@@ -202,7 +202,7 @@ char	*expand_var(t_heredoc *heredoc)
 	return (heredoc->line);
 }
 
-int	create_heredoc(t_heredoc *heredoc, char *lim)
+int	create_heredoc(t_filling_heredoc *heredoc, char *lim)
 {
 	if (filename(heredoc) == 0)
 		return (0);
@@ -228,7 +228,7 @@ int	create_heredoc(t_heredoc *heredoc, char *lim)
 
 int	main(int argc, char *argv[])
 {
-	t_heredoc	heredoc;
+	t_filling_heredoc	heredoc;
 	char		**args;
 	int			i;
 

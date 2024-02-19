@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:30:58 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 11:54:05 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:27:12 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,43 +21,9 @@
 # define EXIT "exit"
 # define ENV "env"
 
-# include "minishell.h"
 # include <limits.h>
 # include <dirent.h>
-
-/**
- * Structure that stores the list of environment variables.
- * Used by export, env and unset.
- * @param name The name of the variable.
- * @param value The expansion of the associated variable.
- * @param next The next node of the list.
-*/
-typedef struct s_env_list	t_env_list;
-
-/**
- * Structure that stores all the program's data.
- * @param env_list The list containing the environment variables.
- * @param export_list The list containing the environment variables (also 
- * the non-initialized variables).
- * @param shell The data returned by the parser.
- * @param exit_status The expansion of '?'
-*/
-typedef struct s_exec		t_exec;
-
-struct s_env_list
-{
-	char		*name;
-	char		*value;
-	t_env_list	*next;
-};
-
-struct s_exec
-{
-	t_env_list	**env_list;
-	t_env_list	**export_list;
-	t_shell		*shell;
-	int			exit_status;
-};
+# include "minishell.h"
 
 // builtin.c
 
@@ -108,9 +74,10 @@ void		starting_execution(t_exec *xec_struct);
 
 // redirection.c
 
-int			redirections(t_table *table);
-int			redirect_input(char **infile);
-int			redirect_output(t_outf **outfile);
+int			redirections(t_shell *shell, t_table *table);
+int			add_heredocpath(t_heredocs *heredocs, char *filename);
+int			redirect_input(t_shell *shell, t_inf *infile);
+int			redirect_output(t_outf *outfile);
 int			is_a_directory(char *filename);
 
 // utils_builtin.c

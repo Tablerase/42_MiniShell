@@ -6,11 +6,11 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:25:25 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 11:25:40 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:27:20 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/exec.h"
+#include "../../../Includes/minishell.h"
 
 /**
  * Filling the list of our environment variables with the env variable 

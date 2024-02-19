@@ -6,11 +6,11 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:58:23 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 11:25:37 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:27:23 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/exec.h"
+#include "../../../Includes/minishell.h"
 
 /**
  * Exits the current process. The argument is the exit status. If no

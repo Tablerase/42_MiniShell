@@ -6,11 +6,11 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:52:12 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 11:25:26 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:27:38 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/exec.h"
+#include "../../../Includes/minishell.h"
 
 /**
  * If a single command was called (and is not a builtin) we will then 
@@ -26,7 +26,7 @@ int	single_process(t_exec *exec_struct, t_table *table)
 	char	**env;
 	int		redir;
 
-	redir = redirections(table);
+	redir = redirections(exec_struct->shell, table);
 	if (redir == 0 || is_a_directory(table->cmd) == 1)
 	{
 		free_process(*exec_struct, NULL, NULL, NULL);

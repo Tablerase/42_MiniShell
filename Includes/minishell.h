@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/19 13:48:23 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 14:22:15 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,36 @@ typedef struct s_shell
 	t_table		*table_head;
 	t_heredocs	*heredocs;
 }	t_shell;
+
+/**
+ * Structure that stores the list of environment variables.
+ * Used by export, env and unset.
+ * @param name The name of the variable.
+ * @param value The expansion of the associated variable.
+ * @param next The next node of the list.
+*/
+typedef struct s_env_list
+{
+	char				*name;
+	char				*value;
+	struct s_env_list	*next;
+}	t_env_list;
+
+/**
+ * Structure that stores all the program's data.
+ * @param env_list The list containing the environment variables.
+ * @param export_list The list containing the environment variables (also 
+ * the non-initialized variables).
+ * @param shell The data returned by the parser.
+ * @param exit_status The expansion of '?'
+*/
+typedef struct s_exec
+{
+	t_env_list	**env_list;
+	t_env_list	**export_list;
+	t_shell		*shell;
+	int			exit_status;
+}	t_exec;
 
 // LIB needing upper structs to be defined
 

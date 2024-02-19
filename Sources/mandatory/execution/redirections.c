@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:15:29 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 13:48:23 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 14:27:36 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/exec.h"
+#include "../../../Includes/minishell.h"
 
 /**
  * Performs the redirections of std_in and std_out.
@@ -19,11 +19,11 @@
  * immediatly stop.
  * @param table Contains the infiles and outfiles (if any).
 */
-int	redirections(t_table *table)
+int	redirections(t_shell *shell, t_table *table)
 {
-	if (redirect_input(table->infile) == 0)
+	if (redirect_input(shell, table->infd_head) == 0)
 		return (0);
-	if (redirect_output(table->outfile) == 0)
+	if (redirect_output(table->outfd_head) == 0)
 		return (0);
 	return (1);
 }
@@ -33,29 +33,56 @@ int	redirections(t_table *table)
  * occured, 0 is returned.
  * @param infile All the std_in redirections of our current command.
 */
-int	redirect_input(char **infile)
+int	redirect_input(t_shell *shell, t_inf *infile)
 {
 	int	i;
 	int	fd_infile;
+	t_inf	*tmp;
 
 	i = 0;
-	if (infile == NULL)
-		return (1);
-	while (infile[i] != NULL)
+	tmp = infile;
+	while (tmp != NULL)
 	{
-		if (is_a_directory(infile[i]) == 1)
+		if (is_a_directory(tmp->file) == 1)
 			return (0);
-		fd_infile = open(infile[i], O_RDONLY, 0644);
+		fd_infile = open(tmp->file, O_RDONLY, 0644);
 		if (fd_infile == -1)
-			return (perror(infile[i]), 0);
+			return (perror(tmp->file), 0);
 		if (dup2(fd_infile, 0) == -1)
 		{
 			close(fd_infile);
 			return (perror("dup2"), 0);
 		}
 		close(fd_infile);
-		i++;
+		if (tmp->heredoc == 1)
+			if (add_heredocpath(shell->heredocs, tmp->file) == 0)
+				return (perror("strdup"), 0);
+		tmp = tmp->next;
 	}
+	return (1);
+}
+
+int	add_heredocpath(t_heredocs *heredocs, char *filename)
+{
+	t_heredocs	*tmp;
+
+	tmp = heredocs;
+	if (tmp == NULL)
+	{
+		tmp = malloc(sizeof(t_heredocs));
+		if (tmp == NULL)
+			return (0);
+		tmp->heredoc_path = filename;
+		tmp->next = NULL;
+		return (1);
+	}
+	while (tmp != NULL)
+		tmp = tmp->next;
+	tmp->next = malloc(sizeof(t_heredocs));
+	if (tmp->next == NULL)
+		return (0);
+	tmp->next->heredoc_path = filename;
+	tmp->next->next = NULL;
 	return (1);
 }
 
@@ -64,31 +91,31 @@ int	redirect_input(char **infile)
  * occured, 0 is returned.
  * @param infile All the std_out redirections of our current command.
 */
-int	redirect_output(t_outf **outfile)
+int	redirect_output(t_outf *outfile)
 {
 	int	i;
 	int	fd_out;
+	t_outf	*tmp;
 
 	i = 0;
-	if (outfile == NULL)
-		return (1);
-	while (outfile[i] != NULL)
+	tmp = outfile;
+	while (tmp != NULL)
 	{
-		if (is_a_directory(outfile[i]->file) == 1)
+		if (is_a_directory(tmp->file) == 1)
 			return (0);
-		if (outfile[i]->append == 0)
-			fd_out = open(outfile[i]->file, O_RDWR | O_CREAT | O_TRUNC, 0644);
+		if (tmp->append == 0)
+			fd_out = open(tmp->file, O_RDWR | O_CREAT | O_TRUNC, 0644);
 		else
-			fd_out = open(outfile[i]->file, O_RDWR | O_CREAT | O_APPEND, 0644);
+			fd_out = open(tmp->file, O_RDWR | O_CREAT | O_APPEND, 0644);
 		if (fd_out == -1)
-			return (perror(outfile[i]->file), 0);
+			return (perror(tmp->file), 0);
 		if (dup2(fd_out, 1) == -1)
 		{
 			close(fd_out);
 			return (perror("dup2"), 0);
 		}
 		close(fd_out);
-		i++;
+		tmp = tmp->next;
 	}
 	return (1);
 }

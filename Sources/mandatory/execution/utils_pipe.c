@@ -6,11 +6,11 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 19:55:44 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 11:25:20 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:27:52 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/exec.h"
+#include "../../../Includes/minishell.h"
 
 /**
  * Returns the current value of the PATH environment variable 

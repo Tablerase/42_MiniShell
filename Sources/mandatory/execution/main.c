@@ -6,11 +6,11 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:21:03 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 11:25:30 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:27:34 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/exec.h"
+#include "../../../Includes/minishell.h"
 
 /**
  * Checks if the command given by the user is a builtin. On success returns 1.
@@ -75,7 +75,7 @@ void	exec_single_cmd(t_exec *exec_struct)
 	status = 0;
 	if (is_builtin(exec_struct->shell->table_head->cmd) == 1)
 	{
-		status = redirections(exec_struct->shell->table_head);
+		status = redirections(exec_struct->shell, exec_struct->shell->table_head);
 		if (status == 1)
 			status = builtin_execution(exec_struct,
 					exec_struct->shell->table_head);

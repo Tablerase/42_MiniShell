@@ -6,11 +6,11 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 21:11:15 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 11:25:17 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:27:54 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/exec.h"
+#include "../../../Includes/minishell.h"
 
 char	**wilcard_expansion(char *expression);
 char	**create_args_wildcards(char *expression);

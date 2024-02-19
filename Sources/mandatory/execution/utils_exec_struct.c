@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec_struct.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:01:17 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 13:48:23 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 14:27:50 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/exec.h"
+#include "../../../Includes/minishell.h"
 
 /**
  * TEMP FUNCTION
@@ -21,11 +21,11 @@ void	init_table(t_table *table)
 	table->args = malloc(6 * sizeof(char *));
 	table->args[0] = ft_strdup("hello");
 	table->args[1] = NULL;
-	table->infile = NULL;
+	table->infd_head = NULL;
 	// table->infile = malloc(2 * sizeof(char *));
 	// table->infile[0] = ft_strdup("hello");
 	// table->infile[1] = NULL;
-	table->outfile = NULL;
+	table->outfd_head = NULL;
 	// table->outfile = malloc(10 * sizeof(t_outf *));
 	// table->outfile[0] = malloc(sizeof(t_outf));
 	// table->outfile[0]->file = ft_strdup("out.txt");

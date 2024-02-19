@@ -6,11 +6,11 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:33:22 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 11:25:41 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:27:16 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/exec.h"
+#include "../../../Includes/minishell.h"
 
 /**
  * Change the current director. Returns 1 on success, 0 on failure.

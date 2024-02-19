@@ -6,11 +6,11 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 22:43:52 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 11:25:35 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:27:25 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/exec.h"
+#include "../../../Includes/minishell.h"
 
 /**
  * With no arguments, export will display the list of environment variables

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:00:20 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 13:48:23 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 14:27:28 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/exec.h"
+#include "../../../Includes/minishell.h"
 
 /**
  * Frees all the allocated memory of a child process.
@@ -90,6 +90,8 @@ void	free_shell(t_shell *shell)
 {
 	int		i;
 	t_table	*tmp;
+	t_inf	*tmp_inf;
+	t_outf	*tmp_outf;
 
 	i = 0;
 	dup2(shell->std_in, 0);
@@ -98,27 +100,35 @@ void	free_shell(t_shell *shell)
 	close(shell->std_out);
 	while (shell->table_head != NULL)
 	{
-		if (shell->table_head->infile != NULL)
+		if (shell->table_head->infd_head != NULL)
 		{
-			while (shell->table_head->infile[i] != NULL)
-				free(shell->table_head->infile[i++]);
-			free(shell->table_head->infile);
+			tmp_inf = shell->table_head->infd_head;
+			while (tmp_inf != NULL)
+			{
+				tmp_inf = shell->table_head->infd_head;
+				shell->table_head->infd_head = tmp_inf->next;
+				free(tmp_inf->file);
+				free(tmp_inf);
+				tmp_inf = shell->table_head->infd_head;
+			}
 		}
 		i = 0;
 		while (shell->table_head->args[i] != NULL)
 			free(shell->table_head->args[i++]);
 		free(shell->table_head->args);
 		i = 0;
-		if (shell->table_head->outfile != NULL)
+		if (shell->table_head->outfd_head != NULL)
 		{
-			while (shell->table_head->outfile[i] != NULL)
+			tmp_outf = shell->table_head->outfd_head;
+			while (tmp_outf != NULL)
 			{
-				free(shell->table_head->outfile[i]->file);
-				free(shell->table_head->outfile[i++]);
+				tmp_outf = shell->table_head->outfd_head;
+				shell->table_head->outfd_head = tmp_outf->next;
+				free(tmp_outf->file);
+				free(tmp_outf);
+				tmp_outf = shell->table_head->outfd_head;
 			}
 		}
-		if (shell->table_head->outfile != NULL)
-			free(shell->table_head->outfile);
 		tmp = shell->table_head;
 		shell->table_head = shell->table_head->next;
 		free(tmp);
