@@ -24,6 +24,8 @@
 // READLINE
 # include <readline/readline.h>
 # include <readline/history.h>
+// SYSTEM
+# include <sys/wait.h>
 // SIGNAL
 # include <signal.h>
 // STAT
@@ -33,19 +35,16 @@
 # include <termios.h>
 # include <termcap.h>
 # include <sys/ioctl.h>
+
 // LIBFT
 # include "../libft/Includes/libft.h"
+// Color
+# include "color.h"
+// Lexer
+# include "lexer.h"
 
+// Prompt of Minishell
 # define PROMPT "minishell$> "
-
-enum e_type
-{
-	PIPE,
-	REDIR_IN,
-	REDIR_OUT,
-	ARG,
-	CMD
-};
 
 typedef struct s_outf
 {
@@ -66,7 +65,6 @@ typedef struct s_heredocs
  * @param infile The input files array (null terminated)
  * @param outfile The output files (and append) array (null terminated)
  * @param next The next command
- * @param prev The previous command
 */
 typedef struct s_table
 {
@@ -75,12 +73,13 @@ typedef struct s_table
 	char			**infile;
 	t_outf			**outfile;
 	struct s_table	*next;
-	struct s_table	*prev;
 }	t_table;
 
 typedef struct s_shell
 {
 	char		**env;
+	int			stdin;
+	int			stdout;
 	t_table		*table_head;
 	t_heredocs	*heredocs;
 }	t_shell;
