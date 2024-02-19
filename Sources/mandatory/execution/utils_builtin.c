@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:57:19 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 14:27:41 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:59:07 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	check_if_option_export(char *arg)
 	}
 	if (arg[0] == '-' && arg[1] == '\0')
 	{
-		write(2, "export: `-': not a valid identifier", 35); // verif msg
+		write(2, "export: `-': not a valid identifier", 35);
 		return (1);
 	}
 	return (0);

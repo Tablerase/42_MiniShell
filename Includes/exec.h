@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:30:58 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 17:26:44 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:44:50 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ typedef struct s_filling_heredoc
 	char	*var_name;
 	char	*expanded_var;
 }	t_filling_heredoc;
+
+typedef struct s_pipex
+{
+	int		*pid;
+	int		**fd;
+	int		nb_cmd;
+	int		nb_child;
+	t_exec	*exec_struct;
+}	t_pipex;
 
 // builtin.c
 
@@ -95,6 +104,14 @@ int			builtin_execution(t_exec *exec_struct, t_table *table);
 void		exec_single_cmd(t_exec *exec_struct);
 void		starting_execution(t_exec *xec_struct);
 
+// pipex.c
+
+t_pipex		*create_pipex_fds(t_exec *exec_struct, int nb_cmd);
+int			builtin_in_pipe(t_pipex *pipex, t_table *table_cmd);
+int			command_in_pipe(t_pipex *pipex, t_table *table);
+void		start_child_process(t_pipex *pipex, t_table *table_cmd, int nb_child);
+void		exec_multiple_cmds(t_exec *exec_struct, int nb_cmd);
+
 // redirection.c
 
 int			redirections(t_shell *shell, t_table *table);
@@ -118,6 +135,14 @@ void		init_shell(t_shell *shell, char **envp);
 int			init_exec_struct(t_exec *exec_struct, char **envp);
 void		sort_export_list(t_env_list **export_list);
 int			ft_strcmp(const char *s1, const char *s2);
+
+// utils_pipex.c
+
+void		error_forking(int *pid, int **fd, int i);
+void		clear_all_fds(int **fd, int nb_fd);
+int			exit_child_process(t_pipex *pipex, int status);
+void		redirect_into_pipes(t_pipex *pipex, int nb_child);
+int			waiting(t_pipex *pipex, int nb_child);
 
 // single_process.c
 

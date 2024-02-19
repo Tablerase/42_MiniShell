@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:33:22 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 14:27:16 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:50:24 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_cd(t_exec *exec_struct, t_table *table)
 {
 	char	*path;
 
-	path = table->args[0]; // can args = NULL ?
+	path = table->args[0];
 	if (path == NULL)
 		path = ft_getenv("HOME", exec_struct->env_list);
 	if (path == NULL)
@@ -41,7 +41,7 @@ int	ft_cd(t_exec *exec_struct, t_table *table)
 		return (1);
 	}
 	if (chdir(path) == -1)
-		return (perror("cd"), 1); // should we display path like real cd error ?
+		return (perror("cd"), 1);
 	return (0);
 }
 

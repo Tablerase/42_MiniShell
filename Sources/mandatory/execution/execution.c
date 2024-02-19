@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:21:03 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 17:31:35 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:06:00 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,11 @@ void	exec_single_cmd(t_exec *exec_struct)
 	{
 		status = redirections(exec_struct->shell, exec_struct->shell->table_head);
 		if (status == 1)
-			status = builtin_execution(exec_struct,
-					exec_struct->shell->table_head);
+		{
+			if (ft_strcmp(EXIT, exec_struct->shell->table_head->cmd) == 1)
+				write(2, "exit\n", 5);
+			status = builtin_execution(exec_struct, exec_struct->shell->table_head);
+		}
 		exec_struct->exit_status = status;
 		return ;
 	}
@@ -101,8 +104,7 @@ void	exec_single_cmd(t_exec *exec_struct)
 	// else if (WIFSIGNALED(status) == 1)
 	// 	exec_struct->exit_status = 128 + g_signal;
 	else
-		exec_struct->exit_status = 0; // usefull ?
-	printf("%d\n", exec_struct->exit_status);
+		exec_struct->exit_status = 0;
 }
 
 /**
@@ -115,7 +117,7 @@ void	starting_execution(t_exec *exec_struct)
 	t_table	*tmp;
 
 	nb_cmd = 0;
-	if (exec_struct->shell->table_head == NULL) //right ?
+	if (exec_struct->shell->table_head == NULL)
 		return ;
 	tmp = exec_struct->shell->table_head;
 	while (tmp != NULL)
@@ -125,8 +127,8 @@ void	starting_execution(t_exec *exec_struct)
 	}
 	if (nb_cmd == 1)
 		exec_single_cmd(exec_struct);
-	// else
-	// 	exec_multiple_cmds(exec_struct);
+	else
+		exec_multiple_cmds(exec_struct, nb_cmd);
 }
 
 // before (or in) starting_execution(), check
@@ -134,6 +136,5 @@ void	starting_execution(t_exec *exec_struct)
 // check for shell NULL
 // isatty before readline (possible when reading for heredoc)
 // handle echo $?
-// Manually "Command not found", exit_code 127 ?
 // protect write ?
 // When error malloc error etc, should we redispay prompt or exit program ?

@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:58:23 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 14:27:23 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:51:34 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	ft_exit(t_exec *exec_struct, t_table *table)
 	int		exit_code;
 
 	arg = table->args;
-	write(1, "exit\n", 5); // what happens in child process ?
 	if (arg[0] == NULL)
 		exit_code = exec_struct->exit_status;
 	else if (ft_strnum(arg[0]) == 0 || number_too_big(arg[0]) == 0)

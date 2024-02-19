@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 19:55:44 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 14:27:52 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:59:45 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ char	*find_path(t_env_list **env_list, char *cmd)
 	if (cmd == NULL)
 		return (NULL);
 	if (cmd[0] == '/')
-		return (ft_strdup(cmd)); // test when does not exist
+		return (ft_strdup(cmd));
 	path = ft_getenv("PATH", env_list);
 	if (path == NULL)
 	{
 		if (access(cmd, F_OK) == 0)
-			return (ft_strdup(cmd)); // test
+			return (ft_strdup(cmd));
 		return (NULL);
 	}
 	path = search_path(path, cmd);

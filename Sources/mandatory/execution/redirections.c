@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:15:29 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 14:27:36 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:45:51 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * Once an error is detected, a message is displayed and the redirections stop.
  * In bash once an error is detected, the redirections and file creations 
  * immediatly stop.
- * @param table Contains the infiles and outfiles (if any).
+ * @param shell Contains the infiles and outfiles (if any).
 */
 int	redirections(t_shell *shell, t_table *table)
 {
@@ -35,8 +35,8 @@ int	redirections(t_shell *shell, t_table *table)
 */
 int	redirect_input(t_shell *shell, t_inf *infile)
 {
-	int	i;
-	int	fd_infile;
+	int		i;
+	int		fd_infile;
 	t_inf	*tmp;
 
 	i = 0;
@@ -93,8 +93,8 @@ int	add_heredocpath(t_heredocs *heredocs, char *filename)
 */
 int	redirect_output(t_outf *outfile)
 {
-	int	i;
-	int	fd_out;
+	int		i;
+	int		fd_out;
 	t_outf	*tmp;
 
 	i = 0;

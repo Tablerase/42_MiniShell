@@ -6,49 +6,49 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:01:17 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 14:27:50 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:59:29 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/minishell.h"
 
-/**
- * TEMP FUNCTION
-*/
-void	init_table(t_table *table)
-{
-	table->cmd = "ls";
-	table->args = malloc(6 * sizeof(char *));
-	table->args[0] = ft_strdup("hello");
-	table->args[1] = NULL;
-	table->infd_head = NULL;
-	// table->infile = malloc(2 * sizeof(char *));
-	// table->infile[0] = ft_strdup("hello");
-	// table->infile[1] = NULL;
-	table->outfd_head = NULL;
-	// table->outfile = malloc(10 * sizeof(t_outf *));
-	// table->outfile[0] = malloc(sizeof(t_outf));
-	// table->outfile[0]->file = ft_strdup("out.txt");
-	// table->outfile[0]->append = 0;
-	// table->outfile[1] = malloc(sizeof(t_outf));
-	// table->outfile[1]->file = ft_strdup("out2.txt");
-	// table->outfile[1]->append = 0;
-	// table->outfile[2] = NULL;
-	table->next = NULL;
-}
+// /**
+//  * TEMP FUNCTION
+// */
+// void	init_table(t_table *table)
+// {
+// 	table->cmd = "ls";
+// 	table->args = malloc(6 * sizeof(char *));
+// 	table->args[0] = ft_strdup("hello");
+// 	table->args[1] = NULL;
+// 	table->infd_head = NULL;
+// 	// table->infile = malloc(2 * sizeof(char *));
+// 	// table->infile[0] = ft_strdup("hello");
+// 	// table->infile[1] = NULL;
+// 	table->outfd_head = NULL;
+// 	// table->outfile = malloc(10 * sizeof(t_outf *));
+// 	// table->outfile[0] = malloc(sizeof(t_outf));
+// 	// table->outfile[0]->file = ft_strdup("out.txt");
+// 	// table->outfile[0]->append = 0;
+// 	// table->outfile[1] = malloc(sizeof(t_outf));
+// 	// table->outfile[1]->file = ft_strdup("out2.txt");
+// 	// table->outfile[1]->append = 0;
+// 	// table->outfile[2] = NULL;
+// 	table->next = NULL;
+// }
 
-/**
- * TEMP FUNCTION
-*/
-void	init_shell(t_shell *shell, char **envp)
-{
-	shell->env = envp;
-	shell->std_in = dup(0);
-	shell->std_out = dup(1);
-	shell->table_head = malloc(sizeof(t_table));
-	init_table(shell->table_head);
-	shell->heredocs = NULL;
-}
+// /**
+//  * TEMP FUNCTION
+// */
+// void	init_shell(t_shell *shell, char **envp)
+// {
+// 	shell->env = envp;
+// 	shell->std_in = dup(0);
+// 	shell->std_out = dup(1);
+// 	shell->table_head = malloc(sizeof(t_table));
+// 	init_table(shell->table_head);
+// 	shell->heredocs = NULL;
+// }
 
 /**
  * Initialize our execution structure.
@@ -95,7 +95,7 @@ void	sort_export_list(t_env_list **export_list)
 	t_env_list	*min;
 	char		*tmp_val;
 
-	tmp_list = *export_list; // should the _ var be in ?
+	tmp_list = *export_list;
 	while (tmp_list != NULL)
 	{
 		new_pos = tmp_list->next;
