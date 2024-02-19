@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/19 15:02:11 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 18:56:20 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct s_shell
 	int			std_out;
 	t_table		*table_head;
 	t_heredocs	*heredocs;
+	int			exit_code;
 }	t_shell;
 
 /**

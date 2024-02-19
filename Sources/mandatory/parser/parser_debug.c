@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:02:02 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/19 15:42:54 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 18:48:25 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	print_strs(char **array)
 	}
 	while (array[i])
 	{
-		printf("%s ", array[i]);
+		printf("%s%s%s", YELHB,array[i], RESET);
+		printf(" ");
 		i++;
 	}
 	printf("\n");
@@ -48,7 +49,7 @@ void	print_cmds(t_shell shell)
 		printf("📜 Command 📜\n");
 		if (tmp->args)
 		{
-			printf("Command: %s\n", tmp->args[0]);
+			printf("Command: %s%s%s\n", GRNHB,tmp->args[0], RESET);
 			printf("Args: ");
 			print_strs(tmp->args);
 		}

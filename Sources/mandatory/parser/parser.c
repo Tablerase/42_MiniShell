@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:46:29 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/19 14:55:46 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 18:13:18 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,9 @@ void	parse_word_and_quotes(t_token *token, t_table *cmd, t_shell *shell)
 	else if (token->type == quote)
 		cmd_arg_append(shell, cmd, token->value, false);
 	else if (token->type == dollar)
-	{
-		// TODO: pb var not saved in cmd args
-		cmd_arg_append(shell, cmd, token->value, true);
-	}
+		cmd_arg_append(shell, cmd, token->value, dollar);
 	else if (token->type == dquote)
-	{
-		// cmd_arg_append(shell, cmd, token->value, true);
-		// TODO: expand dquote dollar
-		cmd_arg_append(shell, cmd, token->value, false);
-	}
+		cmd_arg_append(shell, cmd, token->value, dquote);
 }
 
 /**
