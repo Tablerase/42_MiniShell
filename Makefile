@@ -6,7 +6,7 @@
 #    By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/16 18:37:43 by rcutte           ###   ########.fr        #
+#    Updated: 2024/02/19 13:49:24 by rcutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SRC = main.c \
 		$(UTILS) \
 		$(LEXER) \
 		$(PARSER) \
+		$(EXECUTION) \
 
 # objet libft
 OBJ = $(addprefix $(SRC_PATH)/,$(SRC:.c=.o))
@@ -91,6 +92,21 @@ PARSER = parser/parser.c \
 	parser/parser_expand.c \
 	parser/parser_debug.c \
 	parser/parser_heredoc_tempo.c \
+
+EXECUTION = execution/builtin.c \
+		execution/create_env_list.c \
+		execution/builtin.c \
+		execution/exit.c \
+		# execution/free.c \
+		execution/single_process.c \
+		execution/utils_exec_struct.c \
+		execution/wilcards_bonus.c \
+		execution/create_env_list.c \
+		execution/export.c \
+		execution/heredoc_not_done.c \
+		execution/redirections.c \
+		execution/utils_builtin.c \
+		execution/utils_pipe.c
 
 ###################### Bonus ########################
 

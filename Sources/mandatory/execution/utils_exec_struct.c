@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec_struct.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:01:17 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 11:53:51 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 13:48:23 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	init_table(t_table *table)
 void	init_shell(t_shell *shell, char **envp)
 {
 	shell->env = envp;
-	shell->stdin = dup(0);
-	shell->stdout = dup(1);
+	shell->std_in = dup(0);
+	shell->std_out = dup(1);
 	shell->table_head = malloc(sizeof(t_table));
 	init_table(shell->table_head);
 	shell->heredocs = NULL;

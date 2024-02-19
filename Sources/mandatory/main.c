@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/16 16:34:00 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 13:48:38 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	ft_shell_init(t_shell *shell, char **envp)
 	}
 	shell->table_head = NULL;
 	shell->heredocs = NULL;
-	shell->stdin = STDIN_FILENO;
-	shell->stdout = STDOUT_FILENO;
+	shell->std_in = STDIN_FILENO;
+	shell->std_out = STDOUT_FILENO;
 }
 
 int	main(int ac, char **av, char **envp)

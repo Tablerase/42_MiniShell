@@ -69,7 +69,7 @@ graph LR;
     redir_in[<] --- in_file[File] --> cmd --- args --> redir_out[>] --- out_file[File]
 ```
 - input
-  - link to stdin of the command before the next pipe
+  - link to std_in of the command before the next pipe
   - in case multiple `<` input with the same command, dup2 in order of appearance:
     - dup2(fd, 0)
     - dup2(fd2, 0)

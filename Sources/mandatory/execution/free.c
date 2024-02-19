@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:00:20 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 11:25:33 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 13:48:23 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,10 @@ void	free_shell(t_shell *shell)
 	t_table	*tmp;
 
 	i = 0;
-	dup2(shell->stdin, 0);
-	close(shell->stdin);
-	dup2(shell->stdout, 1);
-	close(shell->stdout);
+	dup2(shell->std_in, 0);
+	close(shell->std_in);
+	dup2(shell->std_out, 1);
+	close(shell->std_out);
 	while (shell->table_head != NULL)
 	{
 		if (shell->table_head->infile != NULL)

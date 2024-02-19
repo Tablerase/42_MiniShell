@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:15:29 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 11:25:28 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 13:48:23 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/exec.h"
 
 /**
- * Performs the redirections of stdin and stdout.
+ * Performs the redirections of std_in and std_out.
  * Once an error is detected, a message is displayed and the redirections stop.
  * In bash once an error is detected, the redirections and file creations 
  * immediatly stop.
@@ -29,9 +29,9 @@ int	redirections(t_table *table)
 }
 
 /**
- * Performs the stdin redirections. On success, returns 1. If any error 
+ * Performs the std_in redirections. On success, returns 1. If any error 
  * occured, 0 is returned.
- * @param infile All the stdin redirections of our current command.
+ * @param infile All the std_in redirections of our current command.
 */
 int	redirect_input(char **infile)
 {
@@ -60,9 +60,9 @@ int	redirect_input(char **infile)
 }
 
 /**
- * Performs the stdout redirections. On success, returns 1. If any error 
+ * Performs the std_out redirections. On success, returns 1. If any error 
  * occured, 0 is returned.
- * @param infile All the stdout redirections of our current command.
+ * @param infile All the std_out redirections of our current command.
 */
 int	redirect_output(t_outf **outfile)
 {
