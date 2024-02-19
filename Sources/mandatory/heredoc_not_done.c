@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   heredoc_not_done.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:45:10 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/09 17:27:23 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 11:24:49 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/minishell.h"
+#include "../../Includes/exec.h"
 
 typedef struct s_heredoc
 {
@@ -38,16 +38,6 @@ void	ft_free(t_heredoc *heredoc)
 }
 // if (heredoc->expanded_var != NULL)
 // 	free(heredoc->expanded_var); // not allocated
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] != '\0' && s1[i] == s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
 
 void	initialize(t_heredoc *heredoc)
 {
