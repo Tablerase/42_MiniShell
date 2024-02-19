@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:52:12 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 14:27:38 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:58:57 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,5 +146,5 @@ int	execve_fail(char *path_cmd, char **args_cmd, char **env)
 	free(path_cmd);
 	free_tabtab(args_cmd);
 	free_tabtab(env);
-	exit(errno); // not right for ex "ls hello" when hello does not exist
+	exit(errno);
 }
