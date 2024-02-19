@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:21:03 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 14:27:34 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:31:35 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,26 +127,6 @@ void	starting_execution(t_exec *exec_struct)
 		exec_single_cmd(exec_struct);
 	// else
 	// 	exec_multiple_cmds(exec_struct);
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	t_exec	exec_struct;
-
-	(void)argc;
-	(void)argv;
-	if (init_exec_struct(&exec_struct, envp) == 0)
-	{
-		free_exec_struct(exec_struct);
-		return (0); // error messages
-	}
-	starting_execution(&exec_struct);
-	// print_list(*(exec_struct.env_list), 0);
-	// write(1, "\n\n", 2);
-	// print_list(*(exec_struct.export_list), 1);
-	free_exec_struct(exec_struct);
-	// printf("exit status = %d\n", exec_struct.exit_status);
-	return (0);
 }
 
 // before (or in) starting_execution(), check
