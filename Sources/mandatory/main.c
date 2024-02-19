@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 13:48:38 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 15:40:15 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 void	ft_shell_init(t_shell *shell, char **envp)
 {
-	shell->env = ft_strs_dup(envp);
-	if (!shell->env)
+	shell->env = malloc(sizeof(t_env_list *));
+	if (shell->env == NULL)
 	{
-		ft_putstr_fd("Error: env malloc failed\n", STDERR_FILENO);
+		ft_putstr_fd("Error: malloc shell failed\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
+	*shell->env = init_list(*shell->env, envp);
 	shell->table_head = NULL;
 	shell->heredocs = NULL;
 	shell->std_in = STDIN_FILENO;

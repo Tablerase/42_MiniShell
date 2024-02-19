@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:46:29 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/16 20:15:04 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 14:55:46 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,8 @@ void	parser(
 		}
 		else if (tmp->type == dless)
 		{
-			tmp = tmp->next;
-			cmd_infile(cmd, shell, inf_heredoc, tmp->value);
 			// TODO: heredoc gestion
+			tmp = tmp->next;
 			// ft_here_doc_temporaire(shell, tmp);
 			// cmd_infile(cmd, shell, inf_heredoc, "here_doc");
 		}

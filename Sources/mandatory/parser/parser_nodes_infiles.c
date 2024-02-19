@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:33:43 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/16 16:17:14 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 14:52:56 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void cmd_infile_init(
 	if (type == inf_heredoc)
 	{
 		tmp = shell->heredocs;
+		if (tmp)
+			return ;
 		while (tmp->next)
 			tmp = tmp->next;
 		cmd->infd_head->file = ft_strdup(tmp->heredoc_path);

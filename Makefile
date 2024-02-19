@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+         #
+#    By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/19 14:31:28 by abourgeo         ###   ########.fr        #
+#    Updated: 2024/02/19 15:41:44 by rcutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,6 @@ PARSER = parser/parser.c \
 	parser/parser_nodes_infiles.c \
 	parser/parser_nodes_outfiles.c \
 	parser/parser_args.c \
-	parser/parser_expand.c \
 	parser/parser_debug.c \
 	parser/parser_heredoc_tempo.c \
 

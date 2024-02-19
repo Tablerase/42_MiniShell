@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 12:45:54 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/16 14:28:21 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 15:14:35 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	ft_free_cmds(t_shell *shell)
 
 void	ft_free_all(t_shell *shell)
 {
-	ft_free_strs(shell->env);
+	if (shell->env != NULL)
+		free_list(shell->env);
 	if (shell->table_head != NULL)
 		ft_free_cmds(shell);
 }

@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:46:35 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/13 16:40:59 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 16:39:22 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ e_handler	lexer_handle_dollar(t_lexer *syntax, char *input, int *i)
 			j++;
 		if (j == *i + 1)
 			return (add_last_token(syntax, ft_strdup("$"), word),*i = j, 0);
-		tmp = ft_substr(input, *i + 1, j - *i);
+		tmp = ft_substr(input, *i + 1, j - *i - 1);
 		if (!tmp)
 			return (lexer_error(syntax->head, "malloc error"), error);
 		add_last_token(syntax, tmp, dollar);

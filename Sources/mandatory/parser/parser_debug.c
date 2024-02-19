@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:02:02 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/16 17:41:24 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 15:42:54 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ void	print_cmds(t_shell shell)
 	while (tmp)
 	{
 		printf("📜 Command 📜\n");
-		printf("Command: %s\n", tmp->args[0]);
-		printf("Args: ");
 		if (tmp->args)
+		{
+			printf("Command: %s\n", tmp->args[0]);
+			printf("Args: ");
 			print_strs(tmp->args);
+		}
 		else
 			printf("NULL\n");
 		printf("Input files: ");

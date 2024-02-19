@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/19 14:22:15 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/19 15:02:11 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,23 +82,6 @@ typedef struct s_table
 }	t_table;
 
 /**
- * * Structure for the shell
- * @param env The environment variables of minishell
- * @param std_in The standard input of minishell
- * @param std_out The standard output of minishell
- * @param table_head The commands table
- * @param heredocs The heredocs
-*/
-typedef struct s_shell
-{
-	char		**env;
-	int			std_in;
-	int			std_out;
-	t_table		*table_head;
-	t_heredocs	*heredocs;
-}	t_shell;
-
-/**
  * Structure that stores the list of environment variables.
  * Used by export, env and unset.
  * @param name The name of the variable.
@@ -111,6 +94,23 @@ typedef struct s_env_list
 	char				*value;
 	struct s_env_list	*next;
 }	t_env_list;
+
+/**
+ * * Structure for the shell
+ * @param env The environment variables of minishell
+ * @param std_in The standard input of minishell
+ * @param std_out The standard output of minishell
+ * @param table_head The commands table
+ * @param heredocs The heredocs
+*/
+typedef struct s_shell
+{
+	t_env_list	**env;
+	int			std_in;
+	int			std_out;
+	t_table		*table_head;
+	t_heredocs	*heredocs;
+}	t_shell;
 
 /**
  * Structure that stores all the program's data.

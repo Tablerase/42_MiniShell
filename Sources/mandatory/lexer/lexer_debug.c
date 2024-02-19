@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 15:11:16 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/16 14:35:02 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/19 16:35:13 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	print_tokens(t_token *tokens)
 	printf("\n🔗 List of tokens: 🔗\n\n");
 	while (tokens)
 	{
-		printf("Token: %s\n", tokens->value);
+		printf("Token: |%s|\n", tokens->value);
 		print_tokens_type(*tokens);
 		printf("\t⏬\n");
 		tokens = tokens->next;
