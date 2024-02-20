@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 15:33:55 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/12 16:32:30 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 15:32:02 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
  * @brief Create a new token
  * @param value: Token value
  * @param type: Token type
+ * @param link_with_next: Link the token with the next one
+ * (when no space between)
  * @return t_token*: New token
 */
-t_token	*new_token(char *value, e_token type)
+t_token	*new_token(char *value, e_token type, bool link_with_next)
 {
 	t_token	*token;
 
@@ -28,6 +30,7 @@ t_token	*new_token(char *value, e_token type)
 	token->value = value;
 	token->type = type;
 	token->next = NULL;
+	token->link_with_next = link_with_next;
 	return (token);
 }
 
@@ -36,13 +39,18 @@ t_token	*new_token(char *value, e_token type)
  * @param head: Token list
  * @param value: Token value
  * @param type: Token type
+ * @param link_with_next: Link the token with the next one
 */
-void	add_last_token(t_lexer *syntax, char *value, e_token type)
+void	add_last_token(
+	t_lexer *syntax,
+	char *value,
+	e_token type,
+	bool link_with_next)
 {
 	t_token	*new;
 	t_token	*tmp;
 
-	new = new_token(value, type);
+	new = new_token(value, type, link_with_next);
 	if (!new)
 		return ;
 	if (!syntax->head)

@@ -89,6 +89,24 @@ classDef pipe fill:#f00, color:#000;
 
 ```
 
+### Case:
+
+If element is `WORD` , `DQUOTE` or `DOLLAR` and they are not separated by a space or special character, they are part of the same argument.
+
+Example:
+```sh
+echo Hello$USER
+```
+
+```shell
+Hellorcutte
+```
+
+and not:
+
+```shell
+Hello rcutte
+```
 ## Notions
 
 :bookmark_tabs: [Parser - Definition and Types](https://www.techtarget.com/searchapparchitecture/definition/parser)

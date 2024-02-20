@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 14:07:27 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 11:16:44 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:47:17 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_token
 {
 	char			*value;
 	e_token			type;
+	bool			link_with_next;
 	struct s_token	*next;
 }	t_token;
 
@@ -107,8 +108,13 @@ e_handler	lexer_handle_word(t_lexer *syntax, char *input, int *i);
 
 // Lexer nodes
 
-t_token		*new_token(char *value, e_token type);
-void		add_last_token(t_lexer *syntax, char *value, e_token type);
+t_token		*new_token(char *value, e_token type, bool link_with_next);
+void		add_last_token(
+	t_lexer *syntax,
+	char *value,
+	e_token type,
+	bool link_with_next);
+bool		is_linkable(char c);
 
 // Lexer management
 

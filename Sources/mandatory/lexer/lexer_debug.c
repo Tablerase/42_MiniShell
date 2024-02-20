@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 15:11:16 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/19 16:35:13 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 15:39:09 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ static void	print_tokens_type(t_token token_unit)
 		printf("Type: dquote\n");
 	else if (token_unit.type == word)
 		printf("Type: word\n");
+	if (token_unit.link_with_next == true)
+		printf("Link with next: true\n");
+	else
+		printf("Link with next: false\n");
 }
 
 void	print_tokens(t_token *tokens)

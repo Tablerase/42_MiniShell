@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:46:35 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/19 16:39:22 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 16:16:56 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,20 @@ e_handler	lexer_handle_dollar(t_lexer *syntax, char *input, int *i)
 	{
 		if (input[*i + 1] == '\0')
 		{
-			add_last_token(syntax, ft_strdup("$"), word);
+			add_last_token(syntax, ft_strdup("$"), word, false);
 			(*i)++;
 			return (found);
 		}
 		j = *i + 1;
 		while (input[j] && is_whitespace(input[j]) == false
-			&& is_metachar(input[j]) == false)
+			&& is_metachar(input[j]) == false && is_quotes(input[j]) == false)
 			j++;
 		if (j == *i + 1)
-			return (add_last_token(syntax, ft_strdup("$"), word),*i = j, 0);
+			return (add_last_token(syntax, ft_strdup("$"), word, 0),*i = j, 0);
 		tmp = ft_substr(input, *i + 1, j - *i - 1);
 		if (!tmp)
 			return (lexer_error(syntax->head, "malloc error"), error);
-		add_last_token(syntax, tmp, dollar);
+		add_last_token(syntax, tmp, dollar, is_linkable(input[j]));
 		*i = j;
 		return (found);
 	}
@@ -76,7 +76,7 @@ e_handler	lexer_handle_quote(t_lexer *syntax, char *input, int *i)
 		tmp = ft_substr(input, *i + 1, j - *i - 1);
 		if (!tmp)
 			return (lexer_error(syntax->head, "malloc error"), error);
-		add_last_token(syntax, tmp, quote);
+		add_last_token(syntax, tmp, quote, is_linkable(input[j + 1]));
 		*i = j + 1;
 		return (found);
 	}
@@ -104,7 +104,7 @@ e_handler	lexer_handle_dquote(t_lexer *syntax, char *input, int *i)
 		tmp = ft_substr(input, *i + 1, j - *i - 1);
 		if (!tmp)
 			return (lexer_error(syntax->head, "malloc error"), error);
-		add_last_token(syntax, tmp, dquote);
+		add_last_token(syntax, tmp, dquote, is_linkable(input[j + 1]));
 		*i = j + 1;
 		return (found);
 	}
@@ -120,15 +120,13 @@ e_handler	lexer_handle_word(t_lexer *syntax, char *input, int *i)
 	while (input[j] && is_whitespace(input[j]) == false
 		&& is_quotes(input[j]) == false
 		&& is_metachar(input[j]) == false)
-	{
 		j++;
-	}
 	if (j == *i)
 		return (not_found);
 	tmp = ft_substr(input, *i, j - *i);
 	if (!tmp)
 		return (lexer_error(syntax->head, "malloc error"), error);
-	add_last_token(syntax, tmp, word);
+	add_last_token(syntax, tmp, word, is_linkable(input[j]));
 	*i = j;
 	return (found);
 }
