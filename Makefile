@@ -6,7 +6,7 @@
 #    By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/20 15:01:24 by abourgeo         ###   ########.fr        #
+#    Updated: 2024/02/20 18:02:31 by abourgeo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,8 @@ SRC = main.c \
 		$(LEXER) \
 		$(PARSER) \
 		$(EXECUTION) \
+		$(PIPES) \
+		$(BUILTIN) \
 
 # objet libft
 OBJ = $(addprefix $(SRC_PATH)/,$(SRC:.c=.o))
@@ -91,22 +93,27 @@ PARSER = parser/parser.c \
 	parser/parser_args.c \
 	parser/parser_debug.c \
 
-EXECUTION = execution/builtin.c \
-		execution/create_env_list.c \
-		execution/exit.c \
-		execution/free.c \
-		execution/single_process.c \
-		execution/utils_exec_struct.c \
-		execution/wilcards_bonus.c \
-		execution/export.c \
-		execution/redirections.c \
-		execution/utils_builtin.c \
-		execution/utils_pipe.c \
-		execution/pipex.c \
-		execution/utils_pipex.c \
-		execution/utils_heredoc.c \
-		execution/heredoc.c \
-		execution/execution.c \
+EXECUTION = execution/execution_expand_line_heredoc.c \
+			execution/execution_free.c \
+			execution/execution_heredoc.c \
+			execution/execution_init.c \
+			execution/execution_redirections.c \
+			execution/execution_start.c \
+
+PIPES = pipes/pipes_clear_exit.c \
+		pipes/pipes_execve_args_env.c \
+		pipes/pipes_execve_call.c \
+		pipes/pipes_execve_path.c \
+		pipes/pipes_multipipes.c \
+		pipes/pipes_utils.c \
+
+BUILTIN =	builtin/builtin_call_builtins.c \
+			builtin/builtin_create_list.c \
+			builtin/builtin_env_unset.c \
+			builtin/builtin_exit.c \
+			builtin/builtin_export.c \
+			builtin/builtin_pwd_cd_echo.c \
+			builtin/builtin_utils_export.c \
 
 ###################### Bonus ########################
 

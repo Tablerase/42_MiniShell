@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:15:29 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 16:56:25 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:18:19 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,30 +56,6 @@ int	redirect_input(t_inf *infile)
 		close(fd_infile);
 		tmp = tmp->next;
 	}
-	return (1);
-}
-
-int	add_heredocpath(t_heredocs *heredocs, char *filename)
-{
-	t_heredocs	*tmp;
-
-	tmp = heredocs;
-	if (tmp == NULL)
-	{
-		tmp = malloc(sizeof(t_heredocs));
-		if (tmp == NULL)
-			return (0);
-		tmp->heredoc_path = filename;
-		tmp->next = NULL;
-		return (1);
-	}
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = malloc(sizeof(t_heredocs));
-	if (tmp->next == NULL)
-		return (0);
-	tmp->next->heredoc_path = filename;
-	tmp->next->next = NULL;
 	return (1);
 }
 

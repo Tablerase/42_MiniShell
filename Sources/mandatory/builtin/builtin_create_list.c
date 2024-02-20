@@ -1,51 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_env_list.c                                  :+:      :+:    :+:   */
+/*   builtin_create_list.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/13 16:25:25 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 14:27:20 by abourgeo         ###   ########.fr       */
+/*   Created: 2024/02/20 17:49:11 by abourgeo          #+#    #+#             */
+/*   Updated: 2024/02/20 17:49:59 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/minishell.h"
 
 /**
- * Filling the list of our environment variables with the env variable 
- * from main. On error, returns NULL. On success, returns the address of 
- * the first environment variable.
- * @param list The first element of our list of variable environment.
- * @param env Our environment variable.
+ * Sorts the export_list which will be printed when the
+ * export command is called.
+ * @param export_list The list we are sorting.
 */
-t_env_list	*init_list(t_env_list *list, char **env)
+void	sort_export_list(t_env_list **export_list)
 {
-	int		i;
-	int		sep;
-	char	*name;
-	char	*value;
+	t_env_list	*tmp_list;
+	t_env_list	*new_pos;
+	t_env_list	*min;
+	char		*tmp_val;
 
-	i = 0;
-	sep = 0;
-	list = NULL;
-	if (env == NULL)
-		return (NULL);
-	while (env[i] != NULL)
+	tmp_list = *export_list;
+	while (tmp_list != NULL)
 	{
-		sep = search_char(env[i], '=');
-		name = ft_substr(env[i], 0, sep);
-		value = ft_substr(env[i], sep + 1, ft_strlen(env[i]));
-		if (name == NULL || value == NULL || add_node(&list, name, value) == 0)
+		new_pos = tmp_list->next;
+		min = tmp_list;
+		while (new_pos != NULL)
 		{
-			free(name);
-			free(value);
-			free_list(&list);
-			return (NULL);
+			if (ft_strcmp(min->name, new_pos->name) > 0)
+				min = new_pos;
+			new_pos = new_pos->next;
 		}
-		i++;
+		tmp_val = min->name;
+		min->name = tmp_list->name;
+		tmp_list->name = tmp_val;
+		tmp_val = min->value;
+		min->value = tmp_list->value;
+		tmp_list->value = tmp_val;
+		tmp_list = tmp_list->next;
 	}
-	return (list);
 }
 
 /**

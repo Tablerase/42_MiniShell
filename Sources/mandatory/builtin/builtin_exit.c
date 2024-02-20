@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 14:58:23 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 09:01:56 by abourgeo         ###   ########.fr       */
+/*   Created: 2024/02/20 17:23:46 by abourgeo          #+#    #+#             */
+/*   Updated: 2024/02/20 17:24:10 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,3 @@ int	exit_code_exit(char *str)
 	number = number % 256;
 	return ((int)((number + 256) % 256));
 }
-
-// Should display exit if main process such as with CTRL-D
-// max for exit 9223372036854775807

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/16 22:43:52 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 09:09:36 by abourgeo         ###   ########.fr       */
+/*   Created: 2024/02/20 17:25:15 by abourgeo          #+#    #+#             */
+/*   Updated: 2024/02/20 17:27:57 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,44 +111,6 @@ int	add_new_var(t_exec *exec_struct, char *name, char *value, int sep)
 		}
 	}
 	return (1);
-}
-
-/**
- * Checks if the name given is already an environment variable and performs 
- * the export if it is the case.
- * @param exec_struct Contains the export_list and the env_list.
- * @param name The name of the environment variable.
- * @param value The value (if specified, else NULL) of the environment 
- * variable.
- * @param sep If it equals -1, env_list should not be updated.
-*/
-int	name_exists(t_exec *exec_struct, char *name, char *value, int sep)
-{
-	t_env_list	*tmp;
-	char		*new_value;
-
-	tmp = *(exec_struct->export_list);
-	while (tmp != NULL)
-	{
-		if (ft_strcmp(tmp->name, name) == 0)
-		{
-			if (sep == -1)
-				return (free(name), 1);
-			new_value = ft_strdup(value);
-			if (tmp->value == NULL)
-			{
-				if (add_node(exec_struct->shell->env, name, new_value) == 0)
-					return (free(name), free(new_value), 1);
-			}
-			else
-				change_list_value(exec_struct->shell->env, name, new_value);
-			free(tmp->value);
-			tmp->value = value;
-			return (1);
-		}
-		tmp = tmp->next;
-	}
-	return (0);
 }
 
 /**
