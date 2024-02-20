@@ -6,7 +6,7 @@
 #    By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/19 19:27:16 by rcutte           ###   ########.fr        #
+#    Updated: 2024/02/20 14:33:42 by rcutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -186,6 +186,11 @@ exec_bonus: clean bonus exec_msg
 
 valgrind: clean all
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s \
+	--track-origins=yes --trace-children=yes --track-fds=yes --track-origins=yes \
+	./$(NAME) $(ARGS)
+
+valgrind_definitely: clean all
+	@valgrind --leak-check=full --show-leak-kinds=definite --track-origins=yes -s \
 	--track-origins=yes --trace-children=yes --track-fds=yes --track-origins=yes \
 	./$(NAME) $(ARGS)
 

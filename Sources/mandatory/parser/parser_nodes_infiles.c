@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:33:43 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/19 14:52:56 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 14:30:13 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void cmd_infile_init(
 	if (type == inf_heredoc)
 	{
 		tmp = shell->heredocs;
-		if (tmp)
+		if (!tmp)
 			return ;
 		while (tmp->next)
 			tmp = tmp->next;

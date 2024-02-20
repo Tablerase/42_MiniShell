@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:46:29 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 09:20:40 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 14:17:33 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/minishell.h"
+
+char *get_heredoc_path(t_shell *shell)
+{
+	t_heredocs *tmp;
+
+	tmp = shell->heredocs;
+	while (tmp->next)
+		tmp = tmp->next;
+	printf("heredoc_path: %s\n", tmp->heredoc_path);
+	return (tmp->heredoc_path);
+}
 
 /**
  * @brief Append an argument to the command arguments array
@@ -71,10 +82,12 @@ void	parser(
 		}
 		else if (tmp->type == dless)
 		{
-			// TODO: heredoc gestion
 			tmp = tmp->next;
-			// ft_here_doc_temporaire(shell, tmp);
-			// cmd_infile(cmd, shell, inf_heredoc, "here_doc");
+			if (tmp->type == word)
+				create_heredoc(shell, tmp->value, true);
+			else
+				create_heredoc(shell, tmp->value, false);
+			cmd_infile(cmd, shell, inf_heredoc, NULL);
 		}
 		else
 		{
