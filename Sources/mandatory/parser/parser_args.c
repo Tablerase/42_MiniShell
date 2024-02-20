@@ -6,79 +6,11 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:22:10 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 18:23:48 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 19:47:28 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/minishell.h"
-
-static char	*expand_dquote(char *arg, t_shell *shell)
-{
-	char	*result;
-	char	*expanded;
-	char	*tmp;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	expanded = NULL;
-	tmp = NULL;
-	result = ft_strdup("");
-	while (arg[i] != '\0')
-	{
-		if (arg[i] == '$')
-		{
-			j = 1;
-			if (arg[i + j] == '?')
-			{
-				expanded = ft_itoa(shell->exit_code);
-				tmp = result;
-				result = ft_strjoin(result, expanded);
-				free(tmp);
-				free(expanded);
-				i += 2;
-			}
-			else
-			{
-				while (arg[i + j] != '\0' && is_whitespace(arg[i + j]) == false)
-					j++;
-				if (j > 1)
-				{
-					tmp = ft_substr(arg, i + 1, j - 1);
-					expanded = ft_getenv(tmp, shell->env);
-					if (expanded == NULL)
-						expanded = ft_strdup("");
-					else
-						expanded = ft_strdup(expanded);
-					free(tmp);
-					tmp = result;
-					result = ft_strjoin(result, expanded);
-					free(tmp);
-					free(expanded);
-				}
-				else
-				{
-					tmp = result;
-					result = ft_strjoin(result, "$");
-					free(tmp);
-				}
-				i += j;
-				continue;
-			}
-		}
-		else
-		{
-			expanded = ft_substr(arg, i, 1);
-			tmp = result;
-			result = ft_strjoin(result, expanded);
-			free(tmp);
-			free(expanded);
-		}
-		i++;
-	}
-	return (result);
-}
 
 /**
  * @brief Expand the dollar and double quote tokens

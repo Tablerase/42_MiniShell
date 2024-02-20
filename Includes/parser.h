@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 18:36:14 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 18:33:34 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:47:10 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_table	*cmd_add(t_table **head);
 
 // Expansions of $variables
 
+char	*expand_dquote(char *arg, t_shell *shell);
 char	*arg_expand(t_shell *shell, char *arg, e_token type);
 t_token	*get_expanded_values(
 	t_token *token,

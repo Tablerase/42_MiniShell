@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 16:09:03 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/16 16:20:59 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 18:49:14 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param type The type of the output file (outf_file or inf_heredoc)
  * @param filename_path The path of the output file
 */
-static void cmd_outfile_init(
+static void	cmd_outfile_init(
 	t_table *cmd,
 	e_outfile type,
 	char *filename_path)
@@ -45,7 +45,7 @@ static void cmd_outfile_init(
  * @param type The type of the output file (outf_file or outf_append)
  * @param filename_path The path of the output file
 */
-static void cmd_outfile_add(
+static void	cmd_outfile_add(
 	t_table *cmd,
 	e_outfile type,
 	char *filename_path)

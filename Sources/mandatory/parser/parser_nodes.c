@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:46:17 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/16 13:38:01 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 19:45:44 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * @brief Create a new command structure
  * @return The new command
  */
-t_table *new_cmd(void)
+t_table	*new_cmd(void)
 {
 	t_table	*cmd;
 

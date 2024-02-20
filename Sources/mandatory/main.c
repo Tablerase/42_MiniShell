@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 18:33:45 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:37:20 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	main(int ac, char **av, char **envp)
 		{
 			if (lexer(input, &lexic) == true)
 			{
-				print_tokens(lexic.head);
+				// print_tokens(lexic.head);
 				parser(&lexic, &shell);
 				print_cmds(shell);
 				free_tokens(lexic.head);

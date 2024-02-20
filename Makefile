@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+         #
+#    By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/20 18:33:05 by abourgeo         ###   ########.fr        #
+#    Updated: 2024/02/20 19:48:36 by rcutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,6 +94,7 @@ PARSER = parser/parser.c \
 	parser/parser_args.c \
 	parser/parser_debug.c \
 	parser/parser_expansions.c \
+	parser/parser_expand_dquote.c \
 
 EXECUTION = execution/execution_expand_line_heredoc.c \
 			execution/execution_free.c \

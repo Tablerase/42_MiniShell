@@ -6,14 +6,14 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 18:02:14 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 18:03:59 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 20:48:10 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/minishell.h"
 
 // inside of get_expanded_values loop
-static void get_exp_val_inside_loop(
+static void	get_exp_val_inside_loop(
 	t_shell *shell,
 	t_token **tmp,
 	char **expanded,
@@ -52,11 +52,15 @@ t_token	*get_expanded_values(
 
 	tmp = token;
 	*str_gathered = ft_strdup(tmp->value);
+	if (tmp->type == dollar || tmp->type == dquote)
+		*str_gathered = arg_expand(shell, tmp->value, tmp->type);
+	else
+		*str_gathered = ft_strdup(tmp->value);
 	while (tmp)
 	{
 		if (tmp->link_with_next == true && (tmp->next->type == word
-			|| tmp->next->type == dollar || tmp->next->type == dquote
-			|| tmp->next->type == quote))
+				|| tmp->next->type == dollar || tmp->next->type == dquote
+				|| tmp->next->type == quote))
 		{
 			get_exp_val_inside_loop(shell, &tmp, &expanded, str_gathered);
 		}

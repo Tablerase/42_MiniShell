@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_nodes_infiles.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:33:43 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 16:59:06 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:50:06 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @param type The type of the input file (inf_file or inf_heredoc)
  * @param filename_path The path of the input file
 */
-static void cmd_infile_init(
+static void	cmd_infile_init(
 	t_table *cmd,
 	t_shell *shell,
 	e_infile type,
@@ -55,7 +55,7 @@ static void cmd_infile_init(
  * @param type The type of the input file (inf_file or inf_heredoc)
  * @param filename_path The path of the input file
 */
-static void cmd_infile_add(
+static void	cmd_infile_add(
 	t_table *cmd,
 	t_shell *shell,
 	e_infile type,
