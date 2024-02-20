@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:25:59 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 17:27:02 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:56:20 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ void	ft_unset_list(t_env_list **list, char *name)
 	t_env_list	*tmp;
 	t_env_list	*new_next;
 
+	if (list == NULL || *list == NULL || (*list)->name == NULL)
+		return ;
 	tmp = *list;
 	if (ft_strcmp(tmp->name, name) == 0)
 	{
 		*list = (*list)->next;
 		free(tmp->name);
-		free(tmp->value);
-		free(tmp);
-		return ;
+		return (free(tmp->value), free(tmp));
 	}
 	while (tmp->next != NULL)
 	{
