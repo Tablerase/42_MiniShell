@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 11:30:46 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 12:34:24 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,4 +116,3 @@ int	main(int ac, char **av, char **envp)
 // nl : echo $? reset ?
 // heredoc
 // wilcards ?
-// leaks parser_args.c line 90 when expanding $?

@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:22:10 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 09:22:04 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 12:31:12 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static char	*arg_expand(t_shell *shell, char *arg, e_token type)
 	if (type == dollar)
 	{
 		if (arg[0] == '?')
-			expanded = ft_itoa(shell->exit_code);
+			return (ft_itoa(shell->exit_code));
 		else
 			expanded = ft_getenv(arg, shell->env);
 		if (expanded == NULL)

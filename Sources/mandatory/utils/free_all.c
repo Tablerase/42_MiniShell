@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 12:45:54 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 11:25:36 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 12:39:52 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,7 @@ void	ft_free_all(t_shell *shell)
 	free(shell->env);
 	if (shell->table_head != NULL)
 		ft_free_cmds(shell);
+	close(shell->std_in);
+	close(shell->std_out);
+	clear_history();
 }

@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:21:03 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 11:33:45 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 12:28:21 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	executing_single_builtin(t_exec *exec_struct)
 	}
 	else
 		status = 1;
-	exec_struct->shell->exit_code = status; // not good if redirect bad ?
+	exec_struct->shell->exit_code = status;
 	return ;
 }
 
