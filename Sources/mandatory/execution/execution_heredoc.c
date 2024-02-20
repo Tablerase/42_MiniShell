@@ -6,21 +6,11 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:10:57 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 19:53:34 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:54:43 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/minishell.h"
-
-void	sig_handler_heredoc(int signum)
-{
-	if (signum == SIGINT)
-	{
-		write(2, "\n", 1);
-		g_signal = SIGINT;
-		close(0);
-	}
-}
 
 int	create_heredoc(t_shell *shell, char *lim, bool expand)
 {

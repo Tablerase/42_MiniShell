@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 19:46:22 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:54:47 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,16 @@ void	sig_handler_non_interactive(int signum)
 	{
 		write(2, "Quit (core dumped)\n", 19);
 		g_signal = SIGQUIT;
+	}
+}
+
+void	sig_handler_heredoc(int signum)
+{
+	if (signum == SIGINT)
+	{
+		write(2, "\n", 1);
+		g_signal = SIGINT;
+		close(0);
 	}
 }
 
