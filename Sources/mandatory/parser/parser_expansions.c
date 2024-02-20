@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 18:02:14 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 20:48:10 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 21:11:24 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ t_token	*get_expanded_values(
 	char	*expanded;
 
 	tmp = token;
-	*str_gathered = ft_strdup(tmp->value);
 	if (tmp->type == dollar || tmp->type == dquote)
+	{
 		*str_gathered = arg_expand(shell, tmp->value, tmp->type);
+	}
 	else
 		*str_gathered = ft_strdup(tmp->value);
 	while (tmp)

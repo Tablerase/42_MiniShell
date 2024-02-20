@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:46:29 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 20:49:00 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 21:07:26 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,28 @@ static void	parse_word_and_quotes(t_token **token, t_table *cmd, t_shell *shell)
 		cmd_arg_append(shell, cmd, (*token)->value, word);
 }
 
+static void	parse_signs_add_file(
+	t_token *token,
+	t_table *cmd,
+	t_shell *shell,
+	char **expanded)
+{
+	if (token->type == greater)
+		cmd_outfile(cmd, outf_file, *expanded);
+	else if (token->type == dgreater)
+		cmd_outfile(cmd, outf_append, *expanded);
+	else if (token->type == less)
+		cmd_infile(cmd, shell, inf_file, *expanded);
+	else if (token->type == dless)
+	{
+		if (token->type == word)
+			create_heredoc(shell, *expanded, true);
+		else
+			create_heredoc(shell, *expanded, false);
+		cmd_infile(cmd, shell, inf_heredoc, NULL);
+	}
+}
+
 static void	parse_signs(
 	t_token **tmp,
 	t_table *cmd,
@@ -59,25 +81,13 @@ static void	parse_signs(
 	else
 	{
 		if ((*tmp)->next->type == dollar || (*tmp)->next->type == dquote)
-			(*expanded) = arg_expand(shell, (*tmp)->next->value, (*tmp)->next->type);
+			(*expanded) = arg_expand(shell, \
+				(*tmp)->next->value, (*tmp)->next->type);
 		else
 			(*expanded) = ft_strdup((*tmp)->next->value);
 		(*tmp) = (*tmp)->next;
 	}
-	if (tmp_old->type == greater)
-		cmd_outfile(cmd, outf_file, *expanded);
-	else if (tmp_old->type == dgreater)
-		cmd_outfile(cmd, outf_append, *expanded);
-	else if (tmp_old->type == less)
-		cmd_infile(cmd, shell, inf_file, *expanded);
-	else if (tmp_old->type == dless)
-	{
-		if (tmp_old->type == word)
-			create_heredoc(shell, *expanded, true);
-		else
-			create_heredoc(shell, *expanded, false);
-		cmd_infile(cmd, shell, inf_heredoc, NULL);
-	}
+	parse_signs_add_file(tmp_old, cmd, shell, expanded);
 	free(*expanded);
 }
 
@@ -96,7 +106,6 @@ void	parser(
 	t_table	*cmd;
 	char	*expanded;
 
-	expanded = NULL;
 	tmp = lexic->head;
 	cmd = cmd_add(&shell->table_head);
 	while (tmp != NULL)
