@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:21:03 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 10:24:45 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 11:33:45 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,43 @@ int	builtin_execution(t_exec *exec_struct, t_table *table)
 	return (0);
 }
 
+void	executing_single_builtin(t_exec *exec_struct)
+{
+	int	status;
+
+	status = redirections(exec_struct->shell, exec_struct->shell->table_head);
+	if (status == 1)
+	{
+		if (ft_strcmp(EXIT, exec_struct->shell->table_head->cmd) == 0)
+			write(2, "exit\n", 5);
+		status = builtin_execution(exec_struct,
+				exec_struct->shell->table_head);
+	}
+	else
+		status = 1;
+	exec_struct->shell->exit_code = status; // not good if redirect bad ?
+	return ;
+}
+
+void	executing_no_command(t_exec *exec_struct)
+{
+	int	status;
+
+	status = redirections(exec_struct->shell, exec_struct->shell->table_head);
+	exec_struct->shell->exit_code = status;
+	return ;
+}
+
+void	update_exit_code_single_child_process(t_exec *exec_struct, int status)
+{
+	if (WIFEXITED(status) == 1)
+		exec_struct->shell->exit_code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status) == 1)
+		exec_struct->shell->exit_code = 128 + g_signal;
+	else
+		exec_struct->shell->exit_code = 0;
+}
+
 /**
  * When we have a single command (no pipe), we will directly call a builtin
  * if one is called. Else we create a child process to execute the command.
@@ -74,23 +111,9 @@ void	exec_single_cmd(t_exec *exec_struct)
 
 	status = 0;
 	if (exec_struct->shell->table_head->cmd == NULL)
-	{
-		status = redirections(exec_struct->shell, exec_struct->shell->table_head);
-		exec_struct->shell->exit_code = status;
-		return ;
-	}
-	else if (is_builtin(exec_struct->shell->table_head->cmd) == 1)
-	{
-		status = redirections(exec_struct->shell, exec_struct->shell->table_head);
-		if (status == 1)
-		{
-			if (ft_strcmp(EXIT, exec_struct->shell->table_head->cmd) == 0)
-				write(2, "exit\n", 5);
-			status = builtin_execution(exec_struct, exec_struct->shell->table_head);
-		}
-		exec_struct->shell->exit_code = status;
-		return ;
-	}
+		return (executing_no_command(exec_struct));
+	if (is_builtin(exec_struct->shell->table_head->cmd) == 1)
+		return (executing_single_builtin(exec_struct));
 	else if (exec_struct->shell->table_head->cmd != NULL
 		&& exec_struct->shell->table_head->cmd[0] != '\0')
 	{
@@ -104,14 +127,10 @@ void	exec_single_cmd(t_exec *exec_struct)
 		if (pid == 0)
 			single_process(exec_struct, exec_struct->shell->table_head);
 		signal(SIGINT, &sig_handler_non_interactive);
+		signal(SIGQUIT, &sig_handler_non_interactive);
 		waitpid(pid, &status, 0);
 	}
-	if (WIFEXITED(status) == 1)
-		exec_struct->shell->exit_code = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status) == 1)
-		exec_struct->shell->exit_code = 128 + g_signal;
-	else
-		exec_struct->shell->exit_code = 0;
+	update_exit_code_single_child_process(exec_struct, status);
 }
 
 /**
@@ -141,11 +160,3 @@ void	starting_execution(t_exec *exec_struct)
 	else
 		exec_multiple_cmds(exec_struct, nb_cmd);
 }
-
-// before (or in) starting_execution(), check
-// for empty line or empty cmd (for ex just "")
-// check for shell NULL
-// isatty before readline (possible when reading for heredoc)
-// handle echo $?
-// protect write ?
-// When error malloc error etc, should we redispay prompt or exit program ?

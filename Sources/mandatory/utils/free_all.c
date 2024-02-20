@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 12:45:54 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/19 20:56:03 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 11:25:36 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	ft_free_all(t_shell *shell)
 {
 	if (shell->env != NULL)
 		free_list(shell->env);
+	free(shell->env);
 	if (shell->table_head != NULL)
 		ft_free_cmds(shell);
 }

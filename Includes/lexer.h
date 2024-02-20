@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 14:07:27 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/16 17:15:09 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 11:16:44 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ typedef struct s_lexer
 
 // Lexer
 
-bool	lexer(char *input, t_lexer *syntax);
-bool	lexer_rinput(t_lexer *syntax, char *input);
-bool	lexer_check_order(t_token *head);
+bool		lexer(char *input, t_lexer *syntax);
+bool		lexer_rinput(t_lexer *syntax, char *input);
+bool		lexer_check_order(t_token *head);
 
 // Lexer handlers
 
@@ -107,23 +107,23 @@ e_handler	lexer_handle_word(t_lexer *syntax, char *input, int *i);
 
 // Lexer nodes
 
-t_token	*new_token(char *value, e_token type);
-void	add_last_token(t_lexer *syntax, char *value, e_token type);
+t_token		*new_token(char *value, e_token type);
+void		add_last_token(t_lexer *syntax, char *value, e_token type);
 
 // Lexer management
 
-void	free_tokens(t_token *tokens);
-void	lexer_error(t_token *head, char *message);
+void		free_tokens(t_token *tokens);
+void		lexer_error(t_token *head, char *message);
 
 // Lexer utils
 
-bool	is_whitespace(char c);
-bool	is_quotes(char c);
-bool	is_end_of_str(char *str);
-bool	is_metachar(char c);
+bool		is_whitespace(char c);
+bool		is_quotes(char c);
+bool		is_end_of_str(char *str);
+bool		is_metachar(char c);
 
 // Lexer debug
 
-void	print_tokens(t_token *tokens);
+void		print_tokens(t_token *tokens);
 
 #endif

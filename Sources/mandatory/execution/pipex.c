@@ -6,11 +6,29 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:38:49 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 10:24:55 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 11:18:52 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/minishell.h"
+
+int	**create_pipex_fd(int *pid, int nb_cmd)
+{
+	int	i;
+	int	**fd;
+
+	i = 0;
+	fd = malloc((nb_cmd - 1) * sizeof(int *));
+	if (fd == NULL)
+		return (perror("malloc"), NULL);
+	while (i < nb_cmd - 1)
+	{
+		fd[i++] = malloc(2 * sizeof(int));
+		if (fd[i - 1] == NULL)
+			return (error_mallocing_fd(pid, fd, i), NULL);
+	}
+	return (fd);
+}
 
 t_pipex	*init_pipex(t_exec *exec_struct, int nb_cmd)
 {
@@ -23,16 +41,9 @@ t_pipex	*init_pipex(t_exec *exec_struct, int nb_cmd)
 	pid = malloc(nb_cmd * sizeof(int));
 	if (pid == NULL)
 		return (perror("malloc"), NULL);
-	fd = malloc((nb_cmd - 1) * sizeof(int *));
+	fd = create_pipex_fd(pid, nb_cmd);
 	if (fd == NULL)
-		return (perror("malloc"), NULL);
-	while (i < nb_cmd - 1)
-	{
-		fd[i++] = malloc(2 * sizeof(int));
-		if (fd[i - 1] == NULL)
-			return (NULL); // clear it
-	}
-	i = 0;
+		return (NULL);
 	while (i < nb_cmd - 1)
 		if (pipe(fd[i++]) == -1)
 			return (error_forking(pid, fd, i), NULL);
@@ -83,6 +94,7 @@ int	command_in_pipe(t_pipex *pipex, t_table *table)
 void	start_child_process(t_pipex *pipex, t_table *table_cmd, int nb_child)
 {
 	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	pipex->nb_child = nb_child;
 	redirect_into_pipes(pipex, nb_child);
 	if (redirections(pipex->exec_struct->shell, table_cmd) == 0)
@@ -120,5 +132,6 @@ void	exec_multiple_cmds(t_exec *exec_struct, int nb_cmd)
 		i++;
 	}
 	signal(SIGINT, &sig_handler_non_interactive);
+	signal(SIGQUIT, &sig_handler_non_interactive);
 	exec_struct->shell->exit_code = waiting(pipex, i);
 }

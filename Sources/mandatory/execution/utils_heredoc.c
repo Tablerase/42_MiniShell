@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:48:48 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 09:14:25 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 10:58:51 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,26 @@ void	initialize_filling_heredoc(t_filling_heredoc *heredoc)
 	heredoc->fd = -1;
 }
 
+int	expand_exit_code_var_heredoc(t_shell *shell, t_filling_heredoc *heredoc,
+		int *i, int j)
+{
+	j++;
+	heredoc->var_name = ft_substr(heredoc->line, *i + 1, j - *i - 1);
+	if (heredoc->var_name == NULL)
+		return (0);
+	heredoc->expanded_var = ft_itoa(shell->exit_code);
+	if (create_new_line(heredoc, i, j) == 0)
+		return (0);
+	return (1);
+}
+
 int	affect_var_name(t_shell *shell, t_filling_heredoc *heredoc, int *i)
 {
 	int	j;
 
 	j = *i + 1;
 	if (heredoc->line[j] == '?')
-	{
-		j++;
-		heredoc->var_name = ft_substr(heredoc->line, *i + 1, j - *i - 1);
-		if (heredoc->var_name == NULL)
-			return (0);
-		heredoc->expanded_var = ft_itoa(shell->exit_code);
-		if (create_new_line(heredoc, i, j) == 0)
-			return (0);
-		return (1);
-	}
+		return (expand_exit_code_var_heredoc(shell, heredoc, i, j));
 	while (heredoc->line[j] != '\0' && (ft_isalpha(heredoc->line[j]) == 1
 			|| (j != *i + 1 && ft_isalnum(heredoc->line[j]) == 1)
 			|| heredoc->line[j] == '_'))

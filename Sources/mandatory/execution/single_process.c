@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:52:12 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 09:44:07 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 10:56:12 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	single_process(t_exec *exec_struct, t_table *table)
 	int		redir;
 
 	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	redir = redirections(exec_struct->shell, table);
 	if (redir == 0 || is_a_directory(table->cmd) == 1)
 	{
@@ -35,12 +36,7 @@ int	single_process(t_exec *exec_struct, t_table *table)
 	}
 	path_cmd = find_path(exec_struct->shell->env, table->cmd);
 	if (path_cmd == NULL)
-	{
-		write(2, table->cmd, ft_strlen(table->cmd));
-		write(2, ": Command not found\n", 20);
-		free_process(*exec_struct, path_cmd, NULL, NULL);
-		exit(127);
-	}
+		command_not_found(exec_struct, table, path_cmd);
 	args_cmd = get_args_cmd(table->args);
 	env = copy_env(exec_struct->shell->env);
 	free_process(*exec_struct, NULL, NULL, NULL);

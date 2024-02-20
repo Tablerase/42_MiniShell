@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:30:58 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 10:25:09 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 11:18:21 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,12 @@ void		starting_execution(t_exec *xec_struct);
 
 // pipex.c
 
-t_pipex		*create_pipex_fds(t_exec *exec_struct, int nb_cmd);
+int			**create_pipex_fd(int *pid, int nb_cmd);
+t_pipex		*init_pipex(t_exec *exec_struct, int nb_cmd);
 int			builtin_in_pipe(t_pipex *pipex, t_table *table_cmd);
 int			command_in_pipe(t_pipex *pipex, t_table *table);
-void		start_child_process(t_pipex *pipex, t_table *table_cmd, int nb_child);
+void		start_child_process(t_pipex *pipex, t_table *table_cmd,
+				int nb_child);
 void		exec_multiple_cmds(t_exec *exec_struct, int nb_cmd);
 
 // redirection.c
@@ -138,6 +140,7 @@ int			ft_strcmp(const char *s1, const char *s2);
 // utils_pipex.c
 
 void		error_forking(int *pid, int **fd, int i);
+void		error_mallocing_fd(int *pid, int **fd, int i);
 void		clear_all_fds(int **fd, int nb_fd);
 int			exit_child_process(t_pipex *pipex, int status);
 void		redirect_into_pipes(t_pipex *pipex, int nb_child);
@@ -157,6 +160,8 @@ char		*find_path(t_env_list **env_list, char *cmd);
 char		*search_path(char *path, char *cmd);
 char		*try_path(char *first_part, char *cmd);
 int			size_list(t_env_list **list);
+int			command_not_found(t_exec *exec_struct, t_table *table,
+				char *path_cmd);
 
 // signals handler
 

@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:39:40 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 08:46:31 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 11:08:41 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,25 @@ void	error_forking(int *pid, int **fd, int i)
 		{
 			close(fd[i][0]);
 			close(fd[i][1]);
+			free(fd[i]);
 		}
 		free(fd);
 		free(pid);
 		return ;
 	}
 	perror("fork");
+}
+
+void	error_mallocing_fd(int *pid, int **fd, int i)
+{
+	{
+		while (--i >= 0)
+			free(fd[i]);
+		free(fd);
+		free(pid);
+		return ;
+	}
+	perror("malloc");
 }
 
 void	clear_all_fds(int **fd, int nb_fd)
@@ -87,5 +100,7 @@ int	waiting(t_pipex *pipex, int nb_child)
 	free(pipex);
 	if (WIFEXITED(status) != 0)
 		return (WEXITSTATUS(status));
-	return (0); // ?
+	if (WIFSIGNALED(status) != 0)
+		return (status + g_signal);
+	return (0);
 }

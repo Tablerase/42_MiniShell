@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 19:55:44 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 18:59:45 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 10:56:28 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,12 @@ int	size_list(t_env_list **list)
 		tmp = tmp->next;
 	}
 	return (len);
+}
+
+int	command_not_found(t_exec *exec_struct, t_table *table, char *path_cmd)
+{
+	write(2, table->cmd, ft_strlen(table->cmd));
+	write(2, ": Command not found\n", 20);
+	free_process(*exec_struct, path_cmd, NULL, NULL);
+	exit(127);
 }

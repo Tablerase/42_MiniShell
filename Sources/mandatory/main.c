@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 10:24:37 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 11:30:46 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	ft_shell_init(t_shell *shell, char **envp)
 	*shell->env = init_list(*shell->env, envp);
 	shell->table_head = NULL;
 	shell->heredocs = NULL;
-	shell->std_in = STDIN_FILENO;
-	shell->std_out = STDOUT_FILENO;
+	shell->std_in = dup(STDIN_FILENO);
+	shell->std_out = dup(STDOUT_FILENO);
 	shell->exit_code = 0;
 }
 
@@ -46,8 +46,13 @@ void	sig_handler_non_interactive(int signum)
 {
 	if (signum == SIGINT)
 	{
-		write(1, "\n", 1);
+		write(2, "\n", 1);
 		g_signal = SIGINT;
+	}
+	if (signum == SIGQUIT)
+	{
+		write(2, "Quit (core dumped)\n", 19);
+		g_signal = SIGQUIT;
 	}
 }
 
@@ -71,16 +76,17 @@ int	main(int ac, char **av, char **envp)
 	while(1)
 	{
 		signal(SIGINT, &sig_handler_interactive);
+		signal(SIGQUIT, SIG_IGN);
 		input = readline(PROMPT);
-		if (g_signal != 0)
-		{
-			shell.exit_code = g_signal + 128;
-			g_signal = 0;
-		}
 		if (input == NULL) // ctrl-D with no text
 		{
 			write(2, "exit\n", 5);
 			break ;
+		}
+		if (g_signal != 0)
+		{
+			shell.exit_code = g_signal + 128;
+			g_signal = 0;
 		}
 		if (ft_strlen(input) > 0)
 		{
@@ -98,6 +104,8 @@ int	main(int ac, char **av, char **envp)
 			add_history(input);
 			free(input);
 		}
+		dup2(shell.std_in, 0);
+		dup2(shell.std_out, 1);
 	}
 	ft_free_all(&shell);
 	free_exec_struct(exec_struct);
@@ -105,3 +113,7 @@ int	main(int ac, char **av, char **envp)
 }
 
 // EXPORT ISSUE : PATH="DEFRF" est un seul argument. Comme "d"d equivaut a dd
+// nl : echo $? reset ?
+// heredoc
+// wilcards ?
+// leaks parser_args.c line 90 when expanding $?
