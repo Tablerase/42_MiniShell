@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:15:29 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 18:45:51 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:18:19 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
  * immediatly stop.
  * @param shell Contains the infiles and outfiles (if any).
 */
-int	redirections(t_shell *shell, t_table *table)
+int	redirections(t_table *table)
 {
-	if (redirect_input(shell, table->infd_head) == 0)
+	if (redirect_input(table->infd_head) == 0)
 		return (0);
 	if (redirect_output(table->outfd_head) == 0)
 		return (0);
@@ -33,7 +33,7 @@ int	redirections(t_shell *shell, t_table *table)
  * occured, 0 is returned.
  * @param infile All the std_in redirections of our current command.
 */
-int	redirect_input(t_shell *shell, t_inf *infile)
+int	redirect_input(t_inf *infile)
 {
 	int		i;
 	int		fd_infile;
@@ -54,35 +54,8 @@ int	redirect_input(t_shell *shell, t_inf *infile)
 			return (perror("dup2"), 0);
 		}
 		close(fd_infile);
-		if (tmp->heredoc == 1)
-			if (add_heredocpath(shell->heredocs, tmp->file) == 0)
-				return (perror("strdup"), 0);
 		tmp = tmp->next;
 	}
-	return (1);
-}
-
-int	add_heredocpath(t_heredocs *heredocs, char *filename)
-{
-	t_heredocs	*tmp;
-
-	tmp = heredocs;
-	if (tmp == NULL)
-	{
-		tmp = malloc(sizeof(t_heredocs));
-		if (tmp == NULL)
-			return (0);
-		tmp->heredoc_path = filename;
-		tmp->next = NULL;
-		return (1);
-	}
-	while (tmp != NULL)
-		tmp = tmp->next;
-	tmp->next = malloc(sizeof(t_heredocs));
-	if (tmp->next == NULL)
-		return (0);
-	tmp->next->heredoc_path = filename;
-	tmp->next->next = NULL;
 	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 15:38:41 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 18:33:45 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ int	main(int ac, char **av, char **envp)
 				parser(&lexic, &shell);
 				print_cmds(shell);
 				free_tokens(lexic.head);
-				starting_execution(&exec_struct);
+				starting_execution(&exec_struct, input);
+				ft_free_here_docs(&shell);
 				ft_free_cmds(&shell);
 			}
 			else

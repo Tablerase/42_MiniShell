@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_pipe.c                                       :+:      :+:    :+:   */
+/*   pipes_execve_path.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 19:55:44 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 10:56:28 by abourgeo         ###   ########.fr       */
+/*   Created: 2024/02/20 17:31:08 by abourgeo          #+#    #+#             */
+/*   Updated: 2024/02/20 17:34:01 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,33 +87,4 @@ char	*try_path(char *first_part, char *cmd)
 	if (path == NULL)
 		return (NULL);
 	return (path);
-}
-
-/**
- * Calculates the size of the given list.
- * @param list The list we want the size of.
-*/
-int	size_list(t_env_list **list)
-{
-	int			len;
-	t_env_list	*tmp;
-
-	len = 0;
-	if (list == NULL)
-		return (0);
-	tmp = *list;
-	while (tmp != NULL)
-	{
-		len++;
-		tmp = tmp->next;
-	}
-	return (len);
-}
-
-int	command_not_found(t_exec *exec_struct, t_table *table, char *path_cmd)
-{
-	write(2, table->cmd, ft_strlen(table->cmd));
-	write(2, ": Command not found\n", 20);
-	free_process(*exec_struct, path_cmd, NULL, NULL);
-	exit(127);
 }
