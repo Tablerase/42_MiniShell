@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:52:12 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 09:10:37 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:44:07 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	single_process(t_exec *exec_struct, t_table *table)
 	char	**env;
 	int		redir;
 
+	signal(SIGINT, SIG_DFL);
 	redir = redirections(exec_struct->shell, table);
 	if (redir == 0 || is_a_directory(table->cmd) == 1)
 	{

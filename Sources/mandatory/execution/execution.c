@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:21:03 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 09:01:43 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 10:24:45 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,13 @@ void	exec_single_cmd(t_exec *exec_struct)
 		}
 		if (pid == 0)
 			single_process(exec_struct, exec_struct->shell->table_head);
+		signal(SIGINT, &sig_handler_non_interactive);
 		waitpid(pid, &status, 0);
 	}
 	if (WIFEXITED(status) == 1)
 		exec_struct->shell->exit_code = WEXITSTATUS(status);
-	// else if (WIFSIGNALED(status) == 1)
-	// 	exec_struct->shell->exit_code = 128 + g_signal;
+	else if (WIFSIGNALED(status) == 1)
+		exec_struct->shell->exit_code = 128 + g_signal;
 	else
 		exec_struct->shell->exit_code = 0;
 }

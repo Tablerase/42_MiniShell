@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 09:08:28 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:59:31 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include <sys/wait.h>
 // SIGNAL
 # include <signal.h>
+# include <bits/sigaction.h>
+# include <asm-generic/signal-defs.h>
 // STAT
 # include <sys/stat.h>
 # include <time.h>
@@ -39,6 +41,8 @@
 
 // Prompt of Minishell
 # define PROMPT "\e[1;38;5;141mMiniShell\e[1;33m ➜ \033[0m"
+
+extern int	g_signal;
 
 typedef struct s_outf
 {

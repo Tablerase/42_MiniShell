@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:30:58 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 09:16:12 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 10:25:09 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,10 @@ char		*find_path(t_env_list **env_list, char *cmd);
 char		*search_path(char *path, char *cmd);
 char		*try_path(char *first_part, char *cmd);
 int			size_list(t_env_list **list);
+
+// signals handler
+
+void		sig_handler_interactive(int signum);
+void		sig_handler_non_interactive(int signum);
 
 #endif

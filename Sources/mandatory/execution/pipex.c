@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:38:49 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 09:10:14 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 10:24:55 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	command_in_pipe(t_pipex *pipex, t_table *table)
 
 void	start_child_process(t_pipex *pipex, t_table *table_cmd, int nb_child)
 {
+	signal(SIGINT, SIG_DFL);
 	pipex->nb_child = nb_child;
 	redirect_into_pipes(pipex, nb_child);
 	if (redirections(pipex->exec_struct->shell, table_cmd) == 0)
@@ -118,5 +119,6 @@ void	exec_multiple_cmds(t_exec *exec_struct, int nb_cmd)
 		table_cmd = table_cmd->next;
 		i++;
 	}
+	signal(SIGINT, &sig_handler_non_interactive);
 	exec_struct->shell->exit_code = waiting(pipex, i);
 }
