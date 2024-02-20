@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:46:29 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 14:17:33 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 16:26:24 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	parser(
 				create_heredoc(shell, tmp->value, true);
 			else
 				create_heredoc(shell, tmp->value, false);
-			cmd_infile(cmd, shell, inf_heredoc, NULL);
+			cmd_infile(cmd, shell, inf_heredoc, shell->heredocs->heredoc_path);
 		}
 		else
 		{

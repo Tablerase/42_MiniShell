@@ -6,11 +6,28 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:48:48 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 10:58:51 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:59:26 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/minishell.h"
+
+void	ft_free_here_docs(t_shell *shell)
+{
+	t_heredocs	*tmp;
+	t_heredocs	*next;
+
+	tmp = shell->heredocs;
+	while (tmp != NULL)
+	{
+		next = tmp->next;
+		unlink(tmp->heredoc_path);
+		free(tmp->heredoc_path);
+		free(tmp);
+		tmp = next;
+	}
+	shell->heredocs = NULL;
+}
 
 void	ft_free_filling_heredoc(t_filling_heredoc *heredoc)
 {

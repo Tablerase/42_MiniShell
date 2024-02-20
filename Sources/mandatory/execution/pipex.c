@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:38:49 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 11:18:52 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:58:14 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,15 @@ int	command_in_pipe(t_pipex *pipex, t_table *table)
 	exit(errno);
 }
 
-void	start_child_process(t_pipex *pipex, t_table *table_cmd, int nb_child)
+void	start_child_process(t_pipex *pipex, t_table *table_cmd,
+		int nb_child, char *input)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
+	free(input);
 	pipex->nb_child = nb_child;
 	redirect_into_pipes(pipex, nb_child);
-	if (redirections(pipex->exec_struct->shell, table_cmd) == 0)
+	if (redirections(table_cmd) == 0)
 		exit_child_process(pipex, 1);
 	if (is_a_directory(table_cmd->cmd) == 1)
 		exit_child_process(pipex, 126);
@@ -106,7 +108,7 @@ void	start_child_process(t_pipex *pipex, t_table *table_cmd, int nb_child)
 	command_in_pipe(pipex, table_cmd);
 }
 
-void	exec_multiple_cmds(t_exec *exec_struct, int nb_cmd)
+void	exec_multiple_cmds(t_exec *exec_struct, int nb_cmd, char *input)
 {
 	int		i;
 	t_pipex	*pipex;
@@ -127,7 +129,7 @@ void	exec_multiple_cmds(t_exec *exec_struct, int nb_cmd)
 			return ;
 		}
 		if (pipex->pid[i] == 0)
-			start_child_process(pipex, table_cmd, i);
+			start_child_process(pipex, table_cmd, i, input);
 		table_cmd = table_cmd->next;
 		i++;
 	}

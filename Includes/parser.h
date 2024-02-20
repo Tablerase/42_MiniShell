@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 18:36:14 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/19 18:13:45 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 15:00:33 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,6 @@ void	cmd_infile(
 	e_infile type,
 	char *filename_path);
 void	cmd_outfile(t_table *cmd, e_outfile type, char *filename_path);
-
-// Heredocs
-
-int		ft_here_doc_temporaire(t_shell *shell, t_token *token);
-void	ft_free_here_docs(t_shell *shell);
 
 // Debug
 

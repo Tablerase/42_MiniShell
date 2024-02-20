@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:21:03 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 12:28:21 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:58:35 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	executing_single_builtin(t_exec *exec_struct)
 {
 	int	status;
 
-	status = redirections(exec_struct->shell, exec_struct->shell->table_head);
+	status = redirections(exec_struct->shell->table_head);
 	if (status == 1)
 	{
 		if (ft_strcmp(EXIT, exec_struct->shell->table_head->cmd) == 0)
@@ -75,6 +75,7 @@ void	executing_single_builtin(t_exec *exec_struct)
 	else
 		status = 1;
 	exec_struct->shell->exit_code = status;
+	// ft_free_here_docs(exec_struct->shell);
 	return ;
 }
 
@@ -82,7 +83,7 @@ void	executing_no_command(t_exec *exec_struct)
 {
 	int	status;
 
-	status = redirections(exec_struct->shell, exec_struct->shell->table_head);
+	status = redirections(exec_struct->shell->table_head);
 	exec_struct->shell->exit_code = status;
 	return ;
 }
@@ -104,7 +105,7 @@ void	update_exit_code_single_child_process(t_exec *exec_struct, int status)
  * occured the command is not executed.
  * @param exec_struct The data of our program.
 */
-void	exec_single_cmd(t_exec *exec_struct)
+void	exec_single_cmd(t_exec *exec_struct, char *input)
 {
 	int	status;
 	int	pid;
@@ -125,7 +126,7 @@ void	exec_single_cmd(t_exec *exec_struct)
 			return ;
 		}
 		if (pid == 0)
-			single_process(exec_struct, exec_struct->shell->table_head);
+			single_process(exec_struct, exec_struct->shell->table_head, input);
 		signal(SIGINT, &sig_handler_non_interactive);
 		signal(SIGQUIT, &sig_handler_non_interactive);
 		waitpid(pid, &status, 0);
@@ -137,7 +138,7 @@ void	exec_single_cmd(t_exec *exec_struct)
  * Based on the input, execute a single command or a pipeline.
  * @param exec_struct The data of our program.
 */
-void	starting_execution(t_exec *exec_struct)
+void	starting_execution(t_exec *exec_struct, char *input)
 {
 	int		nb_cmd;
 	t_table	*tmp;
@@ -156,7 +157,7 @@ void	starting_execution(t_exec *exec_struct)
 		nb_cmd++;
 	}
 	if (nb_cmd == 1)
-		exec_single_cmd(exec_struct);
+		exec_single_cmd(exec_struct, input);
 	else
-		exec_multiple_cmds(exec_struct, nb_cmd);
+		exec_multiple_cmds(exec_struct, nb_cmd, input);
 }

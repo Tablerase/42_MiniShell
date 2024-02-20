@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 12:45:54 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 12:39:52 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:24:27 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	ft_free_infds(t_inf *head)
 	while (tmp)
 	{
 		next = tmp->next;
-		free(tmp->file);
+		if (tmp->file != NULL)
+			free(tmp->file);
 		free(tmp);
 		tmp = next;
 	}
@@ -61,7 +62,6 @@ void	ft_free_cmds(t_shell *shell)
 		tmp = next;
 	}
 	shell->table_head = NULL;
-	// ft_free_here_docs(shell);
 }
 
 void	ft_free_all(t_shell *shell)

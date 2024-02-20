@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+         #
+#    By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/20 14:33:42 by rcutte           ###   ########.fr        #
+#    Updated: 2024/02/20 15:01:24 by abourgeo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,6 @@ PARSER = parser/parser.c \
 	parser/parser_nodes_outfiles.c \
 	parser/parser_args.c \
 	parser/parser_debug.c \
-	parser/parser_heredoc_tempo.c \
 
 EXECUTION = execution/builtin.c \
 		execution/create_env_list.c \

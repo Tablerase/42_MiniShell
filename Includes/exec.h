@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:30:58 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 11:18:21 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:56:35 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,14 @@ int			affect_var_name(t_shell *shell, t_filling_heredoc *heredoc, int *i);
 int			expanding_line(t_shell *shell, t_filling_heredoc *heredoc, int *i);
 char		*expand_var_heredoc(t_shell *shell, t_filling_heredoc *heredoc);
 int			create_heredoc(t_shell *shell, char *lim, bool expand);
+void		ft_free_here_docs(t_shell *shell);
 
 // main.c
 
 int			is_builtin(char *cmd);
 int			builtin_execution(t_exec *exec_struct, t_table *table);
-void		exec_single_cmd(t_exec *exec_struct);
-void		starting_execution(t_exec *xec_struct);
+void		exec_single_cmd(t_exec *exec_struct, char *input);
+void		starting_execution(t_exec *exec_struct, char *input);
 
 // pipex.c
 
@@ -110,14 +111,14 @@ t_pipex		*init_pipex(t_exec *exec_struct, int nb_cmd);
 int			builtin_in_pipe(t_pipex *pipex, t_table *table_cmd);
 int			command_in_pipe(t_pipex *pipex, t_table *table);
 void		start_child_process(t_pipex *pipex, t_table *table_cmd,
-				int nb_child);
-void		exec_multiple_cmds(t_exec *exec_struct, int nb_cmd);
+				int nb_child, char *input);
+void		exec_multiple_cmds(t_exec *exec_struct, int nb_cmd, char *input);
 
 // redirection.c
 
-int			redirections(t_shell *shell, t_table *table);
+int			redirections(t_table *table);
 int			add_heredocpath(t_heredocs *heredocs, char *filename);
-int			redirect_input(t_shell *shell, t_inf *infile);
+int			redirect_input(t_inf *infile);
 int			redirect_output(t_outf *outfile);
 int			is_a_directory(char *filename);
 
@@ -148,7 +149,7 @@ int			waiting(t_pipex *pipex, int nb_child);
 
 // single_process.c
 
-int			single_process(t_exec *exec_struct, t_table *table);
+int			single_process(t_exec *exec_struct, t_table *table, char *input);
 int			execve_fail(char *path_cmd, char **args_cmd, char **env);
 char		**copy_env(t_env_list **env_list);
 char		*get_env_line(t_env_list *line);
