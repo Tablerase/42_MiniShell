@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/19 20:56:19 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:08:28 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,14 +120,11 @@ typedef struct s_shell
  * @param export_list The list containing the environment variables (also 
  * the non-initialized variables).
  * @param shell The data returned by the parser.
- * @param exit_status The expansion of '?'
 */
 typedef struct s_exec
 {
-	t_env_list	**env_list;
 	t_env_list	**export_list;
 	t_shell		*shell;
-	int			exit_status;
 }	t_exec;
 
 // LIB needing upper structs to be defined

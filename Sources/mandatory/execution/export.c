@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 22:43:52 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 20:21:18 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:09:36 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	add_new_var(t_exec *exec_struct, char *name, char *value, int sep)
 		new_value = ft_strdup(value);
 		if (new_value == NULL)
 			return (free(new_name), 0);
-		if (add_node(exec_struct->env_list, new_name, new_value) == 0)
+		if (add_node(exec_struct->shell->env, new_name, new_value) == 0)
 		{
 			free(new_value);
 			return (free(new_name), 0);
@@ -137,11 +137,11 @@ int	name_exists(t_exec *exec_struct, char *name, char *value, int sep)
 			new_value = ft_strdup(value);
 			if (tmp->value == NULL)
 			{
-				if (add_node(exec_struct->env_list, name, new_value) == 0)
+				if (add_node(exec_struct->shell->env, name, new_value) == 0)
 					return (free(name), free(new_value), 1);
 			}
 			else
-				change_list_value(exec_struct->env_list, name, new_value);
+				change_list_value(exec_struct->shell->env, name, new_value);
 			free(tmp->value);
 			tmp->value = value;
 			return (1);

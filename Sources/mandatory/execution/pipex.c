@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:38:49 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 20:39:26 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:10:14 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	command_in_pipe(t_pipex *pipex, t_table *table)
 	char	**args_cmd;
 	char	**env;
 
-	path_cmd = find_path(pipex->exec_struct->env_list, table->cmd);
+	path_cmd = find_path(pipex->exec_struct->shell->env, table->cmd);
 	if (path_cmd == NULL)
 	{
 		write(2, table->cmd, ft_strlen(table->cmd));
@@ -70,7 +70,7 @@ int	command_in_pipe(t_pipex *pipex, t_table *table)
 		exit_child_process(pipex, 127);
 	}
 	args_cmd = get_args_cmd(table->args);
-	env = copy_env(pipex->exec_struct->env_list);
+	env = copy_env(pipex->exec_struct->shell->env);
 	exit_child_process(pipex, -1);
 	execve(path_cmd, args_cmd, env);
 	perror(path_cmd);
@@ -109,7 +109,7 @@ void	exec_multiple_cmds(t_exec *exec_struct, int nb_cmd)
 		pipex->pid[i] = fork();
 		if (pipex->pid[i] == -1)
 		{
-			exec_struct->exit_status = waiting(pipex, i);
+			exec_struct->shell->exit_code = waiting(pipex, i);
 			perror("fork");
 			return ;
 		}
@@ -118,5 +118,5 @@ void	exec_multiple_cmds(t_exec *exec_struct, int nb_cmd)
 		table_cmd = table_cmd->next;
 		i++;
 	}
-	exec_struct->exit_status = waiting(pipex, i);
+	exec_struct->shell->exit_code = waiting(pipex, i);
 }

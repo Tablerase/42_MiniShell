@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:45:10 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 18:49:21 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:15:00 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	create_new_line(t_filling_heredoc *heredoc, int *i, int j)
 	return (1);
 }
 
-char	*expand_var_heredoc(t_env_list **env_list, t_filling_heredoc *heredoc)
+char	*expand_var_heredoc(t_shell *shell, t_filling_heredoc *heredoc)
 {
 	int	i;
 
@@ -92,7 +92,7 @@ char	*expand_var_heredoc(t_env_list **env_list, t_filling_heredoc *heredoc)
 	{
 		if (heredoc->line[i] == '$' && heredoc->line[i + 1] != '\0')
 		{
-			if (expanding_line(env_list, heredoc, &i) == 0)
+			if (expanding_line(shell, heredoc, &i) == 0)
 				return (NULL);
 			if (heredoc->line == NULL)
 				return (NULL);
@@ -117,7 +117,7 @@ int	create_heredoc(t_shell *shell, char *lim, bool expand)
 		if (heredoc.line == NULL || ft_strcmp(heredoc.line, lim) == 0)
 			break ;
 		if (expand == 1)
-			heredoc.line = expand_var_heredoc(shell->env, &heredoc);
+			heredoc.line = expand_var_heredoc(shell, &heredoc);
 		if (heredoc.line == NULL)
 			break ;
 		write(heredoc.fd, heredoc.line, ft_strlen(heredoc.line));

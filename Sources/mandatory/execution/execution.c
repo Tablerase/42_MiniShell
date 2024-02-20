@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:21:03 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 20:41:42 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:01:43 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	exec_single_cmd(t_exec *exec_struct)
 	if (exec_struct->shell->table_head->cmd == NULL)
 	{
 		status = redirections(exec_struct->shell, exec_struct->shell->table_head);
-		exec_struct->exit_status = status;
+		exec_struct->shell->exit_code = status;
 		return ;
 	}
 	else if (is_builtin(exec_struct->shell->table_head->cmd) == 1)
@@ -84,11 +84,11 @@ void	exec_single_cmd(t_exec *exec_struct)
 		status = redirections(exec_struct->shell, exec_struct->shell->table_head);
 		if (status == 1)
 		{
-			if (ft_strcmp(EXIT, exec_struct->shell->table_head->cmd) == 1)
+			if (ft_strcmp(EXIT, exec_struct->shell->table_head->cmd) == 0)
 				write(2, "exit\n", 5);
 			status = builtin_execution(exec_struct, exec_struct->shell->table_head);
 		}
-		exec_struct->exit_status = status;
+		exec_struct->shell->exit_code = status;
 		return ;
 	}
 	else if (exec_struct->shell->table_head->cmd != NULL
@@ -98,7 +98,7 @@ void	exec_single_cmd(t_exec *exec_struct)
 		if (pid == -1)
 		{
 			perror("fork");
-			exec_struct->exit_status = errno;
+			exec_struct->shell->exit_code = errno;
 			return ;
 		}
 		if (pid == 0)
@@ -106,11 +106,11 @@ void	exec_single_cmd(t_exec *exec_struct)
 		waitpid(pid, &status, 0);
 	}
 	if (WIFEXITED(status) == 1)
-		exec_struct->exit_status = WEXITSTATUS(status);
+		exec_struct->shell->exit_code = WEXITSTATUS(status);
 	// else if (WIFSIGNALED(status) == 1)
-	// 	exec_struct->exit_status = 128 + g_signal;
+	// 	exec_struct->shell->exit_code = 128 + g_signal;
 	else
-		exec_struct->exit_status = 0;
+		exec_struct->shell->exit_code = 0;
 }
 
 /**

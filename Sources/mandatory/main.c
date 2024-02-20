@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 20:57:14 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:19:08 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ char	*get_prompt(void)
 	return (prompt);
 }
 
+// cat (without options) not working
+
 int	main(int ac, char **av, char **envp)
 {
 	char* 		input;
@@ -74,12 +76,17 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
+	if (isatty(STDIN_FILENO) == 0)
+	{
+		write(2, "Error: not a terminal\n", 22);
+		return (1);
+	}
 	ft_shell_init(&shell, envp);
 	init_exec_struct(&exec_struct, &shell, envp);
-    while(1)
+	while(1)
 	{
-        input = readline(PROMPT);
-        if (ft_strlen(input) > 0)
+		input = readline(PROMPT);
+		if (ft_strlen(input) > 0)
 		{
 			if (lexer(input, &lexic) == true)
 			{
@@ -87,7 +94,6 @@ int	main(int ac, char **av, char **envp)
 				parser(&lexic, &shell);
 				// print_cmds(shell);
 				free_tokens(lexic.head);
-				exec_struct.shell = &shell;
 				starting_execution(&exec_struct);
 				// TODO: exec
 				// TODO: wait and signal
@@ -95,12 +101,11 @@ int	main(int ac, char **av, char **envp)
 			}
 			add_history(input);
 			free(input);
-        }
-
-    }
+		}
+	}
 	ft_free_all(&shell);
 	free_exec_struct(exec_struct);
-    return 0;
+	return 0;
 }
 
 // EXPORT ISSUE : PATH="DEFRF" est un seul argument. Comme "d"d equivaut a dd

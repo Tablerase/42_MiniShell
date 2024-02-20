@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:39:40 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 19:26:18 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 08:46:31 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	clear_all_fds(int **fd, int nb_fd)
 int	exit_child_process(t_pipex *pipex, int status)
 {
 	free_exec_struct(*(pipex->exec_struct));
+	ft_free_all(pipex->exec_struct->shell);
 	free(pipex->pid);
 	free(pipex);
 	if (status >= 0)

@@ -6,13 +6,14 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 21:11:15 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 14:27:54 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:26:27 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/minishell.h"
 
 char	**wilcard_expansion(char *expression);
+char	**no_matches(char **new_args, char *expression);
 char	**create_args_wildcards(char *expression);
 char	*matches_wildcard(char *name, char *expression);
 int		number_matches_wildcard(char *expression);
@@ -35,7 +36,7 @@ char	**wilcard_expansion(char *expression)
 	i = 0;
 	new_args = create_args_wildcards(expression);
 	if (new_args == NULL)
-		return (NULL);
+		return (no_matches(new_args, expression));
 	stream = opendir("./");
 	if (stream == NULL)
 		return (NULL);
@@ -49,6 +50,17 @@ char	**wilcard_expansion(char *expression)
 	}
 	new_args[i] = NULL;
 	closedir(stream);
+	free(expression);
+	return (new_args);
+}
+
+char	**no_matches(char **new_args, char *expression)
+{
+	new_args = malloc(2 * sizeof(char *));
+	if (new_args == NULL)
+		return (NULL);
+	new_args[0] = expression;
+	new_args[1] = NULL;
 	return (new_args);
 }
 
@@ -132,27 +144,3 @@ int	number_matches_wildcard(char *expression)
 	closedir(stream);
 	return (len);
 }
-
-// int	main(void)
-// {
-// 	int		i;
-// 	char	**args;
-// 	char	*expression;
-
-// 	i = 0;
-// 	expression = ft_strdup("a*");
-// 	args = wilcard_expansion(expression);
-// 	if (args == NULL)
-// 		printf("%s\n", expression);
-// 	else
-// 	{
-// 		while (args[i] != NULL)
-// 		{
-// 			printf("%s\n", args[i]);
-// 			free(args[i++]);
-// 		}
-// 		free(args);
-// 	}
-// 	free(expression);
-// 	return (0);
-// }

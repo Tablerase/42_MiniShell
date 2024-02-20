@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:30:58 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 19:53:02 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:16:12 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ void		initialize_filling_heredoc(t_filling_heredoc *heredoc);
 int			filename(t_shell *shell, t_filling_heredoc *heredoc);
 int			add_heredoc_filename(t_shell *shell, char *name);
 int			create_new_line(t_filling_heredoc *heredoc, int *i, int j);
-int			affect_var_name(t_env_list **env_list, t_filling_heredoc *heredoc, int *i);
-int			expanding_line(t_env_list **env_list, t_filling_heredoc *heredoc, int *i);
-char		*expand_var_heredoc(t_env_list **env_list, t_filling_heredoc *heredoc);
+int			affect_var_name(t_shell *shell, t_filling_heredoc *heredoc, int *i);
+int			expanding_line(t_shell *shell, t_filling_heredoc *heredoc, int *i);
+char		*expand_var_heredoc(t_shell *shell, t_filling_heredoc *heredoc);
 int			create_heredoc(t_shell *shell, char *lim, bool expand);
 
 // main.c

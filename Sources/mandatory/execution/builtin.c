@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:33:22 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 19:58:44 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:09:04 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_cd(t_exec *exec_struct, t_table *table)
 
 	path = table->args[1];
 	if (path == NULL)
-		path = ft_getenv("HOME", exec_struct->env_list);
+		path = ft_getenv("HOME", exec_struct->shell->env);
 	if (path == NULL)
 	{
 		write(2, "cd: HOME not set\n", 17);
@@ -63,7 +63,7 @@ int	ft_echo(t_table *table)
 		return (0);
 	}
 	no_new_line = ft_echo_option(table->args);
-	i = no_new_line + 1;
+	i = no_new_line;
 	while (table->args[i] != NULL)
 	{
 		if (i != no_new_line)
@@ -72,7 +72,7 @@ int	ft_echo(t_table *table)
 		write(1, str, ft_strlen(str));
 		i++;
 	}
-	if (no_new_line == 0)
+	if (no_new_line == 1)
 		write(1, "\n", 1);
 	return (0);
 }
@@ -128,7 +128,7 @@ int	ft_env(t_exec *exec_struct, t_table *table)
 		write(2, "env: Too many arguments\n", 24);
 		return (125);
 	}
-	print_list(*(exec_struct->env_list), 0);
+	print_list(*(exec_struct->shell->env), 0);
 	return (0);
 }
 
@@ -155,7 +155,7 @@ int	ft_unset(t_exec *exec_struct, t_table *table)
 	}
 	while (arg[i] != NULL)
 	{
-		ft_unset_list(exec_struct->env_list, arg[i]);
+		ft_unset_list(exec_struct->shell->env, arg[i]);
 		ft_unset_list(exec_struct->export_list, arg[i]);
 		i++;
 	}

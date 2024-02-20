@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:52:12 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/19 20:08:23 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:10:37 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	single_process(t_exec *exec_struct, t_table *table)
 		free_process(*exec_struct, NULL, NULL, NULL);
 		exit(1 + (125 * redir));
 	}
-	path_cmd = find_path(exec_struct->env_list, table->cmd);
+	path_cmd = find_path(exec_struct->shell->env, table->cmd);
 	if (path_cmd == NULL)
 	{
 		write(2, table->cmd, ft_strlen(table->cmd));
@@ -41,7 +41,7 @@ int	single_process(t_exec *exec_struct, t_table *table)
 		exit(127);
 	}
 	args_cmd = get_args_cmd(table->args);
-	env = copy_env(exec_struct->env_list);
+	env = copy_env(exec_struct->shell->env);
 	free_process(*exec_struct, NULL, NULL, NULL);
 	execve(path_cmd, args_cmd, env);
 	return (execve_fail(path_cmd, args_cmd, env));
