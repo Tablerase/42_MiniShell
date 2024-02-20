@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:42:58 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 15:46:43 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 18:07:46 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 */
 bool	is_linkable(char c)
 {
-	if (!c)	
+	if (!c)
 		return (false);
 	if (c == '\0')
 		return (false);

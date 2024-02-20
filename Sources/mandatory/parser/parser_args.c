@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:22:10 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 12:31:12 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:23:48 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,14 @@ static char	*expand_dquote(char *arg, t_shell *shell)
 	return (result);
 }
 
-static char	*arg_expand(t_shell *shell, char *arg, e_token type)
+/**
+ * @brief Expand the dollar and double quote tokens
+ * @param shell The shell
+ * @param arg The argument to expand
+ * @param type The type of the token (dollar or dquote)
+ * @return The expanded argument (or an empty string if the variable is not set)
+*/
+char	*arg_expand(t_shell *shell, char *arg, e_token type)
 {
 	char	*expanded;
 
@@ -106,8 +113,13 @@ static char	*arg_expand(t_shell *shell, char *arg, e_token type)
 /**
  * @brief Append an argument to the command arguments array
  * (array of strings NULL-terminated)
+ * @param shell The shell (to get the environment variables)
  * @param cmd The command
  * @param arg The argument to append
+ * @param type The type of the token (dollar or dquote or word)
+ * @note This function will append an argument to the command arguments array
+ * (the argument that is passed as a param is strduped to avoid any issues with
+ * the memory management of the argument passed as a param)
  */
 void	cmd_arg_append(t_shell *shell, t_table *cmd, char *arg, e_token type)
 {

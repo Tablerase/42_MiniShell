@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 18:36:14 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/19 18:13:45 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 18:03:14 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,16 @@ void	parser(t_lexer *lexic, t_shell *shell);
 t_table	*new_cmd(void);
 t_table	*cmd_add(t_table **head);
 
+// Expansions of $variables
+
+char	*arg_expand(t_shell *shell, char *arg, e_token type);
+t_token	*get_expanded_values(
+	t_token *token,
+	char **str_gathered,
+	t_shell *shell);
+
 // Args
 
-// char	*expand_var(char *arg, char **env);
 void	cmd_arg_append(t_shell *shell, t_table *cmd, char *arg, e_token type);
 
 // Files
@@ -47,11 +54,6 @@ void	cmd_infile(
 	e_infile type,
 	char *filename_path);
 void	cmd_outfile(t_table *cmd, e_outfile type, char *filename_path);
-
-// Heredocs
-
-int		ft_here_doc_temporaire(t_shell *shell, t_token *token);
-void	ft_free_here_docs(t_shell *shell);
 
 // Debug
 

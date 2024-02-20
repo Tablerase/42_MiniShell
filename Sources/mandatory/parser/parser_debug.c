@@ -6,7 +6,7 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:02:02 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/19 18:48:25 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 18:25:45 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,5 @@ void	print_cmds(t_shell shell)
 		printf("\n");
 		tmp = tmp->next;
 	}
+	printf("🗃️ End of commands 🗃️\n");
 }

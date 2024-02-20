@@ -6,22 +6,11 @@
 /*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:46:29 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 14:17:33 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/20 18:27:11 by rcutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/minishell.h"
-
-char *get_heredoc_path(t_shell *shell)
-{
-	t_heredocs *tmp;
-
-	tmp = shell->heredocs;
-	while (tmp->next)
-		tmp = tmp->next;
-	printf("heredoc_path: %s\n", tmp->heredoc_path);
-	return (tmp->heredoc_path);
-}
 
 /**
  * @brief Append an argument to the command arguments array
@@ -31,16 +20,16 @@ char *get_heredoc_path(t_shell *shell)
  * @note This function will append an argument to the command arguments array
  * also expand the variables from dollar tokens and dquote tokens
  */
-void	parse_word_and_quotes(t_token *token, t_table *cmd, t_shell *shell)
+static void	parse_word_and_quotes(t_token **token, t_table *cmd, t_shell *shell)
 {
-	if (token->type == word)
-		cmd_arg_append(shell, cmd, token->value, false);
-	else if (token->type == quote)
-		cmd_arg_append(shell, cmd, token->value, false);
-	else if (token->type == dollar)
-		cmd_arg_append(shell, cmd, token->value, dollar);
-	else if (token->type == dquote)
-		cmd_arg_append(shell, cmd, token->value, dquote);
+	char	*str_gathered;
+	t_token	*tmp;
+
+	str_gathered = NULL;
+	tmp = get_expanded_values(*token, &str_gathered, shell);
+	cmd_arg_append(shell, cmd, str_gathered, word);
+	*token = tmp;
+	free(str_gathered);
 }
 
 /**
@@ -56,7 +45,9 @@ void	parser(
 {
 	t_token	*tmp;
 	t_table	*cmd;
+	char	*expanded;
 
+	expanded = NULL;
 	tmp = lexic->head;
 	cmd = cmd_add(&shell->table_head);
 	while (tmp != NULL)
@@ -67,31 +58,35 @@ void	parser(
 		}
 		else if (tmp->type == greater)
 		{
-			tmp = tmp->next;
-			cmd_outfile(cmd, outf_file, tmp->value);
+			tmp = get_expanded_values(tmp->next, &expanded, shell);
+			cmd_outfile(cmd, outf_file, expanded);
+			free(expanded);
 		}
 		else if (tmp->type == dgreater)
 		{
-			tmp = tmp->next;
-			cmd_outfile(cmd, outf_append, tmp->value);
+			tmp = get_expanded_values(tmp->next, &expanded, shell);
+			cmd_outfile(cmd, outf_append, expanded);
+			free(expanded);
 		}
 		else if (tmp->type == less)
 		{
-			tmp = tmp->next;
-			cmd_infile(cmd, shell, inf_file, tmp->value);
+			tmp = get_expanded_values(tmp->next, &expanded, shell);
+			cmd_infile(cmd, shell, inf_file, expanded);
+			free(expanded);
 		}
 		else if (tmp->type == dless)
 		{
-			tmp = tmp->next;
+			tmp = get_expanded_values(tmp->next, &expanded, shell);
 			if (tmp->type == word)
 				create_heredoc(shell, tmp->value, true);
 			else
 				create_heredoc(shell, tmp->value, false);
 			cmd_infile(cmd, shell, inf_heredoc, NULL);
+			free(expanded);
 		}
 		else
 		{
-			parse_word_and_quotes(tmp, cmd, shell);
+			parse_word_and_quotes(&tmp, cmd, shell);
 		}
 		tmp = tmp->next;
 	}
