@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:45:39 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 17:46:21 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:10:42 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	starting_execution(t_exec *exec_struct, char *input)
 	t_table	*tmp;
 
 	nb_cmd = 0;
+	signal(SIGINT, &sig_handler_non_interactive);
+	signal(SIGQUIT, &sig_handler_non_interactive);
 	if (exec_struct->shell->table_head == NULL)
 		return ;
 	tmp = exec_struct->shell->table_head;
@@ -69,8 +71,6 @@ void	exec_single_cmd(t_exec *exec_struct, char *input)
 		}
 		if (pid == 0)
 			single_process(exec_struct, exec_struct->shell->table_head, input);
-		signal(SIGINT, &sig_handler_non_interactive);
-		signal(SIGQUIT, &sig_handler_non_interactive);
 		waitpid(pid, &status, 0);
 	}
 	update_exit_code_single_child_process(exec_struct, status);

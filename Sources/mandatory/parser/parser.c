@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:46:29 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 18:34:06 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:51:25 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void	parser(
 				create_heredoc(shell, tmp->value, false);
 			cmd_infile(cmd, shell, inf_heredoc, NULL);
 			free(expanded);
+			if (g_signal == SIGINT)
+				return ;
 		}
 		else
 		{
