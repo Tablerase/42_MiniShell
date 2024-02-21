@@ -2,12 +2,11 @@
 
 ```mermaid
 graph TD
-  classDef exit fill:#77b,stroke:#333,stroke-width:2px,color:#fff;
   classDef cmd fill:#9f9,color:#000;
   classDef msg fill:#bcd,color:#000;
   classDef file fill:#f9f,color:#000;
   classDef signal fill:#f57,color:#000;
-  classDef important fill:#f00,color:#000;
+  classDef important fill:#f50,color:#000;
     A[MiniShell]:::important ==> B[Main]:::important
     B ==> readline[Readline]:::important
     readline --> readline
@@ -29,6 +28,7 @@ graph TD
     multi --> loop((Loop))
     loop -->|- 1| loop
     loop --> exec{Execution}:::important
+    loop --> builtin
     exec -.- direction[Direction]
     direction -.- file[File]:::file
     file -.- access[Access]
@@ -48,6 +48,15 @@ graph TD
     SIGEOF -.-|"End of file"| here_doc
     SIGINT -.-|"here_doc_interrupt"| readline
     kill -.-x|"if SIGINT in here_doc"|start_command
+```
+
+## Test
+
+### Leaks
+
+To suppress readline leaks, use the following command (with `readline.supp` in the same directory as the executable):
+```shell
+valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --suppressions=readline.supp ./minishell
 ```
 
 ## Listing
@@ -71,7 +80,7 @@ graph TD
 
 ```mermaid
 graph LR;
-    redir_in[<] --- in_file[File] --> cmd --- args --> redir_out[>] --- out_file[File]
+    redir_in["<"] --- in_file[File] --> cmd --- args --> redir_out[">"] --- out_file[File]
 ```
 - input
   - link to std_in of the command before the next pipe

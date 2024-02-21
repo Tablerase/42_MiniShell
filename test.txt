@@ -1,6 +1,0 @@
-(ulimit -v 120000; valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./minishell)
-export test=coucou
-spam export test=$test$test
-
-
-valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --suppressions=readline.supp ./minishell
