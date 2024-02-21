@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:47:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/21 10:02:31 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 10:03:45 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static void	putain_de_norme(int *j, char *arg, int**i)
 {
 	*j = **i + 1;
-	while (arg[*j] != '\0' && is_whitespace(arg[*j]) == false && arg[*j] != '$')
+	while (arg[*j] != '\0' && is_whitespace(arg[*j]) == false
+		&& arg[*j] != '$')
 		(*j)++;
 	*j = *j - **i;
 }
