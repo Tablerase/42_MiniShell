@@ -128,6 +128,21 @@ line = readline("here_doc> ");
 
 Store content in a heredoc file. This heredo file will be stored as an infile and also stored in a list of heredoc files to be deleted at the end of the program.
 
+###### Handling Signals (with readline inside here_doc)
+
+```c
+variable rl_catch_signals = 0;
+```
+
+Handle `Ctrl-C` and `Ctrl-D` signals. When signals are caught, the stdin is closed and the heredoc file is deleted. To prevent error of display with readline, we stop readline to listen to signals. Here preventing two new lines instead of one.
+
+###### Closing heredoc
+
+When `LIMITER` is found, the heredoc file is closed and the heredoc event is stopped.
+
+Or when `Ctrl-D` is pressed, the heredoc file is closed and the heredoc event is stopped.
+To close it we use `close(stdin)`.
+
 ##### Signals
 
 In bash:
@@ -135,6 +150,18 @@ In bash:
 If `Ctrl-C` is pressed, the heredoc file is deleted and the heredoc event is stop, the shell however must continue and the input is saved in history.
 
 if `Ctrl-D` is pressed, it's like using the LIMITER in the heredoc.
+
+`Ctrl-\` is `SIGQUIT`. Ignored in interactive mode.
+
+###### Ignoring signal handler
+
+The signal handler `sig_handler_interactive` in interactive mode display new prompt and clear `rl_line_buffer`. We can ignore this signal handler by setting `rl_catch_signals` to 0. `Ctrl-\` is ignored.
+
+In non interactive mode, `Ctrl-C` is restored as `default` handler (in child process, `SIG_DFL` which is a macro to restore handler) and `Ctrl-D` is handled as `EOF`. `Ctrl-\` is like `Ctrl-C` but write `"Quit (core dumped)\n"` to stderr.
+
+###### Signals returns
+
+Exit status is 128 + signal number.
 
 ##### Particular cases
 

@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/21 10:33:20 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 12:13:04 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,3 @@ int	main(int ac, char **av, char **envp)
 	free_exec_struct(exec_struct);
 	return (shell.exit_code);
 }
-
-// wilcards ?
-// faut-il verif token->next == NULL ? parser.c line 62 (syntax error a priori)
