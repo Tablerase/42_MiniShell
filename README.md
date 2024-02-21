@@ -6,28 +6,29 @@ graph TD
   classDef cmd fill:#9f9,color:#000;
   classDef msg fill:#bcd,color:#000;
   classDef file fill:#f9f,color:#000;
-    A[MiniShell] --> B[Main]
-    B --> readline[Readline]
+  classDef signal fill:#f57,color:#000;
+  classDef important fill:#f00,color:#000;
+    A[MiniShell]:::important ==> B[Main]:::important
+    B ==> readline[Readline]:::important
     readline --> readline
-    readline --> lexer[Lexing]
-    lexer --> parser["Parsing\n '' '' : allow $var\n' '\n |\n <  > \n<<  >> "]
+    readline ==> lexer[Lexing]:::important
+    lexer ==> parser["Parsing\n '' '' : allow $var\n' '\n |\n <  > \n<<  >> "]:::important
     readline -.- |"if empty line with Ctrl-D"|exit_shell
     readline -.- |"if text on line with Ctrl-D"|nothing
-    parser -.-x |Error:\nif quotes doesnt end| parse_error[Lexical Error\nmessage]:::msg
-    parse_error -->|1| Exit:::exit
+    lexer -.-x |Error:\nif quotes doesnt end| lexer_error[Lexical Error\nmessage]:::msg
     parser <--> list[Listing]
     parser --> |"<< EOF"|here_doc[Here Doc]
     here_doc --> readline2[Readline]
     readline2 --> here_doc_file[Here Doc File]:::file
     here_doc_file --> list
-    parser --> command{Commands}
-    command -->|1| single[Single Command]:::cmd
-    command -->|> 1| multi[Multi Commands]
+    parser ==> start_command{"Start\nCommands"}:::important
+    start_command -->|1| single[Single Command]:::cmd
+    start_command -->|> 1| multi[Multi Commands]:::cmd
+    single --> exec
+    single --> builtin[Builtin]:::cmd
     multi --> loop((Loop))
     loop -->|- 1| loop
-    loop --> single
-    single --> exec{Execution}
-    single --> builtin[Builtin]:::cmd
+    loop --> exec{Execution}:::important
     exec -.- direction[Direction]
     direction -.- file[File]:::file
     file -.- access[Access]
@@ -36,13 +37,17 @@ graph TD
     env -.- path[Path]
     path -.- access
     exec -.- execve:::cmd
-    builtin --> Exit
-    execve --> Exit
 
+    Sig_handler_interactive --o signal  
+    Sig_handler_not_interactive --o signal
+    Sig_handler_heredoc --o signal
     signal[Signal]
-    signal --> SIGQUIT[Ctrl-\] -.- nothing[Do Nothing]
-    signal --> SIGEOF[Ctrl-D] -.- exit_shell[Exit Shell]
-    signal --> SIGINT[Ctrl-C] -.- kill[Send SIGKILL]
+    signal --> SIGQUIT[Ctrl-\]:::signal -.- nothing[Do Nothing]
+    signal --> SIGEOF[Ctrl-D]:::signal -.- exit_shell[Exit Shell]
+    signal --> SIGINT[Ctrl-C]:::signal -.- kill[Send SIGINT]
+    SIGEOF -.-|"End of file"| here_doc
+    SIGINT -.-|"here_doc_interrupt"| readline
+    kill -.-x|"if SIGINT in here_doc"|start_command
 ```
 
 ## Listing
