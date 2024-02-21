@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:46:35 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/21 07:03:46 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 10:26:44 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ enum e_handler	lexer_handle_dollar(t_lexer *syntax, char *input, int *i)
 
 	if (input[*i] == '$')
 	{
-		if (input[*i + 1] == '\0')
+		if (input[*i + 1] == '\0' || input[*i + 1] == '$')
 		{
-			add_last_token(syntax, ft_strdup("$"), word, false);
+			add_last_token(syntax, ft_strdup("$"), word, input[*i + 1] == '$');
 			(*i)++;
 			return (found);
 		}
