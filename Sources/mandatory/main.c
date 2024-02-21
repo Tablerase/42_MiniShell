@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/21 10:06:15 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 10:33:20 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ void	handle_input(
 	if (lexer(input, lexic) == true)
 	{
 		parser(lexic, shell);
-		print_tokens(lexic->head);
-		print_cmds(*shell);
 		free_tokens(lexic->head);
 		if (g_signal != SIGINT)
 			starting_execution(exec_struct, input);
@@ -62,6 +60,8 @@ void	handle_input(
 	else
 		shell->exit_code = 1;
 }
+// print_tokens(lexic->head);
+// print_cmds(*shell);
 
 int	check_readline_and_signals(t_shell *shell, char *input, int ac, char **av)
 {

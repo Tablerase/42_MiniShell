@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:13:29 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 17:15:27 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 10:32:25 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ char	*expand_var_heredoc(t_shell *shell, t_filling_heredoc *heredoc)
 	i = 0;
 	while (heredoc->line[i] != '\0')
 	{
-		if (heredoc->line[i] == '$' && heredoc->line[i + 1] != '\0')
+		if (heredoc->line[i] == '$' && heredoc->line[i + 1] != '\0'
+			&& heredoc->line[i + 1] != '$')
 		{
 			if (expanding_line(shell, heredoc, &i) == 0)
 				return (NULL);
