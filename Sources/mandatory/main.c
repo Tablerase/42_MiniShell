@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/21 06:14:11 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 06:51:44 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_shell_init(t_shell *shell, char **envp)
 
 void	sig_handler_interactive(int signum)
 {
-	if (signum == SIGINT) //ctrl-C interactive mode
+	if (signum == SIGINT)
 	{
 		rl_on_new_line();
 		write(1, "\n", 1);
@@ -121,10 +121,8 @@ int	main(int ac, char **av, char **envp)
 	}
 	ft_free_all(&shell);
 	free_exec_struct(exec_struct);
-	return (0);
+	return (shell.exit_code);
 }
 
-// EXPORT ISSUE : PATH="DEFRF" est un seul argument. Comme "d"d equivaut a dd
-// nl : echo $? reset ?
-// heredoc
 // wilcards ?
+// faut-il verif token->next == NULL ? parser.c line 62 (syntax error a priori)

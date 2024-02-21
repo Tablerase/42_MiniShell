@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:46:29 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/21 06:15:19 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 06:39:08 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	parse_signs_add_file(
 		cmd_infile(cmd, shell, inf_file, *expanded);
 	else if (token->type == dless)
 	{
-		if (token->type == word)
+		if (token->next->type == word)
 			create_heredoc(shell, *expanded, true);
 		else
 			create_heredoc(shell, *expanded, false);
@@ -118,6 +118,8 @@ void	parser(
 			|| tmp->type == less || tmp->type == dless)
 		{
 			parse_signs(&tmp, cmd, shell, &expanded);
+			if (g_signal == SIGINT)
+				return ;
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:10:57 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 19:54:43 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 06:40:37 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	create_heredoc(t_shell *shell, char *lim, bool expand)
 		heredoc.line = readline("> ");
 		if (heredoc.line == NULL || ft_strcmp(heredoc.line, lim) == 0)
 			break ;
-		if (expand == 1)
+		if (expand == true)
 			heredoc.line = expand_var_heredoc(shell, &heredoc);
 		if (heredoc.line == NULL)
 			break ;
