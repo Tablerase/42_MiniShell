@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:30:58 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/21 06:53:27 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 07:21:48 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,7 +286,7 @@ int				builtin_in_pipe(t_pipex *pipex, t_table *table_cmd);
 
 // --------------------------------- SIGNALS ---------------------------------
 
-// signals handler
+// execution_signals.c
 
 void			sig_handler_interactive(int signum);
 void			sig_handler_non_interactive(int signum);

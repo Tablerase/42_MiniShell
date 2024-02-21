@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+         #
+#    By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/20 19:48:36 by rcutte           ###   ########.fr        #
+#    Updated: 2024/02/21 07:22:23 by abourgeo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,6 +102,7 @@ EXECUTION = execution/execution_expand_line_heredoc.c \
 			execution/execution_init.c \
 			execution/execution_redirections.c \
 			execution/execution_start.c \
+			execution/execution_signals.c \
 
 PIPES = pipes/pipes_clear_exit.c \
 		pipes/pipes_execve_args_env.c \
