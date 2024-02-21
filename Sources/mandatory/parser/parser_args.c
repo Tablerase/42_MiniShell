@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:22:10 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 19:47:28 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/21 07:08:46 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @param type The type of the token (dollar or dquote)
  * @return The expanded argument (or an empty string if the variable is not set)
 */
-char	*arg_expand(t_shell *shell, char *arg, e_token type)
+char	*arg_expand(t_shell *shell, char *arg, enum e_token type)
 {
 	char	*expanded;
 
@@ -53,7 +53,11 @@ char	*arg_expand(t_shell *shell, char *arg, e_token type)
  * (the argument that is passed as a param is strduped to avoid any issues with
  * the memory management of the argument passed as a param)
  */
-void	cmd_arg_append(t_shell *shell, t_table *cmd, char *arg, e_token type)
+void	cmd_arg_append(
+			t_shell *shell,
+			t_table *cmd,
+			char *arg,
+			enum e_token type)
 {
 	char	**tmp;
 	int		count;

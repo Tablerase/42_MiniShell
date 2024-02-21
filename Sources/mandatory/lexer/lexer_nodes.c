@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_nodes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 15:33:55 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 15:32:02 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/21 07:03:54 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * (when no space between)
  * @return t_token*: New token
 */
-t_token	*new_token(char *value, e_token type, bool link_with_next)
+t_token	*new_token(char *value, enum e_token type, bool link_with_next)
 {
 	t_token	*token;
 
@@ -44,7 +44,7 @@ t_token	*new_token(char *value, e_token type, bool link_with_next)
 void	add_last_token(
 	t_lexer *syntax,
 	char *value,
-	e_token type,
+	enum e_token type,
 	bool link_with_next)
 {
 	t_token	*new;

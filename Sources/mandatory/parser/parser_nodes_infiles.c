@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_nodes_infiles.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:33:43 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 18:50:06 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/21 07:05:51 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 static void	cmd_infile_init(
 	t_table *cmd,
 	t_shell *shell,
-	e_infile type,
+	enum e_infile type,
 	char *filename_path)
 {
 	t_heredocs	*tmp;
@@ -58,7 +58,7 @@ static void	cmd_infile_init(
 static void	cmd_infile_add(
 	t_table *cmd,
 	t_shell *shell,
-	e_infile type,
+	enum e_infile type,
 	char *filename_path)
 {
 	t_heredocs	*tmp;
@@ -96,7 +96,7 @@ static void	cmd_infile_add(
 */
 void	cmd_infile(t_table *cmd,
 	t_shell *shell,
-	e_infile type,
+	enum e_infile type,
 	char *filename_path)
 {
 	if (!cmd)

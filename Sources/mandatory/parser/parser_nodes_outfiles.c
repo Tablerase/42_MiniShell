@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_nodes_outfiles.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 16:09:03 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 18:49:14 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/21 07:05:58 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 */
 static void	cmd_outfile_init(
 	t_table *cmd,
-	e_outfile type,
+	enum e_outfile type,
 	char *filename_path)
 {
 	cmd->outfd_head = malloc(sizeof(t_inf));
@@ -47,7 +47,7 @@ static void	cmd_outfile_init(
 */
 static void	cmd_outfile_add(
 	t_table *cmd,
-	e_outfile type,
+	enum e_outfile type,
 	char *filename_path)
 {
 	t_outf		*tmp_out;
@@ -78,7 +78,7 @@ static void	cmd_outfile_add(
  * @param type The type of the output file (outf_file or outf_append)
  * @param filename_path The path of the output file
 */
-void	cmd_outfile(t_table *cmd, e_outfile type, char *filename_path)
+void	cmd_outfile(t_table *cmd, enum e_outfile type, char *filename_path)
 {
 	if (!cmd)
 		return ;

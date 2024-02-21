@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_handler_redir.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:49:29 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 15:35:12 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/21 07:03:29 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/minishell.h"
 
-e_handler	lexer_handle_space(char *input, int *i)
+enum e_handler	lexer_handle_space(char *input, int *i)
 {
 	if (is_whitespace(input[*i]) == true)
 	{
@@ -22,7 +22,7 @@ e_handler	lexer_handle_space(char *input, int *i)
 	return (not_found);
 }
 
-e_handler	lexer_handle_pipe(t_lexer *syntax, char *input, int *i)
+enum e_handler	lexer_handle_pipe(t_lexer *syntax, char *input, int *i)
 {
 	if (input[*i] == '|')
 	{
@@ -33,7 +33,7 @@ e_handler	lexer_handle_pipe(t_lexer *syntax, char *input, int *i)
 	return (not_found);
 }
 
-e_handler	lexer_handle_greater(t_lexer *syntax, char *input, int *i)
+enum e_handler	lexer_handle_greater(t_lexer *syntax, char *input, int *i)
 {
 	if (input[*i] == '>')
 	{
@@ -57,7 +57,7 @@ e_handler	lexer_handle_greater(t_lexer *syntax, char *input, int *i)
 	return (not_found);
 }
 
-e_handler	lexer_handle_less(t_lexer *syntax, char *input, int *i)
+enum e_handler	lexer_handle_less(t_lexer *syntax, char *input, int *i)
 {
 	if (input[*i] == '<')
 	{

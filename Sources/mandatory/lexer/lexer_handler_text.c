@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_handler_text.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:46:35 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 16:16:56 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/21 07:03:46 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
  * @return e_handler: found if the dollar sign was found, not_found otherwise
  * error if a malloc error occured 
 */
-e_handler	lexer_handle_dollar(t_lexer *syntax, char *input, int *i)
+enum e_handler	lexer_handle_dollar(t_lexer *syntax, char *input, int *i)
 {
 	int		j;
 	char	*tmp;
@@ -55,7 +55,7 @@ e_handler	lexer_handle_dollar(t_lexer *syntax, char *input, int *i)
 	return (not_found);
 }
 
-e_handler	lexer_handle_quote(t_lexer *syntax, char *input, int *i)
+enum e_handler	lexer_handle_quote(t_lexer *syntax, char *input, int *i)
 {
 	int		j;
 	char	*tmp;
@@ -83,7 +83,7 @@ e_handler	lexer_handle_quote(t_lexer *syntax, char *input, int *i)
 	return (not_found);
 }
 
-e_handler	lexer_handle_dquote(t_lexer *syntax, char *input, int *i)
+enum e_handler	lexer_handle_dquote(t_lexer *syntax, char *input, int *i)
 {
 	int		j;
 	char	*tmp;
@@ -111,7 +111,7 @@ e_handler	lexer_handle_dquote(t_lexer *syntax, char *input, int *i)
 	return (not_found);
 }
 
-e_handler	lexer_handle_word(t_lexer *syntax, char *input, int *i)
+enum e_handler	lexer_handle_word(t_lexer *syntax, char *input, int *i)
 {
 	int		j;
 	char	*tmp;

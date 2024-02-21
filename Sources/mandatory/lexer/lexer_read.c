@@ -12,11 +12,11 @@
 
 #include "../../Includes/minishell.h"
 
-static e_handler	lexer_rinput_next_one(
+static enum e_handler	lexer_rinput_next_one(
 	t_lexer *syntax,
 	char *input,
 	int *position,
-	e_handler *ret
+	enum e_handler *ret
 )
 {
 	*ret = lexer_handle_space(input, &(*position));
@@ -42,11 +42,11 @@ static e_handler	lexer_rinput_next_one(
 	return (not_found);
 }
 
-static e_handler	lexer_rinput_next_two(
+static enum e_handler	lexer_rinput_next_two(
 	t_lexer *syntax,
 	char *input,
 	int *position,
-	e_handler *ret)
+	enum e_handler *ret)
 {
 	*ret = lexer_handle_dollar(syntax, input, &(*position));
 	if (*ret == error)
@@ -79,8 +79,8 @@ static e_handler	lexer_rinput_next_two(
 */
 bool	lexer_rinput(t_lexer *syntax, char *input)
 {
-	int			i;
-	e_handler	ret;
+	int				i;
+	enum e_handler	ret;
 
 	i = 0;
 	while (input[i])

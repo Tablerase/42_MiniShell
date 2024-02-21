@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 14:07:27 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 15:47:17 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/21 07:07:20 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@
  * @note This is used to handle the return of the lexer functions
  * to know if the token was found or not and if there was an error
 */
-typedef enum
+enum e_handler
 {
 	found,
 	not_found,
 	error
-}	e_handler;
+};
 
 /**
  * @brief Token types
@@ -53,7 +53,7 @@ typedef enum
  * @param dquote: Double quote (")
  * @param word: Word (argument, cmd)
 */
-typedef enum
+enum e_token
 {
 	pipe_token,
 	greater,
@@ -64,7 +64,7 @@ typedef enum
 	quote,
 	dquote,
 	word
-} e_token;
+};
 
 /**
  * @brief Token structure
@@ -75,7 +75,7 @@ typedef enum
 typedef struct s_token
 {
 	char			*value;
-	e_token			type;
+	enum e_token	type;
 	bool			link_with_next;
 	struct s_token	*next;
 }	t_token;
@@ -91,45 +91,45 @@ typedef struct s_lexer
 
 // Lexer
 
-bool		lexer(char *input, t_lexer *syntax);
-bool		lexer_rinput(t_lexer *syntax, char *input);
-bool		lexer_check_order(t_token *head);
+bool			lexer(char *input, t_lexer *syntax);
+bool			lexer_rinput(t_lexer *syntax, char *input);
+bool			lexer_check_order(t_token *head);
 
 // Lexer handlers
 
-e_handler	lexer_handle_space(char *input, int *i);
-e_handler	lexer_handle_pipe(t_lexer *syntax, char *input, int *i);
-e_handler	lexer_handle_greater(t_lexer *syntax, char *input, int *i);
-e_handler	lexer_handle_less(t_lexer *syntax, char *input, int *i);
-e_handler	lexer_handle_dollar(t_lexer *syntax, char *input, int *i);
-e_handler	lexer_handle_quote(t_lexer *syntax, char *input, int *i);
-e_handler	lexer_handle_dquote(t_lexer *syntax, char *input, int *i);
-e_handler	lexer_handle_word(t_lexer *syntax, char *input, int *i);
+enum e_handler	lexer_handle_space(char *input, int *i);
+enum e_handler	lexer_handle_pipe(t_lexer *syntax, char *input, int *i);
+enum e_handler	lexer_handle_greater(t_lexer *syntax, char *input, int *i);
+enum e_handler	lexer_handle_less(t_lexer *syntax, char *input, int *i);
+enum e_handler	lexer_handle_dollar(t_lexer *syntax, char *input, int *i);
+enum e_handler	lexer_handle_quote(t_lexer *syntax, char *input, int *i);
+enum e_handler	lexer_handle_dquote(t_lexer *syntax, char *input, int *i);
+enum e_handler	lexer_handle_word(t_lexer *syntax, char *input, int *i);
 
 // Lexer nodes
 
-t_token		*new_token(char *value, e_token type, bool link_with_next);
-void		add_last_token(
-	t_lexer *syntax,
-	char *value,
-	e_token type,
-	bool link_with_next);
-bool		is_linkable(char c);
+t_token			*new_token(char *value, enum e_token type, bool link_with_next);
+void			add_last_token(
+					t_lexer *syntax,
+					char *value,
+					enum e_token type,
+					bool link_with_next);
+bool			is_linkable(char c);
 
 // Lexer management
 
-void		free_tokens(t_token *tokens);
-void		lexer_error(t_token *head, char *message);
+void			free_tokens(t_token *tokens);
+void			lexer_error(t_token *head, char *message);
 
 // Lexer utils
 
-bool		is_whitespace(char c);
-bool		is_quotes(char c);
-bool		is_end_of_str(char *str);
-bool		is_metachar(char c);
+bool			is_whitespace(char c);
+bool			is_quotes(char c);
+bool			is_end_of_str(char *str);
+bool			is_metachar(char c);
 
 // Lexer debug
 
-void		print_tokens(t_token *tokens);
+void			print_tokens(t_token *tokens);
 
 #endif
