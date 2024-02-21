@@ -6,14 +6,14 @@
 #    By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/21 07:22:23 by abourgeo         ###   ########.fr        #
+#    Updated: 2024/02/21 07:58:49 by abourgeo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 ###################### Program ######################
 
-NAME = program
+NAME = minishell
 
 all: $(NAME)
 
@@ -73,30 +73,30 @@ SRC = main.c \
 # objet libft
 OBJ = $(addprefix $(SRC_PATH)/,$(SRC:.c=.o))
 
-UTILS = utils/array_of_strings.c \
-	utils/free_all.c \
+UTILS =	utils/array_of_strings.c \
+		utils/free_all.c \
 
-LEXER = lexer/lexer.c \
-	lexer/lexer_nodes.c \
-	lexer/lexer_read.c \
-	lexer/lexer_handler_redir.c \
-	lexer/lexer_handler_text.c \
-	lexer/lexer_order.c \
-	lexer/lexer_check.c \
-	lexer/lexer_links.c \
-	lexer/lexer_debug.c \
-	lexer/lexer_error.c \
+LEXER =	lexer/lexer.c \
+		lexer/lexer_nodes.c \
+		lexer/lexer_read.c \
+		lexer/lexer_handler_redir.c \
+		lexer/lexer_handler_text.c \
+		lexer/lexer_order.c \
+		lexer/lexer_check.c \
+		lexer/lexer_links.c \
+		lexer/lexer_debug.c \
+		lexer/lexer_error.c \
 
-PARSER = parser/parser.c \
-	parser/parser_nodes.c \
-	parser/parser_nodes_infiles.c \
-	parser/parser_nodes_outfiles.c \
-	parser/parser_args.c \
-	parser/parser_debug.c \
-	parser/parser_expansions.c \
-	parser/parser_expand_dquote.c \
+PARSER =	parser/parser.c \
+			parser/parser_nodes.c \
+			parser/parser_nodes_infiles.c \
+			parser/parser_nodes_outfiles.c \
+			parser/parser_args.c \
+			parser/parser_debug.c \
+			parser/parser_expansions.c \
+			parser/parser_expand_dquote.c \
 
-EXECUTION = execution/execution_expand_line_heredoc.c \
+EXECUTION =	execution/execution_expand_line_heredoc.c \
 			execution/execution_free.c \
 			execution/execution_heredoc.c \
 			execution/execution_init.c \
@@ -104,7 +104,7 @@ EXECUTION = execution/execution_expand_line_heredoc.c \
 			execution/execution_start.c \
 			execution/execution_signals.c \
 
-PIPES = pipes/pipes_clear_exit.c \
+PIPES =	pipes/pipes_clear_exit.c \
 		pipes/pipes_execve_args_env.c \
 		pipes/pipes_execve_call.c \
 		pipes/pipes_execve_path.c \
@@ -121,9 +121,10 @@ BUILTIN =	builtin/builtin_call_builtins.c \
 
 ###################### Bonus ########################
 
-NAME_BONUS = program_bonus
+NAME_BONUS = minishell_bonus
 SRC_BONUS_PATH = ./Sources/bonus
-SRC_BONUS = main_bonus.c \
+SRC_BONUS = $(SRC) \
+			execution/execution_wildcards.c \
 
 OBJ_BONUS = $(addprefix $(SRC_BONUS_PATH)/,$(SRC_BONUS:.c=.o))
 
