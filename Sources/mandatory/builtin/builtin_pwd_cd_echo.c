@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:19:25 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 17:22:38 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:43:27 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ int	ft_pwd(t_table *table)
 	return (0);
 }
 
+int	ft_error_cd(char *str, int status)
+{
+	write(2, str, ft_strlen(str));
+	return (status);
+}
+
 /**
  * Change the current director. Returns 1 on success, 0 on failure.
  * @param exec_struct The structure containing the shell and the command table.
@@ -47,15 +53,14 @@ int	ft_pwd(t_table *table)
 int	ft_cd(t_exec *exec_struct, t_table *table)
 {
 	char	*path;
+	char	*old_pwd;
 
 	path = table->args[1];
+	old_pwd = getcwd(NULL, 0);
 	if (path == NULL)
 		path = ft_getenv("HOME", exec_struct->shell->env);
 	if (path == NULL)
-	{
-		write(2, "cd: HOME not set\n", 17);
-		return (1);
-	}
+		return (ft_error_cd("cd: HOME not set\n", 1));
 	if (path[0] == '-')
 	{
 		write(2, "cd: ", 4);
@@ -64,13 +69,10 @@ int	ft_cd(t_exec *exec_struct, t_table *table)
 		return (2);
 	}
 	if (table->args[1] != NULL && table->args[2] != NULL)
-	{
-		write(2, "cd: too many arguments\n", 23);
-		return (1);
-	}
+		return (ft_error_cd("cd: too many arguments\n", 1));
 	if (chdir(path) == -1)
-		return (perror("cd"), 1);
-	return (0);
+		return (free(old_pwd), perror("cd"), 1);
+	return (update_pwd_oldpwd(exec_struct, old_pwd));
 }
 
 /**

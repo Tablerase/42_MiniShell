@@ -6,7 +6,7 @@
 #    By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/21 10:50:40 by abourgeo         ###   ########.fr        #
+#    Updated: 2024/02/21 14:42:45 by abourgeo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ all: $(NAME)
 ####################### FLAGS #######################
 
 CC = cc
-CFLAGS = -Wextra -Wall -Werror
+CFLAGS = -Wextra -Wall -Werror -g3
 READLINE = -lreadline
 TERMCAP = -ltermcap
 
@@ -196,24 +196,24 @@ exec_bonus: clean bonus exec_msg
 
 valgrind: clean all
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s \
-	--track-origins=yes --trace-children=yes --track-fds=yes --track-origins=yes \
+	--trace-children=yes --track-fds=yes \
 	./$(NAME) $(ARGS)
 
 valgrind_definitely: clean all
 	@valgrind --leak-check=full --show-leak-kinds=definite --track-origins=yes -s \
-	--track-origins=yes --trace-children=yes --track-fds=yes --track-origins=yes \
+	--trace-children=yes --track-fds=yes \
 	./$(NAME) $(ARGS)
 
-valgrind_bonus: clean bonus
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s \
-	--track-origins=yes --trace-children=yes --track-fds=yes --track-origins=yes \
-	./$(NAME_BONUS) $(ARGS_BONUS)
+# valgrind_bonus: clean bonus
+# 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s \
+# 	--track-origins=yes --trace-children=yes --track-fds=yes --track-origins=yes \
+# 	./$(NAME_BONUS) $(ARGS_BONUS)
 
 lldb: clean all
 	@lldb ./$(NAME) $(ARGS)
 
-lldb_bonus: clean bonus
-	@lldb ./$(NAME_BONUS) $(ARGS_BONUS)
+# lldb_bonus: clean bonus
+# 	@lldb ./$(NAME_BONUS) $(ARGS_BONUS)
 
 ################### Special Target ###################
 

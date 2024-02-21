@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rcutte <rcutte@42.student.fr>              +#+  +:+       +#+         #
+#    By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/28 17:51:05 by rcutte            #+#    #+#              #
-#    Updated: 2023/12/07 15:25:40 by rcutte           ###   ########.fr        #
+#    Updated: 2024/02/21 14:22:13 by abourgeo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CC = cc
-CFLAGS = -Wextra -Wall -Werror -I $(INCLUDES)
+CFLAGS = -Wextra -Wall -Werror -I $(INCLUDES) -g3
 # header path
 INCLUDES = ./Includes/
 # source path

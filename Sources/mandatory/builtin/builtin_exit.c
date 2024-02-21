@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:23:46 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 17:24:10 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:43:19 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,12 @@ int	ft_exit(t_exec *exec_struct, t_table *table)
 	else if (arg[2] != NULL)
 	{
 		write(2, "exit: too many arguments\n", 25);
-		exit_code = 1;
+		return (1);
 	}
 	else
 		exit_code = exit_code_exit(arg[1]);
 	exec_struct->shell->exit_code = exit_code;
-	ft_free_all(exec_struct->shell);
-	free_exec_struct(*exec_struct);
-	exit(exec_struct->shell->exit_code);
+	return (exit_or_return(exec_struct));
 }
 
 /**

@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:30:58 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/21 08:22:05 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:26:02 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,12 +205,14 @@ void			print_list(t_env_list *list, int export);
 
 int				ft_pwd(t_table *table);
 int				ft_cd(t_exec *exec_struct, t_table *table);
+int				update_pwd_oldpwd(t_exec *exec_struct, char *old_pwd);
 int				ft_echo(t_table *table);
 int				ft_echo_option(char **args);
 
 // builtin_exit.c
 
 int				ft_exit(t_exec *exec_struct, t_table *table);
+int				exit_or_return(t_exec *exec_struct);
 int				ft_strnum(char *str);
 int				number_too_big(char *str);
 long long int	ft_atoll(char *str);
