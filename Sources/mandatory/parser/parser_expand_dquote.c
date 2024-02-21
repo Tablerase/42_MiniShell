@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parser_expand_dquote.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:47:51 by rcutte            #+#    #+#             */
-/*   Updated: 2024/02/20 20:07:56 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/21 10:02:31 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/minishell.h"
 
-static void	putain_de_norme(int *j, char *arg)
+static void	putain_de_norme(int *j, char *arg, int**i)
 {
-	*j = 1;
-	while (arg[*j] != '\0' && is_whitespace(arg[*j]) == false)
+	*j = **i + 1;
+	while (arg[*j] != '\0' && is_whitespace(arg[*j]) == false && arg[*j] != '$')
 		(*j)++;
+	*j = *j - **i;
 }
 
 static void	exp_dquote_dol_loop_2(
@@ -30,7 +31,7 @@ static void	exp_dquote_dol_loop_2(
 	char	*expanded;
 	int		j;
 
-	putain_de_norme(&j, arg);
+	putain_de_norme(&j, arg, i);
 	if (j > 1)
 	{
 		tmp = ft_substr(arg, *(*i) + 1, j - 1);
