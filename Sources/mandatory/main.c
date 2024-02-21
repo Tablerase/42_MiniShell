@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/21 07:24:34 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 09:26:45 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	init_minishell(t_shell *shell, t_exec *exec_struct, char **envp)
 	}
 	ft_shell_init(shell, envp);
 	init_exec_struct(exec_struct, shell, envp);
+	rl_catch_signals = 0;
 }
 
 void	handle_input(
@@ -108,5 +109,6 @@ int	main(int ac, char **av, char **envp)
 	return (shell.exit_code);
 }
 
+// echo "$PATH$USER" not working
 // wilcards ?
 // faut-il verif token->next == NULL ? parser.c line 62 (syntax error a priori)

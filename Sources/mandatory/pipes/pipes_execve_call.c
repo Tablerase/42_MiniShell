@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:43:04 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 17:43:12 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 08:19:53 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	single_process(t_exec *exec_struct, t_table *table, char *input)
 	}
 	path_cmd = find_path(exec_struct->shell->env, table->cmd);
 	if (path_cmd == NULL)
-		command_not_found(exec_struct, table, path_cmd);
+		path_cmd_not_found(exec_struct, table);
 	args_cmd = get_args_cmd(table->args);
 	env = copy_env(exec_struct->shell->env);
 	free_process(*exec_struct, NULL, NULL, NULL);

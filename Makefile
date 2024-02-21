@@ -20,7 +20,7 @@ all: $(NAME)
 ####################### FLAGS #######################
 
 CC = cc
-CFLAGS = -Wextra -Wall -Werror -g
+CFLAGS = -Wextra -Wall -Werror
 READLINE = -lreadline
 TERMCAP = -ltermcap
 

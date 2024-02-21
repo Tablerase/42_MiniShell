@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:35:30 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 18:08:58 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 08:29:24 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,19 @@ int	size_list(t_env_list **list)
 	return (len);
 }
 
-int	command_not_found(t_exec *exec_struct, t_table *table, char *path_cmd)
+int	path_cmd_not_found(t_exec *exec_struct, t_table *table)
 {
-	write(2, table->cmd, ft_strlen(table->cmd));
-	write(2, ": Command not found\n", 20);
-	free_process(*exec_struct, path_cmd, NULL, NULL);
+	if (table->cmd[0] == '/' || table->cmd[0] == '.')
+	{
+		write(2, table->cmd, ft_strlen(table->cmd));
+		write(2, ": No such file or directory\n", 28);
+	}
+	else
+	{
+		write(2, table->cmd, ft_strlen(table->cmd));
+		write(2, ": Command not found\n", 20);
+	}
+	free_process(*exec_struct, NULL, NULL, NULL);
 	exit(127);
 }
 

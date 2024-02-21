@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:45:39 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 19:10:42 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 08:23:03 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ void	executing_no_command(t_exec *exec_struct)
 
 void	update_exit_code_single_child_process(t_exec *exec_struct, int status)
 {
-	if (WIFEXITED(status) == 1)
+	if (WIFEXITED(status) != 0)
 		exec_struct->shell->exit_code = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status) == 1)
+	else if (WIFSIGNALED(status) != 0)
 		exec_struct->shell->exit_code = 128 + g_signal;
 	else
 		exec_struct->shell->exit_code = 0;

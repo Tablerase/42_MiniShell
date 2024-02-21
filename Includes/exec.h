@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:30:58 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/21 07:21:48 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/21 08:22:05 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,8 +266,7 @@ int				waiting(t_pipex *pipex, int nb_child);
 
 int				execve_fail(char *path_cmd, char **args_cmd, char **env);
 int				size_list(t_env_list **list);
-int				command_not_found(t_exec *exec_struct, t_table *table,
-					char *path_cmd);
+int				path_cmd_not_found(t_exec *exec_struct, t_table *table);
 int				ft_strcmp(char *s1, char *s2);
 
 // pipes_clear_exit.c
