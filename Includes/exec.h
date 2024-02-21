@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:30:58 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 18:12:04 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:55:26 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,5 +201,6 @@ int				builtin_in_pipe(t_pipex *pipex, t_table *table_cmd);
 
 void			sig_handler_interactive(int signum);
 void			sig_handler_non_interactive(int signum);
+void			sig_handler_heredoc(int signum);
 
 #endif

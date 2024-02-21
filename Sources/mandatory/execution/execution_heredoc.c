@@ -6,7 +6,7 @@
 /*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:10:57 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 17:12:28 by abourgeo         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:54:43 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	create_heredoc(t_shell *shell, char *lim, bool expand)
 	heredoc.fd = open(heredoc.filename, O_CREAT | O_WRONLY, 0644);
 	if (heredoc.fd == -1)
 		return (perror("heredoc"), 0);
+	signal(SIGINT, &sig_handler_heredoc);
 	while (1)
 	{
 		free(heredoc.line);
-		heredoc.line = NULL;
 		heredoc.line = readline("> ");
 		if (heredoc.line == NULL || ft_strcmp(heredoc.line, lim) == 0)
 			break ;
@@ -36,8 +36,9 @@ int	create_heredoc(t_shell *shell, char *lim, bool expand)
 		write(heredoc.fd, heredoc.line, ft_strlen(heredoc.line));
 		write(heredoc.fd, "\n", 1);
 	}
-	ft_free_filling_heredoc(&heredoc);
-	return (1);
+	dup2(shell->std_in, 0);
+	signal(SIGINT, &sig_handler_non_interactive);
+	return (ft_free_filling_heredoc(&heredoc), 1);
 }
 
 int	filename(t_shell *shell, t_filling_heredoc *heredoc)

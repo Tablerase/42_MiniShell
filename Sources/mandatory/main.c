@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcutte <rcutte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:11:28 by abourgeo          #+#    #+#             */
-/*   Updated: 2024/02/20 18:37:20 by rcutte           ###   ########.fr       */
+/*   Updated: 2024/02/21 06:14:11 by abourgeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,16 @@ void	sig_handler_non_interactive(int signum)
 	}
 }
 
+void	sig_handler_heredoc(int signum)
+{
+	if (signum == SIGINT)
+	{
+		write(2, "\n", 1);
+		g_signal = SIGINT;
+		close(0);
+	}
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char* 		input;
@@ -92,11 +102,12 @@ int	main(int ac, char **av, char **envp)
 		{
 			if (lexer(input, &lexic) == true)
 			{
-				// print_tokens(lexic.head);
+				// // print_tokens(lexic.head);
 				parser(&lexic, &shell);
-				print_cmds(shell);
+				// print_cmds(shell);
 				free_tokens(lexic.head);
-				starting_execution(&exec_struct, input);
+				if (g_signal != SIGINT)
+					starting_execution(&exec_struct, input);
 				ft_free_here_docs(&shell);
 				ft_free_cmds(&shell);
 			}
