@@ -6,7 +6,7 @@
 #    By: abourgeo <abourgeo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 12:05:16 by rcutte            #+#    #+#              #
-#    Updated: 2024/02/21 10:30:32 by abourgeo         ###   ########.fr        #
+#    Updated: 2024/02/21 10:50:40 by abourgeo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ all: $(NAME)
 ####################### FLAGS #######################
 
 CC = cc
-CFLAGS = -Wextra -Wall -Werror -g
+CFLAGS = -Wextra -Wall -Werror
 READLINE = -lreadline
 TERMCAP = -ltermcap
 
@@ -121,33 +121,32 @@ BUILTIN =	builtin/builtin_call_builtins.c \
 
 ###################### Bonus ########################
 
-NAME_BONUS = minishell_bonus
-SRC_BONUS_PATH = ./Sources/bonus
-SRC_BONUS = $(SRC) \
-			execution/execution_wildcards.c \
+# NAME_BONUS = minishell_bonus
+# SRC_BONUS_PATH = ./Sources/bonus
+# SRC_BONUS = $(SRC) \
 
-OBJ_BONUS = $(addprefix $(SRC_BONUS_PATH)/,$(SRC_BONUS:.c=.o))
+# OBJ_BONUS = $(addprefix $(SRC_BONUS_PATH)/,$(SRC_BONUS:.c=.o))
 
-$(NAME_BONUS): $(LIBFT) $(OBJ_BONUS)
-	$(CC) $(CFLAGS) $(OBJ_BONUS) $(LIBFT) $(ADD_FLAGS) -o $(NAME_BONUS)
-	@if [ -f $(NAME_BONUS) ]; then \
-		echo "$(COMPILED)\
-╭──────────────────────────────────────────────────╮\n\
-│             🌟 Program Bonus Compiled 🌟         │\n\
-╰──────────────────────────────────────────────────╯\
-		$(RESET)";\
-	fi
-	@if [ ! -f $(NAME_BONUS) ]; then \
-		@echo "$(FAILED)\
-╭──────────────────────────────────────────────────╮\n\
-│         Program Bonus Compilation Failed         │\n\
-╰──────────────────────────────────────────────────╯\
-		$(RESET)";\
-	fi
+# $(NAME_BONUS): $(LIBFT) $(OBJ_BONUS)
+# 	$(CC) $(CFLAGS) $(OBJ_BONUS) $(LIBFT) $(ADD_FLAGS) -o $(NAME_BONUS)
+# 	@if [ -f $(NAME_BONUS) ]; then \
+# 		echo "$(COMPILED)\
+# ╭──────────────────────────────────────────────────╮\n\
+# │             🌟 Program Bonus Compiled 🌟         │\n\
+# ╰──────────────────────────────────────────────────╯\
+# 		$(RESET)";\
+# 	fi
+# 	@if [ ! -f $(NAME_BONUS) ]; then \
+# 		@echo "$(FAILED)\
+# ╭──────────────────────────────────────────────────╮\n\
+# │         Program Bonus Compilation Failed         │\n\
+# ╰──────────────────────────────────────────────────╯\
+# 		$(RESET)";\
+# 	fi
 
-bonus: $(NAME_BONUS)
+# bonus: $(NAME_BONUS)
 
-rebonus: re_msg fclean bonus
+# rebonus: re_msg fclean bonus
 
 ##################### Commands ######################
 
