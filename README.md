@@ -178,6 +178,12 @@ In non interactive mode, `Ctrl-C` is restored as `default` handler (in child pro
 
 Exit status is 128 + signal number.
 
+##### Exit status
+
+With exit builtin.
+
+The exit code should be coded on 8 bits. If the exit code is greater than 255, the shell should return the exit code modulo 256. If the exit code is less than 0, the shell should return the exit code modulo 256 -> + 256 -> modulo 256.
+
 ##### Particular cases
 
 Particular cases with the format of `LIMITER` :
