@@ -52,6 +52,12 @@ graph TD
 
 ## Test
 
+### Prompts
+
+Here is a list of prompts to see if your shell is working correctly (Not all prompts are mandatory, but it's a good way to test your shell):
+
+🔗 [List of prompts](https://docs.google.com/spreadsheets/d/1uJHQu0VPsjjBkR4hxOeCMEt3AOM1Hp_SmUzPFhAH-nA/edit#gid=0)
+
 ### Leaks
 
 To suppress readline leaks, use the following command (with `readline.supp` in the same directory as the executable):
