@@ -6,7 +6,7 @@
 graph TD
   Input --> Lexer([Lexer])
   Lexer --> LexicalReader{LexicalReader}
-  LexicalReader -.- |"WORD\nDQUOTE\nQUOTE\nDOLLAR\nPIPE\nLESS\nDLESS\nGREAT\nDGREAT"|DefineTypes
+  LexicalReader -.- |"WORD<br>DQUOTE<br>QUOTE<br>DOLLAR<br>PIPE<br>LESS<br>DLESS<br>GREAT<br>DGREAT"|DefineTypes
   LexicalReader -.- |"True/False"|DefineLinks 
   LexicalReader --> Token
   LexicalReader --> TokenList

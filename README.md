@@ -1,53 +1,54 @@
 # MiniShell
 
 ```mermaid
-graph TD
+flowchart TD
   classDef cmd fill:#9f9,color:#000;
   classDef msg fill:#bcd,color:#000;
   classDef file fill:#f9f,color:#000;
   classDef signal fill:#f57,color:#000;
   classDef important fill:#f50,color:#000;
-    A[MiniShell]:::important ==> B[Main]:::important
-    B ==> readline[Readline]:::important
-    readline --> readline
-    readline ==> lexer[Lexing]:::important
-    lexer ==> parser["Parsing\n '' '' : allow $var\n' '\n |\n <  > \n<<  >> "]:::important
-    readline -.- |"if empty line with Ctrl-D"|exit_shell
-    readline -.- |"if text on line with Ctrl-D"|nothing
-    lexer -.-x |Error:\nif quotes doesnt end| lexer_error[Lexical Error\nmessage]:::msg
-    parser <--> list[Listing]
-    parser --> |"<< EOF"|here_doc[Here Doc]
-    here_doc --> readline2[Readline]
-    readline2 --> here_doc_file[Here Doc File]:::file
-    here_doc_file --> list
-    parser ==> start_command{"Start\nCommands"}:::important
-    start_command -->|1| single[Single Command]:::cmd
-    start_command -->|> 1| multi[Multi Commands]:::cmd
-    single --> exec
-    single --> builtin[Builtin]:::cmd
-    multi --> loop((Loop))
-    loop -->|- 1| loop
-    loop --> exec{Execution}:::important
-    loop --> builtin
-    exec -.- direction[Direction]
-    direction -.- file[File]:::file
-    file -.- access[Access]
-    direction -.- pipe[Pipe]:::file
-    exec -.- env[Env]
-    env -.- path[Path]
-    path -.- access
-    exec -.- execve:::cmd
 
-    Sig_handler_interactive --o signal  
-    Sig_handler_not_interactive --o signal
-    Sig_handler_heredoc --o signal
-    signal[Signal]
-    signal --> SIGQUIT[Ctrl-\]:::signal -.- nothing[Do Nothing]
-    signal --> SIGEOF[Ctrl-D]:::signal -.- exit_shell[Exit Shell]
-    signal --> SIGINT[Ctrl-C]:::signal -.- kill[Send SIGINT]
-    SIGEOF -.-|"End of file"| here_doc
-    SIGINT -.-|"here_doc_interrupt"| readline
-    kill -.-x|"if SIGINT in here_doc"|start_command
+  A[MiniShell]:::important ==> B[Main]:::important
+  B ==> readline[Readline]:::important
+  readline --> readline
+  readline ==> lexer[Lexing]:::important
+  lexer ==> parser["Parsing<br> '' '' : allow $var<br>' '<br> |<br> <  > <br><<  >> "]:::important
+  readline -.- |"if empty line with Ctrl-D"|exit_shell
+  readline -.- |"if text on line with Ctrl-D"|nothing
+  lexer -.-x |"Error:<br>if quotes doesnt end"| lexer_error[Lexical Error<br>message]:::msg
+  parser <--> list[Listing]
+  parser --> |"<< EOF"|here_doc[Here Doc]
+  here_doc --> readline2[Readline]
+  readline2 --> here_doc_file[Here Doc File]:::file
+  here_doc_file --> list
+  parser ==> start_command{"Start<br>Commands"}:::important
+  start_command -->|1| single[Single Command]:::cmd
+  start_command -->|"> 1"| multi[Multi Commands]:::cmd
+  single --> exec
+  single --> builtin[Builtin]:::cmd
+  multi --> loop((Loop))
+  loop -->|"- 1"| loop
+  loop --> exec{Execution}:::important
+  loop --> builtin
+  exec -.- direction[Direction]
+  direction -.- file[File]:::file
+  file -.- access[Access]
+  direction -.- pipe[Pipe]:::file
+  exec -.- env[Env]
+  env -.- path[Path]
+  path -.- access
+  exec -.- execve:::cmd
+
+  Sig_handler_interactive --o signal  
+  Sig_handler_not_interactive --o signal
+  Sig_handler_heredoc --o signal
+  signal[Signal]
+  signal --> SIGQUIT[Ctrl-\]:::signal -.- nothing[Do Nothing]
+  signal --> SIGEOF[Ctrl-D]:::signal -.- exit_shell[Exit Shell]
+  signal --> SIGINT[Ctrl-C]:::signal -.- kill[Send SIGINT]
+  SIGEOF -.-|"End of file"| here_doc
+  SIGINT -.-|"here_doc_interrupt"| readline
+  kill -.-x|"if SIGINT in here_doc"|start_command
 ```
 
 ## Test
